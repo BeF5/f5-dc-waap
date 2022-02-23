@@ -27,7 +27,7 @@ I'm a member of a team account  組織のアカウントサーバと連携し、
        :width: 400
 
 
-正しくログインが完了し、コンソール画面が表示されます
+正しくログインが完了すると、以下のようにコンソール画面が表示されます
 
    .. image:: ./media/dcs-console.JPG
        :width: 400
