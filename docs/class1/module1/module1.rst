@@ -82,7 +82,7 @@ Tips1. アカウントの新規作成
 
 正しくパスワードの設定画完了するとログイン画面へのボタンが表示されますので、 ``Log in`` をクリックして F5 DCS にログインしてください。
 
-   .. image:: ./media/dcs-new-updatepassword.JPG
+   .. image:: ./media/dcs-new-updatepassword2.JPG
        :width: 400
 
 ``For Free or Individual accounts`` をクリックし、登録したアカウントとパスワードでログインしてください。
