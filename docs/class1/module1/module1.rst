@@ -45,8 +45,8 @@ Tips1. アカウントの新規作成
    .. image:: ./media/dcs-home.JPG
        :width: 400
 
-画面一番左の ``Free Plan`` 中段にある ``Select Plan`` をクリックし、画面下部のチェックボックスにチェックし、 ``Next`` をクリックしてください
-こちらのチェックボックスで同意頂く内容は参考情報として以下に示します
+| 画面一番左の ``Free Plan`` 中段にある ``Select Plan`` をクリックし、画面下部のチェックボックスにチェックし、 ``Next`` をクリックしてください
+| こちらのチェックボックスで同意頂く内容について参考情報として以下に示します
 
 - `END User Service Agreement <https://www.f5.com/pdf/customer-support/eusa.pdf>`__
 - `Privacy Policy <https://www.f5.com/company/policies/privacy-notice>`__
