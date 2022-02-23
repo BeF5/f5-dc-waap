@@ -10,6 +10,7 @@ F5 DCS 環境への接続
 | `F5 DCS Top <https://docs.cloud.f5.com/>`__ ページへアクセスします
 | 画面右上の ``Log in`` から F5 DCSへログインしてください
 | アカウントを持っていない方は、``Sign up`` よりアカウントを登録するか、弊社担当営業までご連絡ください
+| アカウントの新規作成は、 `こちら <https://f5j-dc-waap.readthedocs.io/en/latest/class1/module1/module2.html#tips1>`__ を参照してください
 
    .. image:: ./media/dcs-home.JPG
        :width: 400
@@ -32,7 +33,7 @@ I'm a member of a team account  組織のアカウントサーバと連携し、
        :width: 400
 
 
-Tips1. アカウントを新規作成される場合
+Tips1. アカウントの新規作成
 ====
 
 | アカウントをお持ちでない場合、新規にアカウントを作成し、``F5 DCS`` にログイン頂くことが可能です
@@ -46,6 +47,7 @@ Tips1. アカウントを新規作成される場合
 
 画面一番左の ``Free Plan`` 中段にある ``Select Plan`` をクリックし、画面下部のチェックボックスにチェックし、 ``Next`` をクリックしてください
 こちらのチェックボックスで同意頂く内容は参考情報として以下に示します
+
 - `END User Service Agreement <https://www.f5.com/pdf/customer-support/eusa.pdf>`__
 - `Privacy Policy <https://www.f5.com/company/policies/privacy-notice>`__
 
@@ -97,7 +99,7 @@ Tips1. アカウントを新規作成される場合
 -    .. image:: ./media/dcs-new-tutorial2.JPG
        :width: 400
 
-コンソールが表示されます。希望の操作を行ってください。
+コンソールが表示されます。希望するの操作を行ってください。
 
    .. image:: ./media/dcs-new-console.JPG
        :width: 400
@@ -135,4 +137,5 @@ Tips3. 各プランの提供内容の違い
 ====
 
 各プランの提供内容の違いは以下のドキュメントを参照してください。
+
 - `Pricing for F5 Distributed Cloud Services <https://www.f5.com/cloud/pricing>`__
