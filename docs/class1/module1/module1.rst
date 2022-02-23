@@ -91,7 +91,7 @@ Tips1. アカウントの新規作成
        :width: 400
 
 | チュートリアルが表示されますので適宜情報を選択し、最後に ``Get Started`` をクリックしてください
-| (こちらで選択した内容はいつでもアカウント設定から変更可能です)
+| (こちらで選択した内容はいつでも `こちらアカウント設定 <https://f5j-dc-waap.readthedocs.io/en/latest/class1/module1/module1.html#tips3-work-domains-and-skill-levels>`__ から変更可能です)
 
 -    .. image:: ./media/dcs-new-tutorial1.JPG
        :width: 400
@@ -119,7 +119,7 @@ Tips2. サポートチケットのオープン
     .. image:: ./media/dcs-support-contact-support2.JPG
        :width: 400
 
-Tips3. チュートリアルで指定した ``Work domains and skill levels`` の変更
+Tips3. チュートリアルで指定した Skill / Level の変更
 ====
 
 画面右上にログインしているアカウントに関するメニューがあります。
