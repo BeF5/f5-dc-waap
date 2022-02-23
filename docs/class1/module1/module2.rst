@@ -131,6 +131,8 @@ Tips3. チュートリアルで指定した ``Work domains and skill levels`` �
     .. image:: ./media/dcs-new-console-skilllevels.JPG
        :width: 400
 
+
+
 Tips3. 各プランの提供内容の違い
 ====
 
