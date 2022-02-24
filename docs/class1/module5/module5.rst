@@ -108,8 +108,8 @@ Curlコマンドを使って各リクエストを送信し、その結果を確�
 .. NOTE::
   Curlコマンドを使用する環境でhostsファイルの変更が難しい場合、``--resolve`` オプションを指定し、リクエストの送信が可能です
 
-  # 今回のテストを想定したサンプルコマンド
-  curl -k -v --resolve echoapp.f5demo.net:443:<IP Address> https://echoapp.f5demo.net
+  | # 今回のテストを想定したサンプルコマンド
+  | curl -k -v --resolve echoapp.f5demo.net:443:<IP Address> https://echoapp.f5demo.net
 
 各リクエストのログは以下の手順で参照することが可能です
 
@@ -151,7 +151,7 @@ Response Code 200 が応答され、正しくコンテンツが表示されて�
 このリクエストの結果は以下の通りです
 
    .. image:: ./media/dcs-app-fw-log-permit.jpg
-       :width: 400
+       :width: 600
 
 .. code-block:: json
   :linenos:
@@ -313,7 +313,7 @@ Curlコマンドで ``https://echoapp.f5demo.net?a=<script>`` へリクエスト
 それではログを確認しましょう
 
    .. image:: ./media/dcs-app-fw-log-sig.jpg
-       :width: 400
+       :width: 600
 
 .. code-block:: json
   :linenos:
@@ -520,7 +520,7 @@ Curlコマンドで ``https://echoapp.f5demo.net?mypass=secret`` へリクエス
 それではログを確認しましょう
 
    .. image:: ./media/dcs-app-fw-log-sensitive-data.jpg
-       :width: 400
+       :width: 600
 
 .. code-block:: json
   :linenos:
@@ -683,7 +683,7 @@ Curlコマンドで ``https://echoapp.f5demo.net/503`` へリクエストを送�
 
 
    .. image:: ./media/dcs-app-fw-log-response-code.jpg
-       :width: 400
+       :width: 600
 
 .. code-block:: json
   :linenos:
