@@ -5,7 +5,7 @@ F5 DCS WAAP の設定
 1. HTTP Load Balancerの設定
 ====
 
-まず、基礎となるHTTP Load Balancerを設定します
+基本となるHTTP Load Balancerを設定します。このサンプルではHTTPSで待ち受けるLBを設定します
 
 メニューより Load Balancers を選択してください
 
@@ -54,7 +54,8 @@ FQDNについては後ほど適切にアプリケーションにアクセス出�
    ================================ =================================================================================================
    HTTP                             HTTP Load balancer
    -------------------------------- -------------------------------------------------------------------------------------------------
-   HTTPS with Automatic Certificate 証明書の自動更新を提供します。この設定を選択する場合、F5 DCSにドメインのDelegateをしている必要があります。
+   HTTPS with Automatic Certificate | 証明書の自動更新を提供します。この設定を選択する場合、
+                                    | F5 DCSにドメインのDelegateをしている必要があります。
    -------------------------------- -------------------------------------------------------------------------------------------------
    HTTPS with Custom Certificate    別途ご用意いただいた証明書をご利用いただけます。
    ================================ =================================================================================================
@@ -80,12 +81,62 @@ TLS設定の画面に遷移します。 ``Add Item`` をクリックします
    .. image:: ./media/dcs-lb-tls4.jpg
        :width: 400
 
-画面下部の ``Add Item`` をクリック
+画面下部の ``Add Item`` をクリックします
 
    .. image:: ./media/dcs-lb-tls5.jpg
        :width: 400
 
-画面下部の ``Apply`` をクリック
+画面下部の ``Apply`` をクリックします
 
    .. image:: ./media/dcs-lb-tls6.jpg
        :width: 400
+
+
+   .. image:: ./media/dcs-origin-pool.JPG
+       :width: 400
+
+   .. image:: ./media/dcs-origin-pool2.JPG
+       :width: 400
+
+   .. image:: ./media/dcs-origin-pool3.JPG
+       :width: 400
+
+   .. image:: ./media/dcs-origin-pool4.JPG
+       :width: 400
+
+   .. image:: ./media/dcs-origin-pool5.JPG
+       :width: 400
+
+   .. image:: ./media/dcs-origin-pool.JPG
+       :width: 400
+
+   .. image:: ./media/dcs-origin-pool.JPG
+       :width: 400
+
+   .. image:: ./media/dcs-origin-pool.JPG
+       :width: 400
+
+   .. image:: ./media/dcs-origin-pool.JPG
+       :width: 400
+
+   .. image:: ./media/dcs-origin-pool.JPG
+       :width: 400
+
+   .. image:: ./media/dcs-lb-save.JPG
+       :width: 400
+
+   .. image:: ./media/dcs-lb-done.JPG
+       :width: 400
+
+   .. image:: ./media/dcs-origin-cname-copy.jpg
+       :width: 400
+
+   .. image:: ./media/dcs-sample-access.jpg
+       :width: 400
+
+   .. image:: ./media/dcs-lb-performance.jpg
+       :width: 400
+
+   .. image:: ./media/dcs-lb-performance2.jpg
+       :width: 400
+
