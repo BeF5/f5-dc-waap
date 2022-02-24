@@ -113,7 +113,10 @@ Curlコマンドを使って各リクエストを送信し、その結果を確�
 
 各リクエストのログは以下の手順で参照することが可能です
 
-   .. image:: ./media/dcs-app-fw.jpg
+   .. image:: ./media/dcs-app-fw-log.jpg
+       :width: 400
+
+   .. image:: ./media/dcs-app-fw-log2.jpg
        :width: 400
 
 1. 正常動作
