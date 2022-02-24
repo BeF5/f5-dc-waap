@@ -97,38 +97,60 @@ TLS設定の画面に遷移します。 ``Add Item`` をクリックします
 2. 分散先の設定
 ----
 
+次に、Origin Poolsを指定します。画面を下にスクロールし ``Origin Pools`` のメニューを表示してください。
+画面中央の ``Add Item`` をクリックします
+
    .. image:: ./media/dcs-origin-pool.JPG
        :width: 400
+
+Origin Poolの選択画面が表示されます。これから新規にOrigin Poolを作成しますので、Origin Pool選択欄から ``Create new origin pool`` をクリックします
 
    .. image:: ./media/dcs-origin-pool2.JPG
        :width: 400
 
-   .. image:: ./media/dcs-origin-pool3.JPG
+| ``Name`` 欄に ``demo-origin-pool`` と入力します。
+| 新たに分散先のサーバを追加します。 ``Origin Serves`` に表示される ``Add Item`` をクリックします
+
+   .. image:: ./media/dcs-origin-pool3.jpg
        :width: 400
 
-   .. image:: ./media/dcs-origin-pool4.JPG
+以下の内容で転送先サーバを追加します。サーバを追加し、 ``Add Item`` をクリックしてください。
+この操作を追加対象のサーバ台数分繰り返してください。
+
+- Select Type of Origin Server
+
+    ================================ ========================================
+    Public DNS Name of Origin Server 対象の分散先サーバをDNS(FQDN)で指定する場合
+    Public IP of Origin Server       対象の分散先サーバをIPアドレスで指定する場合
+    ================================ ========================================
+
+   .. image:: ./media/dcs-origin-pool4.jpg
        :width: 400
 
-   .. image:: ./media/dcs-origin-pool5.JPG
+分散先サーバが待ち受けるポートを指定します。このサンプルアプリケーションでは ``80`` を指定します
+内容を確認し、 ``Continue`` をクリックします
+
+   .. image:: ./media/dcs-origin-pool5.jpg
        :width: 400
 
-   .. image:: ./media/dcs-origin-pool.JPG
+   .. image:: ./media/dcs-origin-pool6.jpg
        :width: 400
 
-   .. image:: ./media/dcs-origin-pool.JPG
+.. NOTE::
+   分散先サーバがHTTPSを利用する場合、分散先サーバの待ち受けるポートを ``443`` と指定し、TLS Configurationで ``TLS`` を選択し、適切なオプションを指定してください
+
+
+``Add Item`` をクリックし、Origin Pool の追加を完了します
+
+   .. image:: ./media/dcs-origin-pool7.jpg
        :width: 400
 
-   .. image:: ./media/dcs-origin-pool.JPG
-       :width: 400
-
-   .. image:: ./media/dcs-origin-pool.JPG
-       :width: 400
-
-   .. image:: ./media/dcs-origin-pool.JPG
-       :width: 400
+画面最下部まで移動し、 ``Save and Exit`` をクリックします
 
    .. image:: ./media/dcs-lb-save.JPG
        :width: 400
+
+設定した内容が画面に表示されます
 
    .. image:: ./media/dcs-lb-done.JPG
        :width: 400
