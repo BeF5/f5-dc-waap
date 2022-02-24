@@ -1,4 +1,4 @@
-F5 DCS WAAP の設定
+F5 DCS HTTP LB の設定
 ####
 
 基本となるHTTP Load Balancerを設定します。このサンプルではHTTPSで待ち受けるLBを設定します
@@ -200,7 +200,7 @@ CNAME欄に指定されたFQDNのアドレスをDNSサーバで解決し、IPア
 
 接続結果を確認します。
 
-コンソール左側、Virtual Hostsの ``HTTP LoadBalancers`` をクリックし、
+画面左側、Virtual Hostsの ``HTTP LoadBalancers`` をクリックし、
 ``demo-echo-lb`` の下にマウスを移動し、表示される ``Performance Monitoring`` のメニューをクリックしてください
 
    .. image:: ./media/dcs-lb-performance.jpg
@@ -212,7 +212,7 @@ CNAME欄に指定されたFQDNのアドレスをDNSサーバで解決し、IPア
    .. image:: ./media/dcs-lb-performance2.jpg
        :width: 400
 
-次にコンソール左側、Meshの ``Service Mesh`` をクリックし、表示された項目の ``More`` をクリックします
+次に画面左側、Meshの ``Service Mesh`` をクリックし、表示された項目の ``More`` をクリックします
 
    .. image:: ./media/dcs-lb-mesh.jpg
        :width: 400
