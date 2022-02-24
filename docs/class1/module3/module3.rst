@@ -1,14 +1,13 @@
 F5 DCS WAAP の設定
 ####
 
+基本となるHTTP Load Balancerを設定します。このサンプルではHTTPSで待ち受けるLBを設定します
 
 1. HTTP Load Balancerの設定
 ====
 
 1. HTTPS の設定
 ----
-
-基本となるHTTP Load Balancerを設定します。このサンプルではHTTPSで待ち受けるLBを設定します
 
 メニューより Load Balancers を選択してください
 
