@@ -1,10 +1,55 @@
 F5 DCS WAF
 ####
 
-WAF で利用する各種設定について紹介します
+F5 DCS で WAF を利用する方法や、各種設定について紹介します
 
-1. 基本的な既存設定の変更方法
+1. F5 DCS WAF について
 ====
+
+F5 DCS WAFは、以下の特徴を備えております
+
+- クラウドを含めたあらゆる環境に拡張、展開が可能
+- F5 WAFで実装されているシグネチャを適応
+- F5 Labが収集した実攻撃情報をもとに作成した高精度シグネチャ（Threat campaings）を無償バンドル
+- 機械学習による誤検知抑制機能を実装
+- シグネチャ検出以外の各種回避テクニックの検出にも対応
+- Botシグネチャを標準実装。BotをGood/Suspicious/Maliciousに自動的に分類
+- ユーザの異常な行動を分析、特定し、悪意のある攻撃をブロック
+
+F5 DCS WAAPはこれらの高度なセキュリティをアプリケーションの迅速な展開に合わせて自由にご利用いただける環境を実現します
+
+2. App Firewall の設定
+====
+
+F5 DCS では、``App Firewall`` でWAFのセキュリティポリシーを管理することが可能です。
+
+以下のメニューより、新規にセキュリティポリシーを作成します
+
+画面左側 Security欄の ``App Firewall`` を開き、画面上部 ``Add App Firewall`` をクリックします
+
+こちらに表示されている主要な項目について説明します
+
+- Enforcement Mode App
+Firewallで検知する脅威に対し、通信を遮断する(Blocking)か、遮断せず検知をする(Monitoring)を指定します
+- Security Policy
+脅威に対する制御方法を指定します。以下の項目に関する制御を行います
+
+  =================================== ========================================
+  Signature Attack Type               攻撃手法を指定可能です(Command Execution等)
+  Signature Selection By Accuracdy    Signatureの検知に対する精度を指定します
+  Automatic Attack Signatures Tuning  Signatureの自動チューニングの利用有無を指定します
+  Threat Campaings                    F5が提供するThreat Campaings機能の利用有無を指定します
+  Violations                          どのような通信に対し違反行為を制御するか指定します
+  =================================== ========================================
+
+- Signature Based Bot Detection
+Botの通信に対しどのように検知、制御するか指定します
+- Allowed Response Status Codes
+許可するHTTPレスポンスコードを指定します
+- Mask Sensitive Parameters in Logs
+ログ上で情報を秘匿化(Mask)するパラメータを指定します
+- Blocking Response Page
+App Firewallがブロックした際に応答するブロックページを指定します
 
 すでに作成済みのオブジェクトを変更する場合、対象のオブジェクト一番右側 ``‥`` から、 ``Manage Configuration`` をクリックします
 
