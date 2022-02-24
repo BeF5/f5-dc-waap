@@ -147,21 +147,22 @@ Origin Poolの選択画面が表示されます。これから新規にOrigin Po
 
 画面最下部まで移動し、 ``Save and Exit`` をクリックします
 
-   .. image:: ./media/dcs-lb-save.JPG
+   .. image:: ./media/dcs-lb-save.jpg
        :width: 400
 
 設定した内容が画面に表示されます
 
-   .. image:: ./media/dcs-lb-done.JPG
+   .. image:: ./media/dcs-lb-done.jpg
        :width: 400
 
-3. クライアントでhostsファイルの変更
+3. クライアントのhostsファイルを変更
 ----
 
-設定したHTTPSサイトに接続するため、クライアントのhostsファイルを変更する手順を示します
+設定したHTTPSサイトに接続するため、クライアントのhostsファイルを変更します
 
 .. NOTE::
     hostsファイルを利用せず、DNSのレコードを変更する場合、CNAMEの内容をDNSサーバに登録してください
+
 
    .. image:: ./media/dcs-origin-cname-copy.jpg
        :width: 400
