@@ -57,17 +57,30 @@ App Firewall で表示される主要な項目について説明します。実�
 
 画面左側 Security欄の ``App Firewall`` を開き、画面上部 ``Add App Firewall`` をクリックします
 
+   .. image:: ./media/dcs-menu-app-fw.jpg
+       :width: 400
+
 設定内容は以下の通りです。表に示したパラメター以外の項目についても ``Custom`` を選択しておりますが、こちらは設定内容を表示する目的であり表示された各種詳細なパラメータの変更は行っておりません
 
 -  入力パラメータ
 
-   =========================== =============================
-   Name                        demo-echo-lb
-   --------------------------- -----------------------------
-   List of Domain              echoapp.f5demo.net
-   --------------------------- -----------------------------
-   Select Type of Load Blancer HTTPS with Custom Certificate
-   =========================== =============================
+   ================================= ==========================================================
+   Name                              demo-app-fw
+   --------------------------------- ----------------------------------------------------------
+   Enforcement Mode                  Blocking
+   --------------------------------- ----------------------------------------------------------
+   Allowed Response Status Code      Custom
+   --------------------------------- ----------------------------------------------------------
+    + List of Response code          200
+   --------------------------------- ----------------------------------------------------------
+   Mask Sensitive Parameters in Logs Custom
+   --------------------------------- ----------------------------------------------------------
+    + Configuration                  ``Add Item`` をクリックし、Query Parameter / mypass を指定
+   --------------------------------- ----------------------------------------------------------
+   Blocking Response Page            Custom
+   --------------------------------- ----------------------------------------------------------
+    + Custom Blocking Page Body      Request Rejected の後ろに ``Custom Page`` を追加
+   ================================= ==========================================================
 
    .. image:: ./media/dcs-app-fw.jpg
        :width: 400
@@ -75,6 +88,17 @@ App Firewall で表示される主要な項目について説明します。実�
 
 3. HTTP Load Balancer で App Firewall Policy の指定
 ----
+
+作成済みのHTTP Load Balancerに作成した App Firewall Policyを割り当てます
+
+   .. image:: ./media/dcs-edit-lb.jpg
+       :width: 400
+
+   .. image:: ./media/dcs-edit-lb2.jpg
+       :width: 400
+
+   .. image:: ./media/dcs-edit-lb3.jpg
+       :width: 400
 
 2. 動作確認
 ====
@@ -293,6 +317,168 @@ Curlコマンドで ``https://echoapp.f5demo.net?a=<script>`` へリクエスト
   :caption: https://echoapp.f5demo.net?a=<script> への接続結果
   :emphasize-lines: 2
 
+  {
+    "app_type": "",
+    "signatures": [
+      {
+        "attack_type": "ATTACK_TYPE_CROSS_SITE_SCRIPTING",
+        "matching_info": "Matched 7 characters on offset 24 against value: 'method: GET\r\npath: /?a=<script>\r\nscheme: https\r\nhost: echoapp.f'. ",
+        "context": "header (path)",
+        "name": "XSS script tag end (Headers)",
+        "accuracy": "high_accuracy",
+        "id": "200000091",
+        "state": "Enabled",
+        "id_name": "200000091, XSS script tag end (Headers)"
+      },
+      {
+        "attack_type": "ATTACK_TYPE_CROSS_SITE_SCRIPTING",
+        "matching_info": "Matched 7 characters on offset 23 against value: 'method: GET\r\npath: /?a=<script>\r\nscheme: https\r\nhost: echoapp.f'. ",
+        "context": "header (path)",
+        "name": "XSS script tag (Headers)",
+        "accuracy": "high_accuracy",
+        "id": "200000097",
+        "state": "Enabled",
+        "id_name": "200000097, XSS script tag (Headers)"
+      },
+      {
+        "attack_type": "ATTACK_TYPE_CROSS_SITE_SCRIPTING",
+        "matching_info": "Matched 7 characters on offset 2 against value: 'a=<script>'. ",
+        "context": "parameter (a)",
+        "name": "XSS script tag (Parameter)",
+        "accuracy": "high_accuracy",
+        "id": "200000098",
+        "state": "Enabled",
+        "id_name": "200000098, XSS script tag (Parameter)"
+      },
+      {
+        "attack_type": "ATTACK_TYPE_CROSS_SITE_SCRIPTING",
+        "matching_info": "Matched 7 characters on offset 3 against value: 'a=<script>'. ",
+        "context": "parameter (a)",
+        "name": "XSS script tag end (Parameter) (2)",
+        "accuracy": "high_accuracy",
+        "id": "200001475",
+        "state": "Enabled",
+        "id_name": "200001475, XSS script tag end (Parameter) (2)"
+      }
+    ],
+    "req_id": "4813018f-1d4b-41e4-9284-144aadbbf578",
+    "hostname": "master-2",
+    "bot_verification_failed": false,
+    "original_authority": "",
+    "rtt_upstream_seconds": "",
+    "src_instance": "JP",
+    "req_headers": "{\"Accept\":\"*/*\",\"Host\":\"echoapp.f5demo.net\",\"Method\":\"GET\",\"Path\":\"/?a=\\u003cscript\\u003e\",\"Scheme\":\"https\",\"User-Agent\":\"curl/7.58.0\",\"X-Envoy-External-Address\":\"18.178.83.1\",\"X-Forwarded-For\":\"18.178.83.1\",\"X-Forwarded-Proto\":\"https\",\"X-Request-Id\":\"4813018f-1d4b-41e4-9284-144aadbbf578\"}",
+    "tenant": "f5-apac-ent-uppdoshj",
+    "app": "obelix",
+    "policy_hits": {
+      "policy_hits": {}
+    },
+    "method": "GET",
+    "threat_campaigns": {},
+    "violations": {},
+    "source_type": "kafka",
+    "dst_instance": "",
+    "x_forwarded_for": "18.178.83.1",
+    "duration_with_no_data_tx_delay": "",
+    "waf_rule_tags": "{}",
+    "rsp_code_class": "2xx",
+    "waf_mode": "block",
+    "time_to_last_upstream_rx_byte": 0,
+    "scheme": "",
+    "city": "Tokyo",
+    "dst_site": "",
+    "latitude": "35.689300",
+    "messageid": "c102667e-dea5-4551-b495-71bf4217a9f6",
+    "no_active_detections": false,
+    "tls_version": "",
+    "duration_with_data_tx_delay": "",
+    "stream": "svcfw",
+    "violation_rating": "5",
+    "req_size": "219",
+    "waf_rules_hit": "[]",
+    "tls_fingerprint": "456523fc94726331a4d5a2e1d40b2cd7",
+    "bot_name": "curl",
+    "time_to_first_upstream_rx_byte": 0,
+    "sni": "echoapp.f5demo.net",
+    "response_flags": "",
+    "site": "ty8-tky",
+    "@timestamp": "2022-02-24T15:40:47.470Z",
+    "calculated_action": "block",
+    "req_params": "a=<script>",
+    "sample_rate": "",
+    "original_headers": [
+      "method",
+      "path",
+      "scheme",
+      "host",
+      "user-agent",
+      "accept",
+      "x-forwarded-for",
+      "x-forwarded-proto",
+      "x-envoy-external-address",
+      "x-request-id"
+    ],
+    "dst_port": "0",
+    "req_path": "/",
+    "asn": "AMAZON-02(16509)",
+    "node_id": "",
+    "proxy_type": "",
+    "is_truncated_field": false,
+    "country": "JP",
+    "kubernetes": {},
+    "browser_type": "curl",
+    "device_type": "Other",
+    "bot_classification": "suspicious",
+    "vhost_id": "6c0bb878-7ecb-4b20-815e-1f3521b12ff4",
+    "detections": {},
+    "longitude": "139.689900",
+    "rtt_downstream_seconds": "",
+    "http_version": "HTTP/1.1",
+    "time_to_last_downstream_tx_byte": 0,
+    "waf_rule_hit_count": "",
+    "num_rules_hit": "",
+    "vh_type": "",
+    "rsp_size": "0",
+    "api_endpoint": "{}",
+    "authority": "echoapp.f5demo.net",
+    "region": "13",
+    "time_to_first_downstream_tx_byte": 0,
+    "rsp_code_details": "",
+    "dst": "",
+    "connection_state": "",
+    "dst_ip": "72.19.3.189",
+    "is_new_dcid": true,
+    "network": "18.176.0.0",
+    "src_site": "ty8-tky",
+    "src_ip": "18.178.83.1",
+    "tls_cipher_suite": "",
+    "bot_type": "HTTP Library",
+    "original_path": "",
+    "message_key": null,
+    "user_agent": "curl/7.58.0",
+    "severity": "info",
+    "cluster_name": "ty8-tky-int-ves-io",
+    "headers": {},
+    "types": "input:string",
+    "src": "N:public",
+    "rsp_code": "200",
+    "time_to_first_upstream_tx_byte": 0,
+    "attack_types": [
+      {
+        "name": "ATTACK_TYPE_CROSS_SITE_SCRIPTING"
+      }
+    ],
+    "src_port": "40478",
+    "dcid": "1645717247469-890683506",
+    "req_body": "",
+    "time_to_last_upstream_tx_byte": 0,
+    "namespace": "h-matsumoto",
+    "time": "2022-02-24T15:40:47.470Z",
+    "waf_instance_id": "",
+    "sec_event_type": "waf_sec_event",
+    "user": "IP-18.178.83.1",
+    "vh_name": "ves-io-http-loadbalancer-demo-echo-lb"
+  }
 
 3. Sensitive Dataのマスキング
 ----
@@ -337,6 +523,124 @@ Curlコマンドで ``https://echoapp.f5demo.net?mypass=secret`` へリクエス
   :linenos:
   :caption: https://echoapp.f5demo.net?mypass=secret> への接続結果
   :emphasize-lines: 2
+
+  {
+    "app_type": "",
+    "signatures": {},
+    "req_id": "22032402-0f75-412e-a1ac-c8c2afdb6ba7",
+    "hostname": "master-2",
+    "bot_verification_failed": false,
+    "original_authority": "",
+    "rtt_upstream_seconds": "",
+    "src_instance": "JP",
+    "req_headers": "{\"Accept\":\"*/*\",\"Host\":\"echoapp.f5demo.net\",\"Method\":\"GET\",\"Path\":\"/?mypass=******\",\"Scheme\":\"https\",\"User-Agent\":\"curl/7.58.0\",\"X-Envoy-External-Address\":\"18.178.83.1\",\"X-Forwarded-For\":\"18.178.83.1\",\"X-Forwarded-Proto\":\"https\",\"X-Request-Id\":\"22032402-0f75-412e-a1ac-c8c2afdb6ba7\"}",
+    "tenant": "f5-apac-ent-uppdoshj",
+    "app": "obelix",
+    "policy_hits": {
+      "policy_hits": {}
+    },
+    "method": "GET",
+    "threat_campaigns": {},
+    "violations": {},
+    "source_type": "kafka",
+    "dst_instance": "",
+    "x_forwarded_for": "18.178.83.1",
+    "duration_with_no_data_tx_delay": "",
+    "waf_rule_tags": "{}",
+    "rsp_code_class": "",
+    "waf_mode": "allow",
+    "time_to_last_upstream_rx_byte": 0,
+    "scheme": "",
+    "city": "Tokyo",
+    "dst_site": "",
+    "latitude": "35.689300",
+    "messageid": "c102667e-dea5-4551-b495-71bf4217a9f6",
+    "no_active_detections": false,
+    "tls_version": "",
+    "duration_with_data_tx_delay": "",
+    "stream": "svcfw",
+    "violation_rating": "0",
+    "req_size": "222",
+    "waf_rules_hit": "[]",
+    "tls_fingerprint": "456523fc94726331a4d5a2e1d40b2cd7",
+    "bot_name": "curl",
+    "time_to_first_upstream_rx_byte": 0,
+    "sni": "echoapp.f5demo.net",
+    "response_flags": "",
+    "site": "ty8-tky",
+    "@timestamp": "2022-02-24T15:41:43.531Z",
+    "calculated_action": "report",
+    "req_params": "mypass=******",
+    "sample_rate": "",
+    "original_headers": [
+      "method",
+      "path",
+      "scheme",
+      "host",
+      "user-agent",
+      "accept",
+      "x-forwarded-for",
+      "x-forwarded-proto",
+      "x-envoy-external-address",
+      "x-request-id"
+    ],
+    "dst_port": "0",
+    "req_path": "/",
+    "asn": "AMAZON-02(16509)",
+    "node_id": "",
+    "proxy_type": "",
+    "is_truncated_field": false,
+    "country": "JP",
+    "kubernetes": {},
+    "browser_type": "curl",
+    "device_type": "Other",
+    "bot_classification": "suspicious",
+    "vhost_id": "6c0bb878-7ecb-4b20-815e-1f3521b12ff4",
+    "detections": {},
+    "longitude": "139.689900",
+    "rtt_downstream_seconds": "",
+    "http_version": "HTTP/1.1",
+    "time_to_last_downstream_tx_byte": 0,
+    "waf_rule_hit_count": "",
+    "num_rules_hit": "",
+    "vh_type": "",
+    "rsp_size": "961",
+    "api_endpoint": "{}",
+    "authority": "echoapp.f5demo.net",
+    "region": "13",
+    "time_to_first_downstream_tx_byte": 0,
+    "rsp_code_details": "",
+    "dst": "",
+    "connection_state": "",
+    "dst_ip": "72.19.3.189",
+    "is_new_dcid": true,
+    "network": "18.176.0.0",
+    "src_site": "ty8-tky",
+    "src_ip": "18.178.83.1",
+    "tls_cipher_suite": "",
+    "bot_type": "HTTP Library",
+    "original_path": "",
+    "message_key": null,
+    "user_agent": "curl/7.58.0",
+    "severity": "info",
+    "cluster_name": "ty8-tky-int-ves-io",
+    "headers": {},
+    "types": "input:string",
+    "src": "N:public",
+    "rsp_code": "200",
+    "time_to_first_upstream_tx_byte": 0,
+    "attack_types": {},
+    "src_port": "40480",
+    "dcid": "1645717303530-100012152",
+    "req_body": "",
+    "time_to_last_upstream_tx_byte": 0,
+    "namespace": "h-matsumoto",
+    "time": "2022-02-24T15:41:43.531Z",
+    "waf_instance_id": "",
+    "sec_event_type": "waf_sec_event",
+    "user": "IP-18.178.83.1",
+    "vh_name": "ves-io-http-loadbalancer-demo-echo-lb"
+  }
 
 4. Originから503が応答される場合の動作
 ----
@@ -383,3 +687,120 @@ Curlコマンドで ``https://echoapp.f5demo.net/503`` へリクエストを送�
   :caption: https://echoapp.f5demo.net/503 への接続結果
   :emphasize-lines: 2
 
+  {
+    "app_type": "",
+    "signatures": {},
+    "req_id": "bf5e1262-fe22-46f6-9661-664c46d6ca16",
+    "hostname": "master-1",
+    "bot_verification_failed": false,
+    "original_authority": "",
+    "rtt_upstream_seconds": "",
+    "src_instance": "JP",
+    "req_headers": "{\"Accept\":\"*/*\",\"Host\":\"echoapp.f5demo.net\",\"Method\":\"GET\",\"Path\":\"/503\",\"Scheme\":\"https\",\"User-Agent\":\"curl/7.58.0\",\"X-Envoy-External-Address\":\"18.178.83.1\",\"X-Forwarded-For\":\"18.178.83.1\",\"X-Forwarded-Proto\":\"https\",\"X-Request-Id\":\"bf5e1262-fe22-46f6-9661-664c46d6ca16\"}",
+    "tenant": "f5-apac-ent-uppdoshj",
+    "app": "obelix",
+    "policy_hits": {
+      "policy_hits": {}
+    },
+    "method": "GET",
+    "threat_campaigns": {},
+    "violations": {},
+    "source_type": "kafka",
+    "dst_instance": "",
+    "x_forwarded_for": "18.178.83.1",
+    "duration_with_no_data_tx_delay": "",
+    "waf_rule_tags": "{}",
+    "rsp_code_class": "",
+    "waf_mode": "allow",
+    "time_to_last_upstream_rx_byte": 0,
+    "scheme": "",
+    "city": "Tokyo",
+    "dst_site": "",
+    "latitude": "35.689300",
+    "messageid": "c102667e-dea5-4551-b495-71bf4217a9f6",
+    "no_active_detections": false,
+    "tls_version": "",
+    "duration_with_data_tx_delay": "",
+    "stream": "svcfw",
+    "violation_rating": "0",
+    "req_size": "211",
+    "waf_rules_hit": "[]",
+    "tls_fingerprint": "456523fc94726331a4d5a2e1d40b2cd7",
+    "bot_name": "curl",
+    "time_to_first_upstream_rx_byte": 0,
+    "sni": "echoapp.f5demo.net",
+    "response_flags": "",
+    "site": "ty8-tky",
+    "@timestamp": "2022-02-24T15:44:48.969Z",
+    "calculated_action": "report",
+    "req_params": "",
+    "sample_rate": "",
+    "original_headers": [
+      "method",
+      "path",
+      "scheme",
+      "host",
+      "user-agent",
+      "accept",
+      "x-forwarded-for",
+      "x-forwarded-proto",
+      "x-envoy-external-address",
+      "x-request-id"
+    ],
+    "dst_port": "0",
+    "req_path": "/503",
+    "asn": "AMAZON-02(16509)",
+    "node_id": "",
+    "proxy_type": "",
+    "is_truncated_field": false,
+    "country": "JP",
+    "kubernetes": {},
+    "browser_type": "curl",
+    "device_type": "Other",
+    "bot_classification": "suspicious",
+    "vhost_id": "6c0bb878-7ecb-4b20-815e-1f3521b12ff4",
+    "detections": {},
+    "longitude": "139.689900",
+    "rtt_downstream_seconds": "",
+    "http_version": "HTTP/1.1",
+    "time_to_last_downstream_tx_byte": 0,
+    "waf_rule_hit_count": "",
+    "num_rules_hit": "",
+    "vh_type": "",
+    "rsp_size": "198",
+    "api_endpoint": "{}",
+    "authority": "echoapp.f5demo.net",
+    "region": "13",
+    "time_to_first_downstream_tx_byte": 0,
+    "rsp_code_details": "",
+    "dst": "",
+    "connection_state": "",
+    "dst_ip": "72.19.3.189",
+    "is_new_dcid": true,
+    "network": "18.176.0.0",
+    "src_site": "ty8-tky",
+    "src_ip": "18.178.83.1",
+    "tls_cipher_suite": "",
+    "bot_type": "HTTP Library",
+    "original_path": "",
+    "message_key": null,
+    "user_agent": "curl/7.58.0",
+    "severity": "info",
+    "cluster_name": "ty8-tky-int-ves-io",
+    "headers": {},
+    "types": "input:string",
+    "src": "N:public",
+    "rsp_code": "200",
+    "time_to_first_upstream_tx_byte": 0,
+    "attack_types": {},
+    "src_port": "40482",
+    "dcid": "1645717488969-591222023",
+    "req_body": "",
+    "time_to_last_upstream_tx_byte": 0,
+    "namespace": "h-matsumoto",
+    "time": "2022-02-24T15:44:48.969Z",
+    "waf_instance_id": "",
+    "sec_event_type": "waf_sec_event",
+    "user": "IP-18.178.83.1",
+    "vh_name": "ves-io-http-loadbalancer-demo-echo-lb"
+  }
