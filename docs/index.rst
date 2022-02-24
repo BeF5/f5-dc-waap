@@ -29,7 +29,7 @@ F5 Labs - Index
     - オリジンサイトに配置するアプリケーションはF5 DCSを送信元としたHTTPリクエストに応答するよう設定してください
 
    .. image:: ./media/dcs-waap-diagram.JPG
-       :width: 400
+       :width: 600
 
 .. NOTE::
     - | F5 DCSが割り当てている各リージョンのSNAT IPの以下のページを参照してください
