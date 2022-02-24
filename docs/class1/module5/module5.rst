@@ -79,121 +79,307 @@ App Firewall で表示される主要な項目について説明します。実�
 2. 動作確認
 ====
 
-すでに作成済みのオブジェクトを変更する場合、対象のオブジェクト一番右側 ``‥`` から、 ``Manage Configuration`` をクリックします
+Curlコマンドを使って各リクエストを送信し、その結果を確認します。リクエストを送信してから、ログの反映には1～2分ほどかかる場合があります。
 
-   .. image:: ./media/dcs-setting-edit.jpg
+.. NOTE::
+  Curlコマンドを使用する環境でhostsファイルの変更が難しい場合、``--resolve`` オプションを指定し、リクエストの送信が可能です
+
+  # 今回のテストを想定したサンプルコマンド
+  curl -k -v --resolve echoapp.f5demo.net:443:<IP Address> https://echoapp.f5demo.net
+
+各リクエストのログは以下の手順で参照することが可能です
+
+   .. image:: ./media/dcs-app-fw.jpg
        :width: 400
 
-設定の結果が一覧で表示されます。画面右上 ``Edit Configuration`` から設定の変更が可能です
-
-   .. image:: ./media/dcs-setting-edit2.jpg
-       :width: 400
-
-変更画面は設定の新規作成画面と同様です。設定の変更を行わない場合、左下の ``Cancel and Exit`` をクリックし、中断できます
-
-   .. image:: ./media/dcs-setting-edit3.jpg
-       :width: 400
-
-2. Health Checkの追加
-====
-
-Health Check ルールを追加することにより、Origin Poolに指定したServerの障害を回避します
-
-画面左側、 ``Load Balancers`` 、 ``Health Checks`` から一覧を表示し、 ``Add health check`` をクリックします
-
-   .. image:: ./media/dcs-setting-hc.jpg
-       :width: 400
-
-追加するHealth Checkの名称を指定し、画面中段から意図した設定となるようにパラメータを指定します。
-``HTTP HealthCheck`` を選択した例となりますが、 ``Configure`` をクリックし、詳細のパラメータを指定します
-
-   .. image:: ./media/dcs-setting-hc2.jpg
-       :width: 400
-
-以下が ``Configure`` から遷移する詳細画面です。内容を指定し、 ``Apply`` をクリックします
-
-   .. image:: ./media/dcs-setting-hc3.jpg
-       :width: 400
-
-その他の、内容を指定し、 ``save and Exit`` をクリックします
-
-   .. image:: ./media/dcs-setting-hc4.jpg
-       :width: 400
-
-3. Origin Poolの追加
-====
-
-画面左側、 ``Load Balancers`` 、 ``Origin Pools`` から一覧を表示し、 ``Add Origin Pool`` をクリックします
-
-   .. image:: ./media/dcs-setting-origin.jpg
-       :width: 400
-
-基本的な設定内容はすでに設定の通りです。Origin Pool はRouteなど、特定のURL Pathに通信が発生した場合の転送先として指定することが可能です。
-各Origin Poolでは通信の転送に関わる各種設定を行うことが可能です。
-
-   .. image:: ./media/dcs-setting-origin2.jpg
-       :width: 400
-
-4. HTTP Load Balancer の設定項目
-====
-
-HTTP Load Balancer は各種通信のリクエスト、レスポンスに関する制御を指定します。
-HTTP Load Balancer で利用する各種設定項目について紹介します
-
-1. Basic Configuration
+1. 正常動作
 ----
 
-通信を待ち受けるために必要となる設定を行います
+Curlコマンドで ``https://echoapp.f5demo.net`` へリクエストを送信し、応答が正常であることを確認します
 
-   .. image:: ./media/dcs-setting-lb-basic.jpg
+.. code-block:: bash
+  :linenos:
+  :caption: https://echoapp.f5demo.net への接続結果
+  :emphasize-lines: 2
+
+  $ curl -k -v https://echoapp.f5demo.net
+  
+  ** 省略 **
+
+  > GET / HTTP/2
+  > Host: echoapp.f5demo.net
+  > User-Agent: curl/7.58.0
+  > Accept: */*
+
+  ** 省略 **
+
+  < HTTP/2 200
+  < content-type: application/json
+  < content-length: 735
+  
+  {"request":{"headers":[["host","app1.test10demo.xyz"],["user-agent","curl/7.58.0"],["accept","*/*"],["x-forwarded-for","18.178.83.1"],["x-forwarded-proto","https"],["x-envoy-external-address","18.178.83.1"],["x-request-id","91097bfc-7f80-487f-a028-014f9fab330e"],["content-length","0"]],"status":0,"httpversion":"1.1","method":"GET","scheme":"https","uri":"/","requestText":"","fullPath":"/"},"network":{"clientPort":"51117","clientAddress":"103.135.56.116","serverAddress":"172.21.0.2","serverPort":"443"},"ssl":{"isHttps":true,"sslProtocol":"TLSv1.2","sslCipher":"ECDHE-ECDSA-AES128-GCM-SHA256"},"session":{"requestId":"ccab5c27dd0fea280c42d4e447eaee54","connection":"20","connectionNumber":"1"},"environment":{"hostname":"echoapp"}}u
+
+Response Code 200 が応答され、正しくコンテンツが表示されていることが確認できます。
+
+このリクエストの結果は以下の通りです
+
+   .. image:: ./media/dcs-app-fw-log-permit.jpg
        :width: 400
 
-   .. image:: ./media/dcs-setting-lb-basic.jpg
-       :width: 400
+.. code-block:: json
+  :linenos:
+  :caption: https://echoapp.f5demo.net への接続結果
+  :emphasize-lines: 2
 
+  {
+    "app_type": "",
+    "signatures": {},
+    "req_id": "91097bfc-7f80-487f-a028-014f9fab330e",
+    "hostname": "master-0",
+    "bot_verification_failed": false,
+    "original_authority": "",
+    "rtt_upstream_seconds": "",
+    "src_instance": "JP",
+    "req_headers": "{\"Accept\":\"*/*\",\"Host\":\"echoapp.f5demo.net\",\"Method\":\"GET\",\"Path\":\"/\",\"Scheme\":\"https\",\"User-Agent\":\"curl/7.58.0\",\"X-Envoy-External-Address\":\"18.178.83.1\",\"X-Forwarded-For\":\"18.178.83.1\",\"X-Forwarded-Proto\":\"https\",\"X-Request-Id\":\"91097bfc-7f80-487f-a028-014f9fab330e\"}",
+    "tenant": "f5-apac-ent-uppdoshj",
+    "app": "obelix",
+    "policy_hits": {
+      "policy_hits": {}
+    },
+    "method": "GET",
+    "threat_campaigns": {},
+    "violations": {},
+    "source_type": "kafka",
+    "dst_instance": "",
+    "x_forwarded_for": "18.178.83.1",
+    "duration_with_no_data_tx_delay": "",
+    "waf_rule_tags": "{}",
+    "rsp_code_class": "",
+    "waf_mode": "allow",
+    "time_to_last_upstream_rx_byte": 0,
+    "scheme": "",
+    "city": "Tokyo",
+    "dst_site": "",
+    "latitude": "35.689300",
+    "messageid": "c102667e-dea5-4551-b495-71bf4217a9f6",
+    "no_active_detections": false,
+    "tls_version": "",
+    "duration_with_data_tx_delay": "",
+    "stream": "svcfw",
+    "violation_rating": "0",
+    "req_size": "208",
+    "waf_rules_hit": "[]",
+    "tls_fingerprint": "456523fc94726331a4d5a2e1d40b2cd7",
+    "bot_name": "curl",
+    "time_to_first_upstream_rx_byte": 0,
+    "sni": "echoapp.f5demo.net",
+    "response_flags": "",
+    "site": "ty8-tky",
+    "@timestamp": "2022-02-24T15:38:01.123Z",
+    "calculated_action": "report",
+    "req_params": "",
+    "sample_rate": "",
+    "original_headers": [
+      "method",
+      "path",
+      "scheme",
+      "host",
+      "user-agent",
+      "accept",
+      "x-forwarded-for",
+      "x-forwarded-proto",
+      "x-envoy-external-address",
+      "x-request-id"
+    ],
+    "dst_port": "0",
+    "req_path": "/",
+    "asn": "AMAZON-02(16509)",
+    "node_id": "",
+    "proxy_type": "",
+    "is_truncated_field": false,
+    "country": "JP",
+    "kubernetes": {},
+    "browser_type": "curl",
+    "device_type": "Other",
+    "bot_classification": "suspicious",
+    "vhost_id": "6c0bb878-7ecb-4b20-815e-1f3521b12ff4",
+    "detections": {},
+    "longitude": "139.689900",
+    "rtt_downstream_seconds": "",
+    "http_version": "HTTP/1.1",
+    "time_to_last_downstream_tx_byte": 0,
+    "waf_rule_hit_count": "",
+    "num_rules_hit": "",
+    "vh_type": "",
+    "rsp_size": "921",
+    "api_endpoint": "{}",
+    "authority": "echoapp.f5demo.net",
+    "region": "13",
+    "time_to_first_downstream_tx_byte": 0,
+    "rsp_code_details": "",
+    "dst": "",
+    "connection_state": "",
+    "dst_ip": "72.19.3.189",
+    "is_new_dcid": true,
+    "network": "18.176.0.0",
+    "src_site": "ty8-tky",
+    "src_ip": "18.178.83.1",
+    "tls_cipher_suite": "",
+    "bot_type": "HTTP Library",
+    "original_path": "",
+    "message_key": null,
+    "user_agent": "curl/7.58.0",
+    "severity": "info",
+    "cluster_name": "ty8-tky-int-ves-io",
+    "headers": {},
+    "types": "input:string",
+    "src": "N:public",
+    "rsp_code": "200",
+    "time_to_first_upstream_tx_byte": 0,
+    "attack_types": {},
+    "src_port": "40472",
+    "dcid": "1645717081123-777275537",
+    "req_body": "",
+    "time_to_last_upstream_tx_byte": 0,
+    "namespace": "h-matsumoto",
+    "time": "2022-02-24T15:38:01.123Z",
+    "waf_instance_id": "",
+    "sec_event_type": "waf_sec_event",
+    "user": "IP-18.178.83.1",
+    "vh_name": "ves-io-http-loadbalancer-demo-echo-lb"
+  }
 
-2. Route
+2. Signatureによる攻撃の検知
 ----
 
-Pathに応じたより詳細な転送方法をしていします。このRouteではこの項目で紹介する多くのその他詳細設定も含め、Path毎の細かな通信制御を行うことが可能です
+Curlコマンドで ``https://echoapp.f5demo.net?a=<script>`` へリクエストを送信し、通信が ``ブロック`` されることを確認します
 
-   .. image:: ./media/dcs-setting-lb-route1.jpg
+.. code-block:: bash
+  :linenos:
+  :caption: https://echoapp.f5demo.net?a=<script> への接続結果
+  :emphasize-lines: 3
+
+  $ curl -k -v "https://echoapp.f5demo.net?a=<script>"
+
+  ** 省略 **
+
+  > GET /?a=<script> HTTP/2
+  > Host: echoapp.f5demo.net
+  > User-Agent: curl/7.58.0
+  > Accept: */*
+
+  ** 省略 **
+
+  < HTTP/2 200
+  < content-length: 278
+  < content-type: text/html; charset=UTF-8
+
+  ** 省略 **
+
+  * Connection #0 to host echoapp.f5demo.net left intact
+  <html><head><title>Request Rejected Custom Page</title></head><body>The requested URL was rejected. Please consult with your administrator.<br/><br/>Your support ID is: 4813018f-1d4b-41e4-9284-144aadbbf578<br/><br/><a href="javascript:history.back()">
+
+| この例では、URL ParameterにXSSに該当する文字列が含まれているため、ポリシーでブロックされていることがわかります。
+| ブロックページは、titleが、 ``Request Rejected Custom Page`` となっており、Custom Pageで指定した内容が反映されていることが確認できます。
+| Support IDを見ると、``4813018f-1d4b-41e4-9284-144aadbbf578`` という値が記載されています。
+
+それではログを確認しましょう
+
+   .. image:: ./media/dcs-app-fw-log-sig.jpg
        :width: 400
 
-   .. image:: ./media/dcs-setting-lb-route2.jpg
-       :width: 400
+.. code-block:: json
+  :linenos:
+  :caption: https://echoapp.f5demo.net?a=<script> への接続結果
+  :emphasize-lines: 2
 
-3. VIP Configuration
+
+3. Sensitive Dataのマスキング
 ----
 
-通信を受け付けるIPアドレスの指定方法などの設定を行います
+Curlコマンドで ``https://echoapp.f5demo.net?mypass=secret`` へリクエストを送信し、通信が ``ブロック`` されることを確認します
 
-   .. image:: ./media/dcs-setting-lb-vip.jpg
+.. code-block:: bash
+  :linenos:
+  :caption: https://echoapp.f5demo.net への接続結果
+  :emphasize-lines: 2
+
+  $ curl -k -v https://echoapp.f5demo.net
+
+  $ curl -k -v --resolve echoapp.f5demo.net:443:72.19.3.189 "https://echoapp.f5demo.net?mypass=secret"
+
+  ** 省略 **
+
+  > GET /?mypass=secret HTTP/2
+  > Host: echoapp.f5demo.net
+  > User-Agent: curl/7.58.0
+  > Accept: */*
+
+  ** 省略 **
+
+  < HTTP/2 200
+  < content-type: application/json
+  < content-length: 775
+
+  ** 省略 **
+
+  {"request":{"headers":[["host","app2.test10demo.xyz"],["user-agent","curl/7.58.0"],["accept","*/*"],["x-forwarded-for","18.178.83.1"],["x-forwarded-proto","https"],["x-envoy-external-address","18.178.83.1"],["x-request-id","22032402-0f75-412e-a1ac-c8c2afdb6ba7"],["content-length","0"]],"status":0,"httpversion":"1.1","method":"GET","scheme":"https","uri":"/","args":{"mypass":"secret"},"requestText":"","fullPath":"/?mypass=secret"},"network":{"clientPort":"33274","clientAddress":"103.135.56.97","serverAddress":"172.21.0.2","serverPort":"443"},"ssl":{"isHttps":true,"sslProtocol":"TLSv1.2","sslCipher":"ECDHE-ECDSA-AES128-GCM-SHA256"},"session":{"requestId":"abea7d90b1fb3ae939ccde985b149e05","connection":"21","connectionNumber":"1"},"environment":{"hostname":"echoapp"}}
+
+この例では、通信はブロックされず正しく応答されていることが確認できます。
+ポリシーではsensitive-parameterを指定しており、 ``mypass`` がURL Parameterに含まれる場合、その値をLOG上でマスクするよう設定しました。
+
+それではログを確認しましょう
+
+   .. image:: ./media/dcs-app-fw-log-sensitive-data.jpg
        :width: 400
 
-4. Security Configuration
+.. code-block:: json
+  :linenos:
+  :caption: https://echoapp.f5demo.net?mypass=secret> への接続結果
+  :emphasize-lines: 2
+
+4. Originから503が応答される場合の動作
 ----
 
-各種セキュリティに関する設定を行います
+Curlコマンドで ``https://echoapp.f5demo.net/503`` へリクエストを送信し、通信が ``ブロック`` されることを確認します
 
-   .. image:: ./media/dcs-setting-lb-security.jpg
+.. code-block:: bash
+  :linenos:
+  :caption: https://echoapp.f5demo.net への接続結果
+  :emphasize-lines: 2
+
+  $ curl -k -v https://echoapp.f5demo.net
+
+  curl -k -v --resolve echoapp.f5demo.net:443:72.19.3.189 https://echoapp.f5demo.net/503
+
+  ** 省略 **
+
+  > GET /503 HTTP/2
+  > Host: echoapp.f5demo.net
+  > User-Agent: curl/7.58.0
+  > Accept: */*
+
+  ** 省略 **
+
+  < HTTP/2 200
+  < content-type: text/html; charset=UTF-8
+  < content-length: 278
+
+  ** 省略 **
+
+  <html><head><title>Request Rejected Custom Page</title></head><body>The requested URL was rejected. Please consult with your administrator.<br/><br/>Your support ID is: bf5e1262-fe22-46f6-9661-664c46d6ca16<br/><br/><a href="javascript:history.back()">[Go Back]</a></body></html>ubuntu@ip-10-0-11-227:~$
+
+サンプルアプリケーションでは、 ``/503`` にアクセスすると、 HTTP Response Code 503 が応答される動作となります。
+応答の結果を確認すると通信がブロックされています。
+
+それではログを確認しましょう
+
+
+   .. image:: ./media/dcs-app-fw-log-response-code.jpg
        :width: 400
 
-
-4. Load Balancing Control
-----
-
-Load Balance Algorithm の指定や、その他制御方法に関する設定を行います
-
-   .. image:: ./media/dcs-setting-lb-lbcontrol.jpg
-       :width: 400
-
-5. Advanced Configuration
-----
-
-その他各種詳細の設定を行います
-
-   .. image:: ./media/dcs-setting-lb-advanced.jpg
-       :width: 400
-
+.. code-block:: json
+  :linenos:
+  :caption: https://echoapp.f5demo.net/503 への接続結果
+  :emphasize-lines: 2
 
