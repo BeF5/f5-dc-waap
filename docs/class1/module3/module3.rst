@@ -5,6 +5,9 @@ F5 DCS WAAP の設定
 1. HTTP Load Balancerの設定
 ====
 
+1. HTTPS の設定
+----
+
 基本となるHTTP Load Balancerを設定します。このサンプルではHTTPSで待ち受けるLBを設定します
 
 メニューより Load Balancers を選択してください
@@ -91,6 +94,8 @@ TLS設定の画面に遷移します。 ``Add Item`` をクリックします
    .. image:: ./media/dcs-lb-tls6.jpg
        :width: 400
 
+2. 分散先の設定
+----
 
    .. image:: ./media/dcs-origin-pool.JPG
        :width: 400
@@ -128,11 +133,43 @@ TLS設定の画面に遷移します。 ``Add Item`` をクリックします
    .. image:: ./media/dcs-lb-done.JPG
        :width: 400
 
+3. クライアントでhostsファイルの変更
+----
+
+設定したHTTPSサイトに接続するため、クライアントのhostsファイルを変更する手順を示します
+
+.. NOTE::
+    hostsファイルを利用せず、DNSのレコードを変更する場合、CNAMEの内容をDNSサーバに登録してください
+
    .. image:: ./media/dcs-origin-cname-copy.jpg
        :width: 400
 
+CNAME欄に指定されたFQDNのアドレスをDNSサーバで解決し、IPアドレスを取得します
+
+.. code-block:: bash
+  :linenos:
+  :caption: dig コマンドによるIPアドレス解決の結果
+  :emphasize-lines: 2
+
+  # dig ves-io-101f0be3-de90-4c78-8a1e-a101ce0336bd.ac.vh.ves.io +short
+  72.19.3.189
+
+表示されたIPアドレスを、アクセスするFQDN ``echoapp.f5demo.net`` のIPアドレスとしてhostsファイルに登録してください
+
+.. code-block:: bash
+  :linenos:
+  :caption: hosts ファイル登録例
+
+  72.19.3.189 echoapp.f5demo.net
+
+
+4. クライアントから動作確認
+----
    .. image:: ./media/dcs-sample-access.jpg
        :width: 400
+
+5. 接続結果の確認
+----
 
    .. image:: ./media/dcs-lb-performance.jpg
        :width: 400
