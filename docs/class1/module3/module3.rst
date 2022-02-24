@@ -15,10 +15,9 @@ F5 DCS HTTP LB の設定
        :width: 400
 
 .. NOTE::
-
     すでにメニューを開いている場合、画面左側の ``Select service`` からメニューを開くことも可能です
 
-    .. image:: ./media/dcs-menu.JPG
+   .. image:: ./media/dcs-menu.JPG
        :width: 400
 
 
@@ -161,12 +160,11 @@ Origin Poolの選択画面が表示されます。これから新規にOrigin Po
 
 設定したHTTPSサイトに接続するため、クライアントのhostsファイルを変更します
 
-.. NOTE::
-    hostsファイルを利用せず、DNSのレコードを変更する場合、CNAMEの内容をDNSサーバに登録してください
-
-
    .. image:: ./media/dcs-origin-cname-copy.jpg
        :width: 400
+
+.. NOTE::
+    hostsファイルを利用せず、DNSのレコードを変更する場合、CNAMEの内容をDNSサーバに登録してください
 
 CNAME欄に指定されたFQDNのアドレスをDNSサーバで解決し、IPアドレスを取得します
 
