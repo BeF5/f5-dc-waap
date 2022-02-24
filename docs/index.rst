@@ -34,7 +34,7 @@ F5 Labs - Index
 .. NOTE::
     - | F5 DCSが割り当てている各リージョンのSNAT IPの以下のページを参照してください
       | `Firewall or Proxy Reference for Network Cloud <https://docs.cloud.f5.com/docs/reference/network-cloud-ref>`__
-    - F5 DCS WAAPを設定するとすべてのリージョンで通信を待ち受ける設定となります
+    - F5 DCS WAAPを設定するとすべてのリージョンで通信を待ち受ける設定となります。特定リージョンに限定したデプロイはできません
 
 
 .. toctree::
