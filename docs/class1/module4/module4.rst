@@ -84,7 +84,7 @@ HTTP Load Balancer で利用する各種設定項目について紹介します
 
 Pathに応じたより詳細な転送方法をしていします。このRouteではこの項目で紹介する多くのその他詳細設定も含め、Path毎の細かな通信制御を行うことが可能です
 
-   .. image:: ./media/dcs-setting-lb-route1.jpg
+   .. image:: ./media/dcs-setting-lb-route.jpg
        :width: 400
 
    .. image:: ./media/dcs-setting-lb-route2.jpg
