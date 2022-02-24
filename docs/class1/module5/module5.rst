@@ -21,18 +21,17 @@ F5 DCS WAAPはこれらの高度なセキュリティをアプリケーション
 2. App Firewall の設定
 ====
 
+1. App Firewall の設定項目
+----
+
 F5 DCS では、``App Firewall`` でWAFのセキュリティポリシーを管理することが可能です。
 
-以下のメニューより、新規にセキュリティポリシーを作成します
-
-画面左側 Security欄の ``App Firewall`` を開き、画面上部 ``Add App Firewall`` をクリックします
-
-こちらに表示されている主要な項目について説明します
+App Firewall で表示される主要な項目について説明します。実際の画面は次の新規作成の手順でご確認ください
 
 - Enforcement Mode App
-Firewallで検知する脅威に対し、通信を遮断する(Blocking)か、遮断せず検知をする(Monitoring)を指定します
+  - Firewallで検知する脅威に対し、通信を遮断する(Blocking)か、遮断せず検知をする(Monitoring)を指定します
 - Security Policy
-脅威に対する制御方法を指定します。以下の項目に関する制御を行います
+  - 脅威に対する制御方法を指定します。以下の項目に関する制御を行います
 
   =================================== ========================================
   Signature Attack Type               攻撃手法を指定可能です(Command Execution等)
@@ -43,13 +42,42 @@ Firewallで検知する脅威に対し、通信を遮断する(Blocking)か、�
   =================================== ========================================
 
 - Signature Based Bot Detection
-Botの通信に対しどのように検知、制御するか指定します
+  - Botの通信に対しどのように検知、制御するか指定します
 - Allowed Response Status Codes
-許可するHTTPレスポンスコードを指定します
+  - 許可するHTTPレスポンスコードを指定します
 - Mask Sensitive Parameters in Logs
-ログ上で情報を秘匿化(Mask)するパラメータを指定します
+  - ログ上で情報を秘匿化(Mask)するパラメータを指定します
 - Blocking Response Page
-App Firewallがブロックした際に応答するブロックページを指定します
+  - App Firewallがブロックした際に応答するブロックページを指定します
+
+2. App Firewall の作成
+----
+
+以下のメニューより、新規にセキュリティポリシーを作成します
+
+画面左側 Security欄の ``App Firewall`` を開き、画面上部 ``Add App Firewall`` をクリックします
+
+設定内容は以下の通りです。表に示したパラメター以外の項目についても ``Custom`` を選択しておりますが、こちらは設定内容を表示する目的であり表示された各種詳細なパラメータの変更は行っておりません
+
+-  入力パラメータ
+
+   =========================== =============================
+   Name                        demo-echo-lb
+   --------------------------- -----------------------------
+   List of Domain              echoapp.f5demo.net
+   --------------------------- -----------------------------
+   Select Type of Load Blancer HTTPS with Custom Certificate
+   =========================== =============================
+
+   .. image:: ./media/dcs-app-fw.jpg
+       :width: 400
+
+
+3. HTTP Load Balancer で App Firewall Policy の指定
+----
+
+2. 動作確認
+====
 
 すでに作成済みのオブジェクトを変更する場合、対象のオブジェクト一番右側 ``‥`` から、 ``Manage Configuration`` をクリックします
 
