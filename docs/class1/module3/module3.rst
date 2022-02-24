@@ -16,7 +16,7 @@ F5 DCS HTTP LB の設定
 
 .. NOTE::
     すでにメニューを開いている場合、画面左側の ``Select service`` からメニューを開くことも可能です
-
+    
    .. image:: ./media/dcs-menu.JPG
        :width: 400
 
