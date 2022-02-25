@@ -168,7 +168,7 @@ Response Code 200 が応答され、正しくコンテンツが表示されて�
 .. code-block:: json
   :linenos:
   :caption: https://echoapp.f5demo.net への接続結果
-  :emphasize-lines: 4,25,46,60,71
+  :emphasize-lines: 4,25,46,69,71
 
   {
     "app_type": "",
@@ -288,11 +288,9 @@ Response Code 200 が応答され、正しくコンテンツが表示されて�
     "vh_name": "ves-io-http-loadbalancer-demo-echo-lb"
   }
 
-- 4行目 ``req_id`` はそのログメッセージを特定するためのIDです。本サンプルリクエストでは通信がブロックされていないため、
-通信の応答として情報は表示されませんが、通信がブロックされた場合には ``support ID`` としてこの情報が表示されます
+- 4行目 ``req_id`` はそのログメッセージを特定するためのIDです。本サンプルリクエストでは通信がブロックされていないため、通信の応答として情報は表示されませんが、通信がブロックされた場合には ``support ID`` としてこの情報が表示されます
 - 25行目 ``waf_mode`` が許可( ``Allow`` )、46行目 ``calculated_action`` が 通知( ``report`` ) であると確認できます
-- 60行目 ``browser_type`` で ``curl`` と判定され、71行目 ``bot_classification`` で ``suspicious`` であると確認できます
-これはCurlコマンドであることをBot Signatureの機能により判定しておりますが、suspiciousの設定に従って ``Report`` と処理し、拒否は行っておりません
+- 69行目 ``browser_type`` で ``curl`` と判定され、71行目 ``bot_classification`` で ``suspicious`` であると確認できます。これはCurlコマンドであることをBot Signatureの機能により判定しておりますが、suspiciousの設定に従って ``Report`` と処理し、拒否は行っておりません
 
 この他にも様々な情報が表示されており、Security Eventから通信の詳細について把握することが可能となっています
 
@@ -305,7 +303,7 @@ Curlコマンドで ``https://echoapp.f5demo.net?a=<script>`` へリクエスト
 .. code-block:: bash
   :linenos:
   :caption: https://echoapp.f5demo.net?a=<script> への接続結果
-  :emphasize-lines:  12,16
+  :emphasize-lines:  19
 
   $ curl -k -v "https://echoapp.f5demo.net?a=<script>"
 
@@ -523,12 +521,10 @@ Curlコマンドで ``https://echoapp.f5demo.net?mypass=secret`` へリクエス
 
 .. code-block:: bash
   :linenos:
-  :caption: https://echoapp.f5demo.net への接続結果
-  :emphasize-lines:  12,16
+  :caption: https://echoapp.f5demo.net?mypass=secret への接続結果
+  :emphasize-lines:  19
 
-  $ curl -k -v https://echoapp.f5demo.net
-
-  $ curl -k -v --resolve echoapp.f5demo.net:443:72.19.3.189 "https://echoapp.f5demo.net?mypass=secret"
+  $ curl -k -v https://echoapp.f5demo.net?mypass=secret
 
   ** 省略 **
 
@@ -559,7 +555,7 @@ Curlコマンドで ``https://echoapp.f5demo.net?mypass=secret`` へリクエス
 
 .. code-block:: json
   :linenos:
-  :caption: https://echoapp.f5demo.net?mypass=secret> への接続結果
+  :caption: https://echoapp.f5demo.net?mypass=secret への接続結果
   :emphasize-lines: 2
 
   {
@@ -680,6 +676,10 @@ Curlコマンドで ``https://echoapp.f5demo.net?mypass=secret`` へリクエス
     "vh_name": "ves-io-http-loadbalancer-demo-echo-lb"
   }
 
+- 4行目 ``req_id`` はそのログメッセージを特定するためのIDです。本サンプルリクエストでは通信がブロックされていないため、通信の応答として情報は表示されませんが、通信がブロックされた場合には ``support ID`` としてこの情報が表示されます
+- 25行目 ``waf_mode`` が許可( ``Allow`` )、46行目 ``calculated_action`` が 通知( ``report`` ) であると確認できます
+- 47行目 でリクエストのQuery Parameterが表示されており、 ``req_params`` の値が ``mypass=******`` となっています。これは ``Mask Sensitive Parameters`` の設定により指定したパラメータが Query Parameter に含まれるため、その値を Sensitive Data として扱い、ログ上でMaskしています。さらに、10行目の ``req_headers`` にもこの情報が含まれておりMaskされていることが確認できます
+
 4. Originから503が応答される場合の動作
 ----
 
@@ -687,12 +687,10 @@ Curlコマンドで ``https://echoapp.f5demo.net/503`` へリクエストを送�
 
 .. code-block:: bash
   :linenos:
-  :caption: https://echoapp.f5demo.net への接続結果
-  :emphasize-lines:  12,16
+  :caption: https://echoapp.f5demo.net/503 への接続結果
+  :emphasize-lines:  19
 
-  $ curl -k -v https://echoapp.f5demo.net
-
-  curl -k -v --resolve echoapp.f5demo.net:443:72.19.3.189 https://echoapp.f5demo.net/503
+  $ curl -k -v https://echoapp.f5demo.net/503
 
   ** 省略 **
 
@@ -709,7 +707,7 @@ Curlコマンドで ``https://echoapp.f5demo.net/503`` へリクエストを送�
 
   ** 省略 **
 
-  <html><head><title>Request Rejected Custom Page</title></head><body>The requested URL was rejected. Please consult with your administrator.<br/><br/>Your support ID is: bf5e1262-fe22-46f6-9661-664c46d6ca16<br/><br/><a href="javascript:history.back()">[Go Back]</a></body></html>ubuntu@ip-10-0-11-227:~$
+  <html><head><title>Request Rejected Custom Page</title></head><body>The requested URL was rejected. Please consult with your administrator.<br/><br/>Your support ID is: bf5e1262-fe22-46f6-9661-664c46d6ca16<br/><br/><a href="javascript:history.back()">[Go Back]</a></body></html>
 
 サンプルアプリケーションでは、 ``/503`` にアクセスすると、 HTTP Response Code 503 が応答される動作となります。
 応答の結果を確認すると通信がブロックされています。
@@ -723,8 +721,8 @@ Curlコマンドで ``https://echoapp.f5demo.net/503`` へリクエストを送�
 
 .. code-block:: json
   :linenos:
-  :caption: https://echoapp.f5demo.net/503 への接続結果
-  :emphasize-lines: 2
+  :caption: https://echoapp.f5demo.net/503 への接続結果 (WAF events)
+  :emphasize-lines: 4,25,46
 
   {
     "app_type": "",
@@ -843,3 +841,112 @@ Curlコマンドで ``https://echoapp.f5demo.net/503`` へリクエストを送�
     "user": "IP-18.178.83.1",
     "vh_name": "ves-io-http-loadbalancer-demo-echo-lb"
   }
+
+- 4行目 ``req_id`` は ブロックページ に表示された ``Support ID`` の値 ``bf5e1262-fe22-46f6-9661-664c46d6ca16`` であることが確認できます
+- しかし、25行目 ``waf_mode`` が許可( ``Allow`` )、46行目 ``calculated_action`` が 通知( ``report`` ) となり、拒否となっていないことが確認できます。この点がWAF Eventsのログと一致しません
+
+もう一つログを確認します。対象のWAF Eventsと合わせてL7 Eventsが記録されているかとおもます。そちらを確認してください
+
+.. code-block:: json
+  :linenos:
+  :caption: https://echoapp.f5demo.net/503 への接続結果 (L7 events)
+  :emphasize-lines: 8,9,33-37
+
+  {
+    "country": "JP",
+    "kubernetes": {},
+    "l7_policy_rules_hit": "",
+    "app_type": "h-matsumoto",
+    "browser_type": "curl",
+    "device_type": "Other",
+    "req_id": "bf5e1262-fe22-46f6-9661-664c46d6ca16",
+    "waf_action": "block",
+    "hostname": "master-1",
+    "original_authority": "app2.test10demo.xyz",
+    "rtt_upstream_seconds": "0.014000",
+    "src_instance": "JP",
+    "req_headers": "null",
+    "tenant": "f5-apac-ent-uppdoshj",
+    "longitude": "139.689900",
+    "app": "obelix",
+    "rtt_downstream_seconds": "0.007000",
+    "policy_hits": {
+      "policy_hits": {}
+    },
+    "method": "GET",
+    "time_to_last_downstream_tx_byte": 0.054213402,
+    "waf_rule_hit_count": "0",
+    "source_type": "kafka",
+    "dst_instance": "18.178.83.1",
+    "vh_type": "HTTP-LOAD-BALANCER",
+    "x_forwarded_for": "18.178.83.1",
+    "duration_with_no_data_tx_delay": "0.005670",
+    "rsp_size": "802",
+    "api_endpoint": "{\"collapsed_url\":\"UNKNOWN\",\"method\":\"GET\"}",
+    "authority": "app2.test10demo.xyz",
+    "app_firewall_info": {
+      "name": "h-matsumoto:demo-app-fw",
+      "action": "block",
+      "description": "Disallowed response code (503)"
+    },
+    "region": "13",
+    "time_to_first_downstream_tx_byte": 0.054180343,
+    "rsp_code_class": "2xx",
+    "rsp_code_details": "via_upstream",
+    "time_to_last_upstream_rx_byte": 0.053070185,
+    "dst": "S:app2.test10demo.xyz",
+    "scheme": "https",
+    "city": "Tokyo",
+    "dst_site": "ty8-tky",
+    "latitude": "35.689300",
+    "messageid": "b5315f10-3181-4f8b-9c1e-3631817e22d6",
+    "tls_version": "TLSv1_3",
+    "connection_state": "CLOSED",
+    "dst_ip": "NOT-APPLICABLE",
+    "network": "18.176.0.0",
+    "src_site": "ty8-tky",
+    "terminated_time": "2022-02-24T15:44:48.970908229Z",
+    "duration_with_data_tx_delay": "0.005703",
+    "src_ip": "18.178.83.1",
+    "connected_time": "2022-02-24T15:44:48.91520768Z",
+    "stream": "svcfw",
+    "tls_cipher_suite": "TLSv1_3/TLS_AES_256_GCM_SHA384",
+    "original_path": "/503",
+    "message_key": null,
+    "req_size": "221",
+    "user_agent": "curl/7.58.0",
+    "severity": "info",
+    "cluster_name": "ty8-tky-int-ves-io",
+    "headers": {},
+    "tls_fingerprint": "456523fc94726331a4d5a2e1d40b2cd7",
+    "types": "input:string",
+    "src": "N:public",
+    "time_to_first_upstream_rx_byte": 0.0528934,
+    "rsp_code": "200",
+    "time_to_first_upstream_tx_byte": 0.048510615,
+    "sni": "echoapp.f5demo.net",
+    "response_flags": "",
+    "src_port": "40482",
+    "site": "ty8-tky",
+    "@timestamp": "2022-02-24T15:44:49.614Z",
+    "req_body": "",
+    "req_params": "",
+    "sample_rate": "1.000000",
+    "time_to_last_upstream_tx_byte": 0.048521521,
+    "dst_port": "443",
+    "namespace": "h-matsumoto",
+    "req_path": "/503",
+    "time": "2022-02-24T15:44:49.614Z",
+    "asn": "AMAZON-02(16509)",
+    "sec_event_type": "l7_policy_sec_event",
+    "user": "IP-18.178.83.1",
+    "vh_name": "ves-io-http-loadbalancer-demo-echo-lb",
+    "node_id": "envoy_1",
+    "proxy_type": "http"
+  }
+
+- 8行目 ``req_id`` は ブロックページ に表示された ``Support ID`` の値 ``bf5e1262-fe22-46f6-9661-664c46d6ca16`` であることが確認できます
+- 9行目 ``waf_action`` が拒否( ``block`` ) となっていることが確認できます
+- 33行目 から 37行目 ``app_firewall_info`` の ``action`` と ``description`` を見ると、許可されないレスポンスコード( Disallowed response code (503) ) であるため拒否( ``block`` )されたことがわかります
+
+このようにSecurity Eventsに表示されるログから通信がどのように制御されたものであるか確認することができます。
