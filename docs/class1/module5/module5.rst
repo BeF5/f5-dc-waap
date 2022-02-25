@@ -28,10 +28,10 @@ F5 DCS では、``App Firewall`` でWAFのセキュリティポリシーを管�
 
 App Firewall で表示される主要な項目について説明します。実際の画面は次の新規作成の手順でご確認ください
 
-- Enforcement Mode App
-  - Firewallで検知する脅威に対し、通信を遮断する(Blocking)か、遮断せず検知をする(Monitoring)を指定します
-- Security Policy
-  - 脅威に対する制御方法を指定します。以下の項目に関する制御を行います
+- Enforcement Mode App: 
+    Firewallで検知する脅威に対し、通信を遮断する(Blocking)か、遮断せず検知をする(Monitoring)を指定します
+- Security Policy: 
+    脅威に対する制御方法を指定します。以下の項目に関する制御を行います
 
   =================================== ========================================
   Signature Attack Type               攻撃手法を指定可能です(Command Execution等)
@@ -41,14 +41,14 @@ App Firewall で表示される主要な項目について説明します。実�
   Violations                          どのような通信に対し違反行為を制御するか指定します
   =================================== ========================================
 
-- Signature Based Bot Detection
-  - Botの通信に対しどのように検知、制御するか指定します
-- Allowed Response Status Codes
-  - 許可するHTTPレスポンスコードを指定します
-- Mask Sensitive Parameters in Logs
-  - ログ上で情報を秘匿化(Mask)するパラメータを指定します
-- Blocking Response Page
-  - App Firewallがブロックした際に応答するブロックページを指定します
+- Signature Based Bot Detection:
+    Botの通信に対しどのように検知、制御するか指定します
+- Allowed Response Status Codes:
+    許可するHTTPレスポンスコードを指定します
+- Mask Sensitive Parameters in Logs:
+    ログ上で情報を秘匿化(Mask)するパラメータを指定します
+- Blocking Response Page:
+    App Firewallがブロックした際に応答するブロックページを指定します
 
 2. App Firewall の作成
 ----
@@ -90,12 +90,22 @@ App Firewall で表示される主要な項目について説明します。実�
 ----
 
 作成済みのHTTP Load Balancerに作成した App Firewall Policyを割り当てます
+HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module3/module3.html>`__ を参照ください
+
+
+画面左側 Manage欄の ``Load Balancers`` 、 ``HTTP Load Balancers`` を開き、対象のLoad Balancerを表示し画面右側に遷移します。
 
    .. image:: ./media/dcs-edit-lb.jpg
        :width: 400
 
+すでに作成済みのオブジェクトを変更する場合、対象のオブジェクト一番右側 ``‥`` から、 ``Manage Configuration`` をクリックします
+
    .. image:: ./media/dcs-edit-lb2.jpg
        :width: 400
+
+設定の結果が一覧で表示されます。画面右上 ``Edit Configuration`` から設定の変更します。 
+Security COnfiguration 欄の ``Select Web Application Firewall (WAF) Config`` で ``App Firewall`` を選択し、
+作成したApp Firewallのポリシーを選択してください。
 
    .. image:: ./media/dcs-edit-lb3.jpg
        :width: 400
@@ -127,7 +137,7 @@ Curlコマンドで ``https://echoapp.f5demo.net`` へリクエストを送信�
 .. code-block:: bash
   :linenos:
   :caption: https://echoapp.f5demo.net への接続結果
-  :emphasize-lines: 2
+  :emphasize-lines: 12,16
 
   $ curl -k -v https://echoapp.f5demo.net
   
@@ -150,13 +160,15 @@ Response Code 200 が応答され、正しくコンテンツが表示されて�
 
 このリクエストの結果は以下の通りです
 
+- Security Event 画面の結果
+
    .. image:: ./media/dcs-app-fw-log-permit.jpg
        :width: 600
 
 .. code-block:: json
   :linenos:
   :caption: https://echoapp.f5demo.net への接続結果
-  :emphasize-lines: 2
+  :emphasize-lines: 4,25,46,60,71
 
   {
     "app_type": "",
@@ -276,6 +288,15 @@ Response Code 200 が応答され、正しくコンテンツが表示されて�
     "vh_name": "ves-io-http-loadbalancer-demo-echo-lb"
   }
 
+- 4行目 ``req_id`` はそのログメッセージを特定するためのIDです。本サンプルリクエストでは通信がブロックされていないため、
+通信の応答として情報は表示されませんが、通信がブロックされた場合には ``support ID`` としてこの情報が表示されます
+- 25行目 ``waf_mode`` が許可( ``Allow`` )、46行目 ``calculated_action`` が 通知( ``report`` ) であると確認できます
+- 60行目 ``browser_type`` で ``curl`` と判定され、71行目 ``bot_classification`` で ``suspicious`` であると確認できます
+これはCurlコマンドであることをBot Signatureの機能により判定しておりますが、suspiciousの設定に従って ``Report`` と処理し、拒否は行っておりません
+
+この他にも様々な情報が表示されており、Security Eventから通信の詳細について把握することが可能となっています
+
+
 2. Signatureによる攻撃の検知
 ----
 
@@ -284,7 +305,7 @@ Curlコマンドで ``https://echoapp.f5demo.net?a=<script>`` へリクエスト
 .. code-block:: bash
   :linenos:
   :caption: https://echoapp.f5demo.net?a=<script> への接続結果
-  :emphasize-lines: 3
+  :emphasize-lines:  12,16
 
   $ curl -k -v "https://echoapp.f5demo.net?a=<script>"
 
@@ -306,11 +327,13 @@ Curlコマンドで ``https://echoapp.f5demo.net?a=<script>`` へリクエスト
   * Connection #0 to host echoapp.f5demo.net left intact
   <html><head><title>Request Rejected Custom Page</title></head><body>The requested URL was rejected. Please consult with your administrator.<br/><br/>Your support ID is: 4813018f-1d4b-41e4-9284-144aadbbf578<br/><br/><a href="javascript:history.back()">
 
-| この例では、URL ParameterにXSSに該当する文字列が含まれているため、ポリシーでブロックされていることがわかります。
+| この例では、URL ParameterにXSSに該当する文字列( ``<script>`` )が含まれているため、ポリシーでブロックされていることがわかります。
 | ブロックページは、titleが、 ``Request Rejected Custom Page`` となっており、Custom Pageで指定した内容が反映されていることが確認できます。
-| Support IDを見ると、``4813018f-1d4b-41e4-9284-144aadbbf578`` という値が記載されています。
+| Support IDを見ると、 ``4813018f-1d4b-41e4-9284-144aadbbf578`` という値が記載されています
 
 それではログを確認しましょう
+
+- Security Event 画面の結果
 
    .. image:: ./media/dcs-app-fw-log-sig.jpg
        :width: 600
@@ -318,7 +341,7 @@ Curlコマンドで ``https://echoapp.f5demo.net?a=<script>`` へリクエスト
 .. code-block:: json
   :linenos:
   :caption: https://echoapp.f5demo.net?a=<script> への接続結果
-  :emphasize-lines: 2
+  :emphasize-lines: 3-44,45,66,77,87,147-151
 
   {
     "app_type": "",
@@ -483,6 +506,16 @@ Curlコマンドで ``https://echoapp.f5demo.net?a=<script>`` へリクエスト
     "vh_name": "ves-io-http-loadbalancer-demo-echo-lb"
   }
 
+
+- 66行目 ``waf_mode`` が拒否( ``Block`` )、87行目 ``calculated_action`` が 拒否( ``block`` ) となり通信が拒否されていることが確認できます
+- 45行目 ``req_id`` は ブロックページ に表示された ``Support ID`` の値 ``4813018f-1d4b-41e4-9284-144aadbbf578`` であることが確認できます
+- 3行目 から 44行目に表示されている内容が該当するSignatureを示します。内容を確認すると Cross Site Scripting(XSS)の攻撃であると検知していることが確認できます
+- 77行目 ``violation_rating`` が ``5`` となっており、高い値となっております
+- 147行目 から 151行目 ``attack_types`` で ``ATTACK_TYPE_CROSS_SITE_SCRIPTING`` と表示されており、XSSと検知されていることが確認できます
+
+このように、ブロックページに表示されたSupport IDから対象のログを特定し、どのような理由により通信がブロックされたか確認することが可能です
+
+
 3. Sensitive Dataのマスキング
 ----
 
@@ -491,7 +524,7 @@ Curlコマンドで ``https://echoapp.f5demo.net?mypass=secret`` へリクエス
 .. code-block:: bash
   :linenos:
   :caption: https://echoapp.f5demo.net への接続結果
-  :emphasize-lines: 2
+  :emphasize-lines:  12,16
 
   $ curl -k -v https://echoapp.f5demo.net
 
@@ -518,6 +551,8 @@ Curlコマンドで ``https://echoapp.f5demo.net?mypass=secret`` へリクエス
 ポリシーではsensitive-parameterを指定しており、 ``mypass`` がURL Parameterに含まれる場合、その値をLOG上でマスクするよう設定しました。
 
 それではログを確認しましょう
+
+- Security Event 画面の結果
 
    .. image:: ./media/dcs-app-fw-log-sensitive-data.jpg
        :width: 600
@@ -653,7 +688,7 @@ Curlコマンドで ``https://echoapp.f5demo.net/503`` へリクエストを送�
 .. code-block:: bash
   :linenos:
   :caption: https://echoapp.f5demo.net への接続結果
-  :emphasize-lines: 2
+  :emphasize-lines:  12,16
 
   $ curl -k -v https://echoapp.f5demo.net
 
@@ -681,6 +716,7 @@ Curlコマンドで ``https://echoapp.f5demo.net/503`` へリクエストを送�
 
 それではログを確認しましょう
 
+- Security Event 画面の結果
 
    .. image:: ./media/dcs-app-fw-log-response-code.jpg
        :width: 600
