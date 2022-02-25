@@ -847,6 +847,10 @@ Curlコマンドで ``https://echoapp.f5demo.net/503`` へリクエストを送�
 
 もう一つログを確認します。対象のWAF Eventsと合わせてL7 Eventsが記録されているかとおもます。そちらを確認してください
 
+
+   .. image:: ./media/dcs-app-fw-log-response-code2.jpg
+       :width: 600
+
 .. code-block:: json
   :linenos:
   :caption: https://echoapp.f5demo.net/503 への接続結果 (L7 events)
