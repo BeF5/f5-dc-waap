@@ -167,7 +167,7 @@ Response Code 200 が応答され、正しくコンテンツが表示されて�
 
 .. code-block:: json
   :linenos:
-  :caption: https://echoapp.f5demo.net への接続結果
+  :caption: https://echoapp.f5demo.net への接続結果を示すWAF Event
   :emphasize-lines: 4,25,46,69,71
 
   {
@@ -555,8 +555,8 @@ Curlコマンドで ``https://echoapp.f5demo.net?mypass=secret`` へリクエス
 
 .. code-block:: json
   :linenos:
-  :caption: https://echoapp.f5demo.net?mypass=secret への接続結果
-  :emphasize-lines: 2
+  :caption: https://echoapp.f5demo.net?mypass=secret への接続を示すWAF Event
+  :emphasize-lines: 4,25,46,47,16
 
   {
     "app_type": "",
@@ -680,6 +680,7 @@ Curlコマンドで ``https://echoapp.f5demo.net?mypass=secret`` へリクエス
 - 25行目 ``waf_mode`` が許可( ``Allow`` )、46行目 ``calculated_action`` が 通知( ``report`` ) であると確認できます
 - 47行目 でリクエストのQuery Parameterが表示されており、 ``req_params`` の値が ``mypass=******`` となっています。これは ``Mask Sensitive Parameters`` の設定により指定したパラメータが Query Parameter に含まれるため、その値を Sensitive Data として扱い、ログ上でMaskしています。さらに、10行目の ``req_headers`` にもこの情報が含まれておりMaskされていることが確認できます
 
+
 4. Originから503が応答される場合の動作
 ----
 
@@ -688,7 +689,7 @@ Curlコマンドで ``https://echoapp.f5demo.net/503`` へリクエストを送�
 .. code-block:: bash
   :linenos:
   :caption: https://echoapp.f5demo.net/503 への接続結果
-  :emphasize-lines:  19
+  :emphasize-lines:  18
 
   $ curl -k -v https://echoapp.f5demo.net/503
 
@@ -954,3 +955,10 @@ Curlコマンドで ``https://echoapp.f5demo.net/503`` へリクエストを送�
 - 33行目 から 37行目 ``app_firewall_info`` の ``action`` と ``description`` を見ると、許可されないレスポンスコード( Disallowed response code (503) ) であるため拒否( ``block`` )されたことがわかります
 
 このようにSecurity Eventsに表示されるログから通信がどのように制御されたものであるか確認することができます。
+
+3. App Firewall Policyの解除
+====
+
+次の項目で、その他の機能を確認するための手順です。
+
+`こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module5/module5.html#http-load-balancer-app-firewall-policy>`__ の手順を参考に、HTTP Load Balancerに割り当てたApp FirewallのPolicyを解除してください
