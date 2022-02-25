@@ -1161,7 +1161,6 @@ Content-Type application/json
 
 `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module5/module5.html#http-load-balancer-app-firewall-policy>`__ の手順を参考に、HTTP Load Balancerに割り当てたApp FirewallのPolicyを解除してください
 
-
    .. image:: ./media/dcs-app-fw-detach.jpg
        :width: 400
 
