@@ -338,7 +338,7 @@ Curlコマンドで ``https://echoapp.f5demo.net?a=<script>`` へリクエスト
 
 .. code-block:: json
   :linenos:
-  :caption: https://echoapp.f5demo.net?a=<script> への接続結果
+  :caption: https://echoapp.f5demo.net?a=<script> への接続結果を示すWAF Event
   :emphasize-lines: 3-44,45,66,77,87,147-151
 
   {
@@ -555,7 +555,7 @@ Curlコマンドで ``https://echoapp.f5demo.net?mypass=secret`` へリクエス
 
 .. code-block:: json
   :linenos:
-  :caption: https://echoapp.f5demo.net?mypass=secret への接続を示すWAF Event
+  :caption: https://echoapp.f5demo.net?mypass=secret への接続結果を示すWAF Event
   :emphasize-lines: 4,25,46,47,16
 
   {
@@ -722,7 +722,7 @@ Curlコマンドで ``https://echoapp.f5demo.net/503`` へリクエストを送�
 
 .. code-block:: json
   :linenos:
-  :caption: https://echoapp.f5demo.net/503 への接続結果 (WAF events)
+  :caption: https://echoapp.f5demo.net/503 への接続結果を示すWAF Event
   :emphasize-lines: 4,25,46
 
   {
@@ -854,7 +854,7 @@ Curlコマンドで ``https://echoapp.f5demo.net/503`` へリクエストを送�
 
 .. code-block:: json
   :linenos:
-  :caption: https://echoapp.f5demo.net/503 への接続結果 (L7 events)
+  :caption: https://echoapp.f5demo.net/503 への接続結果を示すL7 Event
   :emphasize-lines: 8,9,33-37
 
   {
@@ -956,7 +956,208 @@ Curlコマンドで ``https://echoapp.f5demo.net/503`` へリクエストを送�
 
 このようにSecurity Eventsに表示されるログから通信がどのように制御されたものであるか確認することができます。
 
-3. App Firewall Policyの解除
+
+5. HTTP Protocol 違反の検知
+----
+
+プロトコル(Protocol)は予め通信の内容や仕組みが決まったものであり、通信はそれに則って行われます。
+正常なクライアント・サーバはそのプロトコルの通りに動作しますが、攻撃者は本来のプロトコルの仕様に対して矛盾となる通信を行うことにより、アプリケーションの想定外な動作を引き起こす場合があります。
+
+App Firewallでは ``Violation`` という仕組みにより、SignatureやBOTとはまた異なる、各種プロトコルの動作や悪意ある通信を検知・拒否することが可能です。
+ここではシンプルな HTTP Protocol 違反を制御する動作を確認します
+
+Curlコマンドで ``https://echoapp.f5demo.net/`` へリクエストを送信します。ただし、Protocolとして矛盾した動作となるため、以下のような情報でリクエストを送信します。
+
+============ ===================
+Method       POST
+Content-Type application/json
+送信データ    data=dummy
+============ ===================
+
+``Content-TYpe`` ではJSON形式( ``application/json`` )を指定していますが、 ``実際のデータ`` の矛盾により通信が ``ブロック`` されることを確認します
+
+.. code-block:: bash
+  :linenos:
+  :caption: https://echoapp.f5demo.net/503 への接続結果
+  :emphasize-lines:  18
+
+
+  $ curl -kv https://echoapp.f5demo.net/ -H "Content-Type: application/json" -X POST -d "data=dummy"
+  
+  ** 省略 **
+  
+  > POST / HTTP/2
+  > Host: echoapp.f5demo.net
+  > User-Agent: curl/7.58.0
+  > Accept: */*
+  > Content-Type: application/json
+  > Content-Length: 10
+  
+  ** 省略 **
+  
+  < HTTP/2 200
+  < content-length: 278
+  < content-type: text/html; charset=UTF-8
+  
+  ** 省略 **
+  
+  <html><head><title>Request Rejected Custom Page</title></head><body>The requested URL was rejected. Please consult with your administrator.<br/><br/>Your support ID is: 5a253e51-b03a-465a-96b7-fa388298f759<br/><br/><a href="javascript:history.back()">[Go Back]</a></body></html>
+
+応答の結果を確認すると通信がブロックされています。
+
+それではログを確認しましょう
+
+- Security Event 画面の結果
+
+   .. image:: ./media/dcs-app-fw-log-violation.jpg
+       :width: 600
+
+.. code-block:: json
+  :linenos:
+  :caption: https://echoapp.f5demo.net/ への接続結果を示すWAF Event
+  :emphasize-lines: 4,74,18-26,116-120
+
+  {
+    "app_type": "",
+    "signatures": {},
+    "req_id": "5a253e51-b03a-465a-96b7-fa388298f759",
+    "hostname": "master-2",
+    "bot_verification_failed": false,
+    "original_authority": "",
+    "rtt_upstream_seconds": "",
+    "src_instance": "JP",
+    "req_headers": "{\"Accept\":\"*/*\",\"Content-Length\":\"10\",\"Content-Type\":\"application/json\",\"Host\":\"echoapp.f5demo.net\",\"Method\":\"POST\",\"Path\":\"/\",\"Scheme\":\"https\",\"User-Agent\":\"curl/7.58.0\",\"X-Envoy-External-Address\":\"18.178.83.1\",\"X-Forwarded-For\":\"18.178.83.1\",\"X-Forwarded-Proto\":\"https\",\"X-Request-Id\":\"5a253e51-b03a-465a-96b7-fa388298f759\"}",
+    "tenant": "f5-apac-ent-uppdoshj",
+    "app": "obelix",
+    "policy_hits": {
+      "policy_hits": {}
+    },
+    "method": "POST",
+    "threat_campaigns": {},
+    "violations": [
+      {
+        "attack_type": "ATTACK_TYPE_JSON_PARSER_ATTACK",
+        "matching_info": "",
+        "context": "URL",
+        "name": "VIOL_JSON_MALFORMED",
+        "state": "Enabled"
+      }
+    ],
+    "source_type": "kafka",
+    "dst_instance": "",
+    "x_forwarded_for": "18.178.83.1",
+    "duration_with_no_data_tx_delay": "",
+    "waf_rule_tags": "{}",
+    "rsp_code_class": "2xx",
+    "waf_mode": "block",
+    "time_to_last_upstream_rx_byte": 0,
+    "scheme": "",
+    "city": "Tokyo",
+    "dst_site": "",
+    "latitude": "35.689300",
+    "messageid": "c102667e-dea5-4551-b495-71bf4217a9f6",
+    "no_active_detections": false,
+    "tls_version": "",
+    "duration_with_data_tx_delay": "",
+    "stream": "svcfw",
+    "violation_rating": "3",
+    "req_size": "263",
+    "waf_rules_hit": "[]",
+    "tls_fingerprint": "456523fc94726331a4d5a2e1d40b2cd7",
+    "bot_name": "curl",
+    "time_to_first_upstream_rx_byte": 0,
+    "sni": "echoapp.f5demo.net",
+    "response_flags": "",
+    "site": "ty8-tky",
+    "@timestamp": "2022-02-25T04:08:03.197Z",
+    "calculated_action": "block",
+    "req_params": "",
+    "sample_rate": "",
+    "original_headers": [
+      "method",
+      "path",
+      "scheme",
+      "host",
+      "user-agent",
+      "accept",
+      "content-type",
+      "content-length",
+      "x-forwarded-for",
+      "x-forwarded-proto",
+      "x-envoy-external-address",
+      "x-request-id"
+    ],
+    "dst_port": "0",
+    "req_path": "/",
+    "asn": "AMAZON-02(16509)",
+    "node_id": "",
+    "proxy_type": "",
+    "is_truncated_field": false,
+    "country": "JP",
+    "kubernetes": {},
+    "browser_type": "curl",
+    "device_type": "Other",
+    "bot_classification": "suspicious",
+    "vhost_id": "6c0bb878-7ecb-4b20-815e-1f3521b12ff4",
+    "detections": {},
+    "longitude": "139.689900",
+    "rtt_downstream_seconds": "",
+    "http_version": "HTTP/1.1",
+    "time_to_last_downstream_tx_byte": 0,
+    "waf_rule_hit_count": "",
+    "num_rules_hit": "",
+    "vh_type": "",
+    "rsp_size": "0",
+    "api_endpoint": "{}",
+    "authority": "echoapp.f5demo.net",
+    "region": "13",
+    "time_to_first_downstream_tx_byte": 0,
+    "rsp_code_details": "",
+    "dst": "",
+    "connection_state": "",
+    "dst_ip": "72.19.3.189",
+    "is_new_dcid": true,
+    "network": "18.176.0.0",
+    "src_site": "ty8-tky",
+    "src_ip": "18.178.83.1",
+    "tls_cipher_suite": "",
+    "bot_type": "HTTP Library",
+    "original_path": "",
+    "message_key": null,
+    "user_agent": "curl/7.58.0",
+    "severity": "info",
+    "cluster_name": "ty8-tky-int-ves-io",
+    "headers": {},
+    "types": "input:string",
+    "src": "N:public",
+    "rsp_code": "200",
+    "time_to_first_upstream_tx_byte": 0,
+    "attack_types": [
+      {
+        "name": "ATTACK_TYPE_JSON_PARSER_ATTACK"
+      }
+    ],
+    "src_port": "40558",
+    "dcid": "1645762083197-412728685",
+    "req_body": "",
+    "time_to_last_upstream_tx_byte": 0,
+    "namespace": "h-matsumoto",
+    "time": "2022-02-25T04:08:03.197Z",
+    "waf_instance_id": "",
+    "sec_event_type": "waf_sec_event",
+    "user": "IP-18.178.83.1",
+    "vh_name": "ves-io-http-loadbalancer-demo-echo-lb"
+  }
+
+- 66行目 ``waf_mode`` が拒否( ``block`` )、54行目 ``calculated_action`` が 拒否( ``block`` ) となり通信が拒否されていることが確認できます
+- 4行目 ``req_id`` は ブロックページ に表示された ``Support ID`` の値 ``5a253e51-b03a-465a-96b7-fa388298f759`` であることが確認できます
+- 18行目 から 26行目に表示されている内容が該当するViolationを示します。内容を確認すると ``ATTACK_TYPE_JSON_PARSER_ATTACK`` であり、正しいJSONの書式でない( ``VIOL_JSON_MALFORMED`` )と確認できます
+- また、116行目から120行目 ``attack_types`` で ``ATTACK_TYPE_JSON_PARSER_ATTACK`` と表示されており、JSON PARSER ATTACKと検知されていることが確認できます
+
+
+
+
+6. App Firewall Policyの解除
 ====
 
 次の項目で、その他の機能を確認するための手順です。
