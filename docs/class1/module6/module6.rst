@@ -1,4 +1,4 @@
-F5 DCS Bot 対策機能 (作成中)
+F5 DCS Bot 対策機能
 ####
 
 F5 DCS で Bot 対策機能 を利用する方法や、各種設定について紹介します
@@ -218,7 +218,7 @@ HTTP Load Balancer の設定を変更し、Botをブロックする設定とし�
 
 次の項目で、その他の機能を確認するための手順です。
 
-`こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module5/module5.html#http-load-balancer-app-firewall-policy>`__ の手順を参考に、HTTP Load Balancerに割り当てたBot Defence Configを解除してください
+`こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module6/module6.html#bot-defence-config>`__ の手順を参考に、HTTP Load Balancerに割り当てたBot Defence Configを解除してください
 
-   .. image:: ./media/dcs-app-fw-detach.jpg
+   .. image:: ./media/dcs-bot-config-disable.jpg
        :width: 400
