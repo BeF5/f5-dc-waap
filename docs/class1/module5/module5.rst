@@ -978,9 +978,8 @@ Content-Type application/json
 
 .. code-block:: bash
   :linenos:
-  :caption: https://echoapp.f5demo.net/503 への接続結果
-  :emphasize-lines:  18
-
+  :caption: https://echoapp.f5demo.net/ への接続結果
+  :emphasize-lines:  20
 
   $ curl -kv https://echoapp.f5demo.net/ -H "Content-Type: application/json" -X POST -d "data=dummy"
   
@@ -1155,9 +1154,7 @@ Content-Type application/json
 - また、116行目から120行目 ``attack_types`` で ``ATTACK_TYPE_JSON_PARSER_ATTACK`` と表示されており、JSON PARSER ATTACKと検知されていることが確認できます
 
 
-
-
-6. App Firewall Policyの解除
+3. App Firewall Policyの解除
 ====
 
 次の項目で、その他の機能を確認するための手順です。
