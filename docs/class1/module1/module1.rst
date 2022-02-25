@@ -133,7 +133,7 @@ Tips3. チュートリアルで指定した Skill / Level の変更
     .. image:: ./media/dcs-new-console-skilllevels.JPG
        :width: 400
 
-Tips3. 各プランの提供内容の違い
+Tips4. 各プランの提供内容の違い
 ====
 
 各プランの提供内容の違いは以下のドキュメントを参照してください。
