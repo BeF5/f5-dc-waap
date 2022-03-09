@@ -99,7 +99,7 @@ Origin ServerでDockerを動作させ、以下コマンドでOWASP Juice Shopを
        :width: 400
 
 
-2. 動作確認
+3. 動作確認
 ====
 
 
