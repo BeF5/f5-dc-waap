@@ -3,6 +3,9 @@ F5 DCS HTTP LB 各種追加設定
 
 Load Balancer で利用する各種設定について紹介します
 
+マニュアルは以下のページを参照してください
+- `HTTP Load Balancer <https://docs.cloud.f5.com/docs/how-to/app-networking/http-load-balancer>`__
+
 1. 基本的な既存設定の変更方法
 ====
 

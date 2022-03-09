@@ -3,6 +3,10 @@ F5 DCS Bot 対策機能
 
 F5 DCS で Bot 対策機能 を利用する方法や、各種設定について紹介します
 
+マニュアルは以下のページを参照してください
+- `Bot Defense <https://docs.cloud.f5.com/docs/how-to/advanced-security/bot-defense>`__
+
+
 1. F5 DCS Bot 対策機能 について
 ====
 
@@ -20,17 +24,17 @@ F5 DCS WAAPはこれらの高度なセキュリティをアプリケーション
 ----
 
 作成済みのHTTP Load Balancerに作成で Bot Defence Config を設定します
-HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module3/module3.html>`__ を参照ください
+HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ を参照ください
 
 
 画面左側 Manage欄の ``Load Balancers`` 、 ``HTTP Load Balancers`` を開き、対象のLoad Balancerを表示し画面右側に遷移します。
 
-   .. image:: ../module5/media/dcs-edit-lb.jpg
+   .. image:: ../module05/media/dcs-edit-lb.jpg
        :width: 400
 
 すでに作成済みのオブジェクトを変更する場合、対象のオブジェクト一番右側 ``‥`` から、 ``Manage Configuration`` をクリックします
 
-   .. image:: ../module5/media/dcs-edit-lb2.jpg
+   .. image:: ../module05/media/dcs-edit-lb2.jpg
        :width: 400
 
 設定の結果が一覧で表示されます。画面右上 ``Edit Configuration`` から設定の変更します。 
@@ -143,7 +147,7 @@ Origin ServerでDockerを動作させ、以下コマンドでOWASP Juice Shopを
 
 それでは通信の結果を確認します。
 
-   .. image:: ../module5/media/dcs-app-fw-log.jpg
+   .. image:: ../module05/media/dcs-app-fw-log.jpg
        :width: 400
 
    .. image:: ./media/dcs-app-bot-log.jpg
@@ -220,7 +224,7 @@ HTTP Load Balancer の設定を変更し、Botをブロックする設定とし�
 
 次の項目で、その他の機能を確認するための手順です。
 
-`こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module6/module6.html#bot-defence-config>`__ の手順を参考に、HTTP Load Balancerに割り当てたBot Defence Configを解除してください
+`こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module06/module06.html#bot-defence-config>`__ の手順を参考に、HTTP Load Balancerに割り当てたBot Defence Configを解除してください
 
    .. image:: ./media/dcs-bot-config-disable.jpg
        :width: 400

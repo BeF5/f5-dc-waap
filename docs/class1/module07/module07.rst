@@ -3,7 +3,11 @@ F5 DCS Rate Limit
 
 RateLimit を利用するための各種設定について紹介します
 
-1. F5 Rate Limit 対策機能 について
+マニュアルは以下のページを参照してください
+- `Configure Rate Limiting per User <https://docs.cloud.f5.com/docs/how-to/advanced-security/user-rate-limit>`__
+
+
+1. Rate Limit 対策機能 について
 ====
 
 RateLimit 対策機能により以下の操作をすることが可能です
@@ -13,24 +17,24 @@ RateLimit 対策機能により以下の操作をすることが可能です
 
 F5 DCS WAAPはこれらの高度なセキュリティをアプリケーションの迅速な展開に合わせて自由にご利用いただける環境を実現します
 
-2. RateLimit 対策機能 の設定
+2. RateLimit の設定
 ====
 
 1. RateLimit の設定
 ----
 
 作成済みのHTTP Load Balancerに作成で RateLimit を設定します
-HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module3/module3.html>`__ を参照ください
+HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module3.html>`__ を参照ください
 
 
 画面左側 Manage欄の ``Load Balancers`` 、 ``HTTP Load Balancers`` を開き、対象のLoad Balancerを表示し画面右側に遷移します。
 
-   .. image:: ../module5/media/dcs-edit-lb.jpg
+   .. image:: ../module05/media/dcs-edit-lb.jpg
        :width: 400
 
 すでに作成済みのオブジェクトを変更する場合、対象のオブジェクト一番右側 ``‥`` から、 ``Manage Configuration`` をクリックします
 
-   .. image:: ../module5/media/dcs-edit-lb2.jpg
+   .. image:: ../module05/media/dcs-edit-lb2.jpg
        :width: 400
 
 設定の結果が一覧で表示されます。画面右上 ``Edit Configuration`` から設定の変更します。 
@@ -43,11 +47,12 @@ Security COnfiguration 欄の ``User Identifier`` と ``Rate Limiting`` の設�
    .. image:: ./media/dcs-edit-lb-ratelimit.jpg
        :width: 400
 
+正しく設定されたことを確認し、画面最下部の ``Apply`` をクリックしてください。
+
    .. image:: ./media/dcs-edit-lb-ratelimit2.jpg
        :width: 400
 
 
-正しく設定されたことを確認し、画面最下部の ``Apply`` をクリックしてください。
 
 
 3. 動作確認
@@ -128,7 +133,7 @@ Security COnfiguration 欄の ``User Identifier`` と ``Rate Limiting`` の設�
 
 次の項目で、その他の機能を確認するための手順です。
 
-`こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module7/module7.html>`__ の手順を参考に、HTTP Load Balancerに割り当てたBot Defence Configを解除してください
+`こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module07/module7.html>`__ の手順を参考に、HTTP Load Balancerに割り当てたBot Defence Configを解除してください
 
    .. image:: ./media/dcs-ratelimit-disable.jpg
        :width: 400

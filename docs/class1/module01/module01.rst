@@ -10,7 +10,7 @@ F5 DCS 環境への接続
 | `F5 DCS Top <https://docs.cloud.f5.com/>`__ ページへアクセスします
 | 画面右上の ``Log in`` から F5 DCSへログインしてください
 | アカウントを持っていない方は、``Sign up`` よりアカウントを登録するか、弊社担当営業までご連絡ください
-| アカウントの新規作成は、 `こちら <https://f5j-dc-waap.readthedocs.io/en/latest/class1/module1/module2.html#tips1>`__ を参照してください
+| アカウントの新規作成は、 `こちら <https://f5j-dc-waap.readthedocs.io/en/latest/class1/module01/module02.html#tips1>`__ を参照してください
 
    .. image:: ./media/dcs-home.JPG
        :width: 400
@@ -91,7 +91,7 @@ Tips1. アカウントの新規作成
        :width: 400
 
 | チュートリアルが表示されますので適宜情報を選択し、最後に ``Get Started`` をクリックしてください
-| (こちらで選択した内容はいつでも `こちらアカウント設定 <https://f5j-dc-waap.readthedocs.io/en/latest/class1/module1/module1.html#tips3-work-domains-and-skill-levels>`__ から変更可能です)
+| (こちらで選択した内容はいつでも `こちらアカウント設定 <https://f5j-dc-waap.readthedocs.io/en/latest/class1/module01/module01.html#tips3-work-domains-and-skill-levels>`__ から変更可能です)
 
 -    .. image:: ./media/dcs-new-tutorial1.JPG
        :width: 400

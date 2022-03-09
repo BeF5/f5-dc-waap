@@ -3,6 +3,10 @@ F5 DCS WAF
 
 F5 DCS で WAF を利用する方法や、各種設定について紹介します
 
+マニュアルは以下のページを参照してください
+- `Application Firewall <https://docs.cloud.f5.com/docs/how-to/app-security/web-app-firewall>`__
+
+
 1. F5 DCS WAF について
 ====
 
@@ -90,7 +94,7 @@ App Firewall で表示される主要な項目について説明します。実�
 ----
 
 作成済みのHTTP Load Balancerに作成した App Firewall Policyを割り当てます
-HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module3/module3.html>`__ を参照ください
+HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ を参照ください
 
 
 画面左側 Manage欄の ``Load Balancers`` 、 ``HTTP Load Balancers`` を開き、対象のLoad Balancerを表示し画面右側に遷移します。
@@ -1159,7 +1163,7 @@ Content-Type application/json
 
 次の項目で、その他の機能を確認するための手順です。
 
-`こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module5/module5.html#http-load-balancer-app-firewall-policy>`__ の手順を参考に、HTTP Load Balancerに割り当てたApp FirewallのPolicyを解除してください
+`こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module05/module05.html#http-load-balancer-app-firewall-policy>`__ の手順を参考に、HTTP Load Balancerに割り当てたApp FirewallのPolicyを解除してください
 
    .. image:: ./media/dcs-app-fw-detach.jpg
        :width: 400
