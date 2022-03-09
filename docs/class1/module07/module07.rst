@@ -25,7 +25,6 @@ F5 DCS WAAPはこれらの高度なセキュリティをアプリケーション
 作成済みのHTTP Load Balancerに作成で RateLimit を設定します
 HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module3.html>`__ を参照ください
 
-
 画面左側 Manage欄の ``Load Balancers`` 、 ``HTTP Load Balancers`` を開き、対象のLoad Balancerを表示し画面右側に遷移します。
 
    .. image:: ../module05/media/dcs-edit-lb.jpg
@@ -37,7 +36,7 @@ HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedoc
        :width: 400
 
 設定の結果が一覧で表示されます。画面右上 ``Edit Configuration`` から設定の変更します。 
-Security COnfiguration 欄の ``User Identifier`` と ``Rate Limiting`` の設定を確認します。
+Security Configuration 欄 右上の ``Show Advanced Fields`` をクリックします。
 
 まず、 ``User Identifier`` が ``Rate Limiting Parameters`` となっていることを確認してください。
 次に、 ``Rate Limiting`` で ``Rate limiting Parameters`` を選択し、 ``Configure`` をクリックしてください。
@@ -130,7 +129,7 @@ Security COnfiguration 欄の ``User Identifier`` と ``Rate Limiting`` の設�
 4. RateLimit の解除
 ====
 
-次の項目で、その他の機能を確認するための手順です。
+その他の機能を確認するための手順です。
 
 `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module07/module7.html>`__ の手順を参考に、HTTP Load Balancerに割り当てたBot Defence Configを解除してください
 

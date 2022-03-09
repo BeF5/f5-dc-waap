@@ -1161,7 +1161,7 @@ Content-Type application/json
 3. App Firewall Policyの解除
 ====
 
-次の項目で、その他の機能を確認するための手順です。
+その他の機能を確認するための手順です。
 
 `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module05/module05.html#http-load-balancer-app-firewall-policy>`__ の手順を参考に、HTTP Load Balancerに割り当てたApp FirewallのPolicyを解除してください
 

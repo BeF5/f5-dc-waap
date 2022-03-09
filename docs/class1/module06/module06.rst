@@ -222,7 +222,7 @@ HTTP Load Balancer の設定を変更し、Botをブロックする設定とし�
 4. Bot Defence Config の解除
 ====
 
-次の項目で、その他の機能を確認するための手順です。
+その他の機能を確認するための手順です。
 
 `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module06/module06.html#bot-defence-config>`__ の手順を参考に、HTTP Load Balancerに割り当てたBot Defence Configを解除してください
 
