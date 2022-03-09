@@ -11,16 +11,24 @@ F5 DCS WAAPの構成について紹介します。
 
 こちらに示している各種機能をF5 DCSのコンソール画面から設定します
 
-F5 DCSには ``Tenant`` と ``Namespace`` があります
-契約者毎に ``Tenant`` が割り当てられます。あるTenantに所属するユーザは、そのTenanat内に ``Namespace`` を作成することが可能です
+| F5 DCSには ``Tenant`` と ``Namespace`` があり、その配下で各種設定オブジェクトを管理します。
+| 契約者毎に ``Tenant`` が割り当てられます。あるTenantに所属するユーザは、そのTenanat内に ``Namespace`` を作成することが可能です
+| また、ユーザが定義する Namespace の他に、いくつかの Namespace が存在します
+| 詳細は、 `Core Concepts <https://docs.cloud.f5.com/docs/ves-concepts/core-concepts>`__ を参照してください。
 
    .. image:: ./media/dcs-waap-tenant-ns.JPG
-       :width: 400
+       :width: 600
 
-その他設定に関連するオブジェクトを参考に示します。こちらの例では2つのHTTP Load Balancerを構成しています。通信要件に応じて各種設定オブジェクトを用いて細かな設定が可能です。
+その他WAAPの設定に関連するオブジェクトを示します。
+こちらの例ではユーザが定義した2つの Namespace にそれぞれHTTP Load Balancerを構成しています。
+HTTP Load Balancerはその提供機能に応じた設定パラメータを持ちます。各機能は、HTTP Load Balancerの設定項目としてパラメータを指定します。
+一部の設定については、Namespace 内で別の 設定オブジェクト として定義され、それらを参照する構成をとります。
+HTTP Load Balancerの外部で定義された 設定オブジェクト は同一Namespace内の別のHTTP Load Balancerから参照可能です。
+
+また、一部の設定オブジェクトについては、Shared Object として作成することが可能です。このオブジェクトは、複数のName Spaceから参照することができます。
 
    .. image:: ./media/dcs-waap-objects.JPG
-       :width: 400
+       :width: 600
 
 2. Namespaceの作成
 ====
