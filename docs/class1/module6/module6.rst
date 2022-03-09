@@ -62,7 +62,7 @@ Security COnfiguration 欄の ``Bot Defense Config`` から設定します
 2. Origin Server の変更
 ----
 
-この例ではOrigin Serverとして ``OWASP Juice Shop <https://owasp.org/www-project-juice-shop/>``__ を動作させます。OWASPが提供する脆弱なサーバとなりますので本テスト完了後、適切に停止させてください
+この例ではOrigin Serverとして `OWASP Juice Shop <https://owasp.org/www-project-juice-shop/>`__ を動作させます。OWASPが提供する脆弱なサーバとなりますので本テスト完了後、適切に停止させてください
 
 Origin ServerでDockerを動作させ、以下コマンドでOWASP Juice Shopを ``80`` で待ち受けるよう設定してください
 
@@ -109,9 +109,11 @@ Origin ServerでDockerを動作させ、以下コマンドでOWASP Juice Shopを
 ブラウザで ``https://echoapp.f5demo.net`` にアクセスし、ページを閲覧してください
 以下ログインアカウントでAdminとして動作できます。
 
-    ================= =========
-    admin@juice-sh.op admin123
-    ================= =========
+    ================= =================
+    username          admin@juice-sh.op
+    ----------------- -----------------
+    password          admin123
+    ================= =================
 
    .. image:: ./media/dcs-js-login.jpg
        :width: 400
