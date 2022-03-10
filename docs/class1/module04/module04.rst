@@ -130,3 +130,56 @@ Health Check ルールを追加することにより、Origin Poolに指定し�
    .. image:: ./media/dcs-setting-origin2.jpg
        :width: 400
 
+Tips1. HTTP Load Balancer 作成時にシステムが生成される Child Object 
+====
+
+HTTP Load Balancer を設定すると、同Namespace内に生成されるObjectの他に自動的に Child Object が生成される場合があります
+
+1. Child Object の確認
+----
+
+シンプルなHTTP Load Balancerの設定のChild Objectを確認します
+
+すでに作成済みのオブジェクトを変更する場合、対象のオブジェクト一番右側 ``‥`` から、 ``Show Child Objects`` をクリックします
+
+   .. image:: ./media/dcs-setting-edit.jpg
+       :width: 400
+
+   .. image:: ./media/dcs-setting-childobjects.jpg
+       :width: 400
+
+以下のような画面が表示されます。この設定では、 ``Route`` 、 ``Virtual host`` 、 ``Advertise policy`` が確認できます。
+設定内容はJSON形式で表示されています。
+
+   .. image:: ./media/dcs-setting-childobjects2.jpg
+       :width: 400
+
+JSON の内容を確認すると、namespace は HTTP Load Balancer と同一となっていますが、設定画面上はこれらの内容は Object として個別に表示はされません。あくまでChild ObjectとしてこのHTTP Load Balancerのみで利用されます
+対し、以下のようなML Configを設定します。
+
+
+2. ML Config に関連するオブジェクトと生成される内容
+----
+
+Malicious User などで利用するML Configを利用します。
+以下が設定例となります。
+
+   .. image:: ./media/dcs-mlconfig-sample.jpg
+       :width: 400
+
+設定を反映するため ``Save and Exit`` をクリックした後、再度設定を開くと ``Label`` が自動的に付与されていることが確認できます。
+
+   .. image:: ./media/dcs-mlconfig-sample2.jpg
+       :width: 400
+
+Single Load Balancerで設定した場合、上記の例と同様にChild Objectが生成されます。
+先程のHTTP Load Balancerの設定に加え、 ``App type`` と ``App Setting`` が生成されていることが確認できます
+
+   .. image:: ./media/dcs-setting-childobjects3.jpg
+       :width: 400
+
+
+Multi の HTTP Load Balancerに対する設定を行う場合、別途 ``Shared Configuration`` から ``AI & ML`` の ``app_type`` で
+パラメータを指定し、HTTP Load Balancerの ``Label`` で紐付けを指定します。
+Single ではこれらの内容が自動的に生成、反映される動作となっていることが確認できます。
+

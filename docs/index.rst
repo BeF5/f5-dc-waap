@@ -28,7 +28,7 @@ F5 Labs - Index
     - ただし、一部リクエストは攻撃者を模したリクエストとなりますので、動作確認用のアプリケーションをご用意されることをおすすめいたします
     - オリジンサイトに配置するアプリケーションはF5 DCSを送信元としたHTTPリクエストに応答するよう設定してください
 
-   .. image:: ./media/dcs-waap-diagram.JPG
+   .. image:: ./media/dcs-waap-lab-diagram.JPG
        :width: 600
 
 .. NOTE::
