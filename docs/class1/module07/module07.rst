@@ -131,7 +131,7 @@ Security Configuration 欄 右上の ``Show Advanced Fields`` をクリックし
 
 その他の機能を確認するための手順です。
 
-`こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module07/module7.html>`__ の手順を参考に、HTTP Load Balancerに割り当てたBot Defence Configを解除してください
+`こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module07/module7.html#ratelimit>`__ の手順を参考に、HTTP Load Balancerに割り当てたRate Limitの設定を解除してください
 
    .. image:: ./media/dcs-ratelimit-disable.jpg
        :width: 400

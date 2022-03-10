@@ -59,6 +59,7 @@ Malicious User Mitigation の方法を指定します。
 Malicious User Detection の方法を指定します。
 今回は、単一のLoad Balancerを対象とした設定となりますので、 ``ML Config`` で ``Single Load Balancer Application`` を選択します。
 その配下に表示される ``Malicious User Detection`` で ``Enable Malicious User Detection`` を選択してください。
+その他機能は利用しませんので、 ``無効 (Disable)`` を選択してください
 
    .. image:: ./media/dcs-edit-lb-single-malicious-user.jpg
        :width: 400
@@ -317,7 +318,7 @@ Captcha による Challenge の動作を確認します。
 
 その他の機能を確認するための手順です。
 
-`こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module08/module08.html>`__ の手順を参考に、HTTP Load Balancerに割り当てたMalicious Userの設定を解除してください
+`こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module08/module08.html#single-lb-malicious-user>`__ の手順を参考に、HTTP Load Balancerに割り当てたMalicious Userの設定を解除してください
 
    .. image:: ./media/dcs-single-malicious-user-disable.jpg
        :width: 400

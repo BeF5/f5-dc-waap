@@ -218,6 +218,10 @@ CNAME欄に指定されたFQDNのアドレスをDNSサーバで解決し、IPア
    .. image:: ./media/dcs-lb-mesh.jpg
        :width: 400
 
+.. NOTE::
+    対象のHTTP Load BalancerにLabelの割当がない場合、Namespace 名で項目が表示されます。Labelの割当がある場合、Labelが項目の名称として表示されます
+    指定した期間にNamespaceやLabelなど複数のオブジェクトに対して通信がある場合、それらが項目として表示されます。
+
 こちらではService Graphなどアプリケーションの通信状態など詳細を把握することが可能です。
 引き続き設定を紹介いたしますので、適宜各ダッシュボードの内容を確認し、F5 DCSから把握できる通信の情報をご覧ください
 
