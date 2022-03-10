@@ -1,7 +1,7 @@
-F5 DCS DDoS (作成中)
+F5 DCS API Security (作成中)
 ####
 
-DDoS で利用する各種設定について紹介します
+F5 DCS で API Security を利用する方法や、各種設定について紹介します
 
 1. F5 DCS API Security について
 ====

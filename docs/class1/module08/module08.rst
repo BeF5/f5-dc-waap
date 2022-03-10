@@ -27,8 +27,8 @@ F5 DCS WAAPはこれらの高度なセキュリティをアプリケーション
 1. Malicious User Detection & Mitigation の設定
 ----
 
-作成済みのHTTP Load Balancerに作成で RateLimit を設定します
-HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module3.html>`__ を参照ください
+作成済みのHTTP Load Balancerに Malicious User Detaction & Mitigation に関連するパラメータを設定します。
+HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ を参照ください
 
 画面左側 Manage欄の ``Load Balancers`` 、 ``HTTP Load Balancers`` を開き、対象のLoad Balancerを表示し画面右側に遷移します。
 
@@ -105,7 +105,7 @@ Malicious User Detection の方法を指定します。
    .. image:: ./media/dcs-malicious-user-log.jpg
        :width: 400
 
-詳細は別途 ``F5 DCS WAF <>``__ を参照ください。
+詳細は別途 `F5 DCS WAF <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module05/module05.html>`__ を参照ください。
 
 画面中段の ``Malicious User Events`` が選択してください。
 下に ``Malicious User events`` の一覧が表示されていることを確認してください。
@@ -226,6 +226,91 @@ Malicious Users では、Malicious User と判定されたユーザ毎にどの�
   <h1>
   Error 403 - Forbidden
   </h1>
+
+4. ブラウザによる Malicious User の確認
+----
+
+ブラウザで複数回、継続して攻撃に相当するリクエストを送ることで Malicious User として検知することが可能です。
+
+ブラウザで、攻撃として検知されるURL ``https://echoapp.f5demo.net/?<script>`` にアクセスし、連続して一定時間ページの更新を行ってください。
+
+攻撃がブロックされると以下のような画面が表示されます
+
+   .. image:: ./media/dcs-malicious-user-browser.jpg
+       :width: 400
+
+
+4. JS / Captcha Challenge の確認
+====
+
+JavaScript や Captcha を用いて Malicious User であるかどうか検査することが可能です。
+以下に動作確認を目的としたパラメータの変更方法と動作確認の結果を紹介します。
+
+1. Challenge Type の選択
+----
+
+HTTP Load Balancer の設定変更します。
+Security Configuration 欄 右上の ``Show Advanced Fields`` をクリックします。
+
+先程設定した Challenge に関する設定を変更します。
+``Select Type of Challenge`` の ``Policy Based Challenge`` 下の ``Edit Configuration`` をクリックしてください。
+
+   .. image:: ./media/dcs-edit-lb-malicious-user-challenge.jpg
+       :width: 400
+
+表示された画面の ``Select Type of Challenge`` のプルダウンから項目が選択できます。
+
+
+2. JS Challenge の設定・確認
+----
+
+Javascript による Challenge の動作を確認します。
+プルダウンから ``Always enable JS Challenge`` を選択し、
+画面最下部の ``Apply`` をクリックし、さらに、HTTP Load Balancer の ``Apply`` をクリックし設定を反映してください。
+
+   .. image:: ./media/dcs-edit-lb-malicious-user-challenge2.jpg
+       :width: 400
+
+設定の反映後、ブラウザで ``https://echoapp.f5demo.net/`` にアクセスしてください。
+
+``JS Challenge`` は、HTTP Load Balancer がリクエストに対し、Malicious User であるか判定するのに用いる JavaScript を応答し動作を確認します。
+初期設定では以下のような画面が表示され、画面の案内の通り1秒後画面が本来期待したコンテンツへと切り代わります。
+
+   .. image:: ./media/dcs-edit-lb-malicious-js-challenge-browser.jpg
+       :width: 400
+
+   .. image:: ./media/dcs-edit-lb-malicious-challenge-result.jpg
+       :width: 400
+
+
+3. Captcha Challenge の設定・確認
+----
+
+Captcha による Challenge の動作を確認します。
+プルダウンから ``Always enable JS Challenge`` を選択し、
+画面最下部の ``Apply`` をクリックし、さらに、HTTP Load Balancer の ``Apply`` をクリックし設定を反映してください。
+
+   .. image:: ./media/dcs-edit-lb-malicious-user-challenge3.jpg
+       :width: 400
+
+設定の反映後、ブラウザで ``https://echoapp.f5demo.net/`` にアクセスしてください。
+
+``Captcha Challenge`` は、HTTP Load Balancer がリクエストに対し、Malicious User であるか判定するのに用いる Captcha を応答し動作を確認します。
+以下のような画面が表示されます。ユーザは自身がロボットではないことを証明するため、チェックボックスにチェックを入れた後、支持に従って画像を選択します。
+その後、本来期待したコンテンツへと切り代わります。
+
+   .. image:: ./media/dcs-edit-lb-malicious-captcha-challenge-browser.jpg
+       :width: 400
+
+   .. image:: ./media/dcs-edit-lb-malicious-captcha-challenge-browser2.jpg
+       :width: 400
+  
+   .. image:: ./media/dcs-edit-lb-malicious-challenge-result.jpg
+       :width: 400
+
+.. NOTE::
+  JS / Captcha Challengeがクライアントに表示される動作は、各種ログ ``Security Events`` や ``Malicious Users`` に都度記録されるものではありません
+
 
 4. F5 DCS Malicious User Detection の解除
 ====

@@ -22,8 +22,8 @@ F5 DCS WAAPはこれらの高度なセキュリティをアプリケーション
 1. RateLimit の設定
 ----
 
-作成済みのHTTP Load Balancerに作成で RateLimit を設定します
-HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module3.html>`__ を参照ください
+作成済みのHTTP Load Balancerに RateLimit を設定します
+HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ を参照ください
 
 画面左側 Manage欄の ``Load Balancers`` 、 ``HTTP Load Balancers`` を開き、対象のLoad Balancerを表示し画面右側に遷移します。
 
