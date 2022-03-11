@@ -277,8 +277,12 @@ Javascript による Challenge の動作を確認します。
 ``JS Challenge`` は、HTTP Load Balancer がリクエストに対し、Malicious User であるか判定するのに用いる JavaScript を応答し動作を確認します。
 初期設定では以下のような画面が表示され、画面の案内の通り1秒後画面が本来期待したコンテンツへと切り代わります。
 
+- JS Challenge の表示
+
    .. image:: ./media/dcs-edit-lb-malicious-js-challenge-browser.jpg
        :width: 400
+
+- 正しくCpatchaが処理され、コンテンツが表示される
 
    .. image:: ./media/dcs-edit-lb-malicious-challenge-result.jpg
        :width: 400
@@ -300,12 +304,16 @@ Captcha による Challenge の動作を確認します。
 以下のような画面が表示されます。ユーザは自身がロボットではないことを証明するため、チェックボックスにチェックを入れた後、支持に従って画像を選択します。
 その後、本来期待したコンテンツへと切り代わります。
 
+- Captchaの表示
+
    .. image:: ./media/dcs-edit-lb-malicious-captcha-challenge-browser.jpg
        :width: 400
 
    .. image:: ./media/dcs-edit-lb-malicious-captcha-challenge-browser2.jpg
        :width: 400
-  
+
+- 正しくCpatchaが処理され、コンテンツが表示される
+
    .. image:: ./media/dcs-edit-lb-malicious-challenge-result.jpg
        :width: 400
 
