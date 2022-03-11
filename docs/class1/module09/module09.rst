@@ -36,11 +36,11 @@ API Discoveryでは以下用語を用いる場合があります
 EP (End Point)                          API Gateway の End Point。対象とするURL PathとMethodを示します
 --------------------------------------- ------------------------------------------------------------
 PDF (Probability Distribution Function) API EPの通信に関するメトリック情報。以下の内容を取得する
-                                        - Request / Response size
-                                        - データあり / なし 時の遅延時間
-                                        - Request rate
-                                        - Error rate
-                                        - Response スループット
+                                         - Request / Response size
+                                         - データあり / なし 時の遅延時間
+                                         - Request rate
+                                         - Error rate
+                                         - Response スループット
 ======================================= ============================================================
 
 1. API Discovery の設定
@@ -67,7 +67,7 @@ API Discovery を設定します。
 その配下に表示される ``API Discovery`` で ``Enable API Discovery`` を選択してください。
 その他機能は利用しませんので、 ``無効 (Disable)`` を選択してください
 
-   .. image:: ./media/dcs-edit-lb-malicious-user.jpg
+   .. image:: ./media/dcs-edit-lb-api-discovery.jpg
        :width: 400
 
 1. サンプルリクエストの送付
@@ -158,19 +158,67 @@ Curlコマンドによりサンプルリクエストを送付します。
 
 次に画面左側、Meshの ``Service Mesh`` をクリックし、表示された項目の ``More`` をクリックします
 
-   .. image:: ./media/dcs-lb-mesh.jpg
+   .. image:: ./media/dcs-mesh-api-discovery.jpg
        :width: 400
 
 .. NOTE::
     対象のHTTP Load BalancerにLabelの割当がない場合、Namespace 名で項目が表示されます。Labelの割当がある場合、Labelが項目の名称として表示されます
     指定した期間にNamespaceやLabelなど複数のオブジェクトに対して通信がある場合、それらが項目として表示されます。
 
+``API Endpoints`` のタブを開き、 ``Graph`` が選択され、結果が表示されていることを確認できます。
+このGraphがAPI Discoveryによって把握できるAPIの情報となります。
 
-3. 動作確認
-====
+URL Path を階層(Segment)毎に表示しており、各APIのEPが表示されます。
 
-1. 正常動作
-----
+   .. image:: ./media/dcs-mesh-api-discovery2.jpg
+       :width: 400
 
-4. F5 DCS API Security の解除
-====
+また、画面右上の ``Download Swagger`` より全体の構成を示すSwagger Fileをダウンロードすることが可能です。
+
+各APIのEPの項目は以下を示します
+
+========================= =========================================================================================================
+Schema                    対象となるAPI End Pointの構成情報が表示可能であることを示します
+------------------------- ---------------------------------------------------------------------------------------------------------
+PDFs                      対象となるAPI End Pointのメトリクスの表示が可能であることを示します
+------------------------- ---------------------------------------------------------------------------------------------------------
+HTTP Method(サンプルはGET) 対象のURL PathのHTTP Methodを示します。同一Pathに複数のMethodが公開される場合それぞれ別の項目として表示されます
+========================= =========================================================================================================
+
+   .. image:: ./media/dcs-mesh-api-discovery3.jpg
+       :width: 400
+
+APIのEPにマウスオーバーするとポップアップで詳細が確認できます。
+
+   .. image:: ./media/dcs-mesh-api-discovery4.jpg
+       :width: 400
+
+さらに、APIのEPをクリックするとそれらのメトリクスや構成情報を確認できます。
+
+   .. image:: ./media/dcs-mesh-api-discovery5.jpg
+       :width: 400
+
+各メトリクスはマウスオーバーすると詳細が確認でき、クリックするとグラフで詳細を確認できます。
+
+   .. image:: ./media/dcs-mesh-api-discovery6.jpg
+       :width: 400
+
+   .. image:: ./media/dcs-mesh-api-discovery7.jpg
+       :width: 400
+
+通信状況から把握した内容を構成情報として表示します。
+
+   .. image:: ./media/dcs-mesh-api-discovery8.jpg
+       :width: 400
+
+Swagger タブを開くと、対象のAPI EPの構成情報をSwagger Fileとしてダウンロードすることができます。
+
+   .. image:: ./media/dcs-mesh-api-discovery9.jpg
+       :width: 400
+
+画面上部の ``Table`` を選択すると、表敬式で情報を確認することができます。
+各メトリクスは、 ``Graph`` で各API EPの情報を確認した時と同様の操作が可能です。
+
+   .. image:: ./media/dcs-mesh-api-discovery10.jpg
+       :width: 400
+
