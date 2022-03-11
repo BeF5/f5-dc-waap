@@ -35,12 +35,12 @@ API Discoveryでは以下用語を用いる場合があります
 ======================================= ============================================================
 EP (End Point)                          API Gateway の End Point。対象とするURL PathとMethodを示します
 --------------------------------------- ------------------------------------------------------------
-PDF (Probability Distribution Function) API EPの通信に関するメトリック情報。以下の内容を取得する
-                                         - Request / Response size
-                                         - データあり / なし 時の遅延時間
-                                         - Request rate
-                                         - Error rate
-                                         - Response スループット
+PDF (Probability Distribution Function) | API EPの通信に関するメトリック情報。以下の内容を取得する
+                                        | ・ Request / Response size
+                                        | ・ データあり / なし 時の遅延時間
+                                        | ・ Request rate
+                                        | ・ Error rate
+                                        | ・ Response スループット
 ======================================= ============================================================
 
 1. API Discovery の設定
