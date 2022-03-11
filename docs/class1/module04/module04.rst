@@ -142,9 +142,6 @@ HTTP Load Balancer を設定すると、同Namespace内に生成されるObject�
 
 すでに作成済みのオブジェクトを変更する場合、対象のオブジェクト一番右側 ``‥`` から、 ``Show Child Objects`` をクリックします
 
-   .. image:: ./media/dcs-setting-edit.jpg
-       :width: 400
-
    .. image:: ./media/dcs-setting-childobjects.jpg
        :width: 400
 
