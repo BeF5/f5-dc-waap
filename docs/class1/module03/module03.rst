@@ -12,7 +12,7 @@ F5 DCS HTTP LB の設定
 1. HTTPS の設定
 ----
 
-メニューより Load Balancers を選択してください
+メニューより ``Load Balancers`` を選択してください
 
    .. image:: ./media/dcs-console-lb.JPG
        :width: 400

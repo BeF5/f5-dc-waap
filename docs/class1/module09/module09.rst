@@ -175,6 +175,11 @@ URL Path を階層(Segment)毎に表示しており、各APIのEPが表示され
 
 また、画面右上の ``Download Swagger`` より全体の構成を示すSwagger Fileをダウンロードすることが可能です。
 
+Swagger Fileのサンプルは以下です
+
+:download: `API Discovery Sample Swagger File <./file/ves-io-http-loadbalancer-demo-echo-lb.json>`
+
+
 各APIのEPの項目は以下を示します
 
 ========================= =========================================================================================================
@@ -216,9 +221,125 @@ Swagger タブを開くと、対象のAPI EPの構成情報をSwagger Fileとし
    .. image:: ./media/dcs-mesh-api-discovery9.jpg
        :width: 400
 
+Swagger Fileのサンプルは以下です
+
+:download: `特定API EP Sample Swagger File <./file/rental_book_GET.json>`
+
+
 画面上部の ``Table`` を選択すると、表敬式で情報を確認することができます。
 各メトリクスは、 ``Graph`` で各API EPの情報を確認した時と同様の操作が可能です。
 
    .. image:: ./media/dcs-mesh-api-discovery10.jpg
        :width: 400
 
+4. API Document の確認
+----
+
+Swaggerが提供するSwagger EditorでダウンロードしたSwagger Fileがどのような形で表示されるか確認します。
+
+`Swagger Editor <https://editor.swagger.io/>`__ を開いてください。
+
+   .. image:: ./media/swagger-editor.jpg
+       :width: 400
+
+画面左側に、対象となる Swagger File の内容を貼り付けてください。
+JSON形式の内容を貼り付ける場合、YAMLへの変換に関する確認が表示されますので ``OK`` をクリックしてください。
+
+   .. image:: ./media/swagger-editor2.jpg
+       :width: 400
+
+貼り付けた結果より、右側に API Document が生成されていることが確認できます。
+このように、Swagger Fileを利用することで、APIの構成を把握すると共に、APIの定義を公開する際にも有用であることが確認できます。
+
+   .. image:: ./media/swagger-editor3.jpg
+       :width: 400
+
+
+3. Swagger File による API Group の定義
+====
+
+先程の手順でF5 DCSが生成したSwagger Fileを用いてAPI Groupを定義します。
+細かくAPIへの接続を制御することが可能です。
+
+マニュアルは以下のページを参照してください
+- `Import Swagger to Define and Control API Groups <https://docs.cloud.f5.com/docs/how-to/advanced-security/import-swagger-control-api-access>`__
+
+1. Swagger File のImport
+----
+
+以下をSwagger Fileのサンプルとして紹介します。必要に応じてファイルをダウンロードしてください。
+
+:download: `User API Swagger File <./file/user-api.json>`
+:download: `REST API Swagger File <./file/rest-api.json>`
+
+メニューより ``Web App & API Protection`` を開いてください。
+
+   .. image:: ./media/dcs-console-waap.jpg
+       :width: 400
+
+画面左側 Manage欄の ``Files`` 、 ``Swagger Files`` を開き、 ``Add Swagger File`` をクリックしてください。
+
+   .. image:: ./media/dcs-waap-add-swaggerfile.jpg
+       :width: 400
+
+``Name`` 欄に ``demo-app-user-api`` と入力し、 ``Upload File`` をクリックし、 ``User API Swagger File(user-api.json)`` をアップロードします。
+
+   .. image:: ./media/dcs-waap-add-swaggerfile2.jpg
+       :width: 400
+
+REST API Swagger File に対し同様の手順を行います。
+``Name`` 欄に ``demo-app-rest-api`` と入力し、 ``Upload File`` をクリックし、 ``REST API Swagger File(rest-api.json)`` をアップロードします。
+
+   .. image:: ./media/dcs-waap-add-swaggerfile3.jpg
+       :width: 400
+
+   .. image:: ./media/dcs-waap-add-swaggerfile4.jpg
+       :width: 400
+
+Importが完了したSwagger FileのURL情報を取得します。このURL情報は後ほどの項目で利用しますのでメモしておいてください。
+
+   .. image:: ./media/dcs-waap-get-swaggerurls.jpg
+       :width: 400
+
+このサンプルでは以下のような書式でURLが生成されます。
+
+.. code-block:: bash
+    https://f5-apac-ent.console.ves.volterra.io/api/object_store/namespaces/h-matsumoto/stored_objects/swagger/demo-app-user-api/v1-22-03-14
+
+
+2. Swagger File のImport結果及びConfiguration Objectの確認
+----
+
+今回のサンプルでは2つのSwagger FileをImportしています。その2つのFileがどのような形でImportされ、またObjectが生成されているか確認します
+
+``Web App & API Protection`` の画面左側 Manage欄、 ``API Management`` 、 ``API Definition`` を開き、作成したオブジェクト ``...`` から ``Show Child Objects`` をクリックしてください
+
+   .. image:: ./media/dcs-waap-get-swaggerurls.jpg
+       :width: 400
+
+API Definitionで生成される、Child Objectsが表示されます。
+今回の設定例では、このうち2つのObjectsの名称が必要となりますので、それぞれの名称をメモしてください
+
+
+作成済みのHTTP Load Balancerに Malicious User Detaction & Mitigation に関連するパラメータを設定します。
+HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ を参照ください
+
+画面左側 Manage欄の ``Load Balancers`` 、 ``HTTP Load Balancers`` を開き、対象のLoad Balancerを表示し画面右側に遷移します。
+
+   .. image:: ./media/dcs-edit-lb.jpg
+       :width: 400
+
+すでに作成済みのオブジェクトを変更する場合、対象のオブジェクト一番右側 ``‥`` から、 ``Manage Configuration`` をクリックします
+
+   .. image:: ./media/dcs-edit-lb2.jpg
+       :width: 400
+
+設定の結果が一覧で表示されます。画面右上 ``Edit Configuration`` から設定の変更します。
+Security Configuration 欄 右上の ``Show Advanced Fields`` をクリックします。
+
+
+3. API Discovery の結果
+----
+
+3. API Discovery の結果
+----

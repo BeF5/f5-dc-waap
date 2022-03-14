@@ -1,0 +1,343 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "Juice Shop User API",
+      "title": "Juice Shop User API",
+      "version": "v0"
+    },
+    "basePath": "/api",
+    "schemes": [
+      "http",
+      "https"
+    ],
+    "paths": {
+      "/Addresss": {
+        "get": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          }
+        }
+      },
+      "/Addresss/{id}": {
+        "get": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          }
+        }
+      },
+      "/BasketItems/": {
+        "post": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "parameters": [
+            {
+              "description": "",
+              "in": "body",
+              "name": "body",
+              "schema": {
+                "example": [
+                  {"ProductId": 6,"BasketId":"6","quantity":1},
+                  {"ProductId": 9,"BasketId":"6","quantity":1},
+                  {"ProductId": 24,"BasketId":"6","quantity":1}
+                ],
+                "properties": {
+                  "BasketId": {
+                    "description": "Integer",
+                    "pattern": "-?\\d+",
+                    "type": "string"
+                  },
+                  "ProductId": {
+                    "type": "integer"
+                  },
+                  "quantity": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "quantity",
+                  "BasketId",
+                  "ProductId"
+                ],
+                "type": "object"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          }
+        }
+      },
+      "/BasketItems/{id}": {
+        "get": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "parameters": [
+            {
+              "description": "",
+              "in": "body",
+              "name": "body",
+              "schema": {
+                "example": [
+                  {"ProductId": 6,"BasketId":"6","quantity":1},
+                  {"ProductId": 9,"BasketId":"6","quantity":1},
+                  {"ProductId": 24,"BasketId":"6","quantity":1}
+                ],
+                "properties": {
+                  "BasketId": {
+                    "description": "Integer",
+                    "pattern": "-?\\d+",
+                    "type": "string"
+                  },
+                  "ProductId": {
+                    "type": "integer"
+                  },
+                  "quantity": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "quantity",
+                  "BasketId",
+                  "ProductId"
+                ],
+                "type": "object"
+              }
+            },
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          }
+        }
+      },
+      "/Cards/{id}": {
+        "get": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          }
+        }
+      },
+      "/Cards": {
+        "get": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          }
+        }
+      },
+      "/Cards/": {  
+        "post": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          }
+        }
+      },
+      "/Challenges/": {
+        "get": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "parameters": [
+            {
+              "description": "",
+              "in": "query",
+              "name": "name",
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          }
+        }
+      },
+      "/Products/{id}": {
+        "get": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          }
+        }
+      },
+      "/Quantitys/": {
+        "get": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "parameters": [
+            
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          }
+        }
+      },
+      "/Deliverys": {
+        "get": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "parameters": [
+            
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          }
+        }
+      },
+      "/Deliverys/{id}": {
+        "get": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          }
+        }
+      },
+      "/SecurityAnswers": {
+        "post": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "parameters": [
+            {
+              "description": "",
+              "in": "body",
+              "name": "body",
+              "schema": {
+                "example": [
+                  {"UserId":22,"answer":"09/77/33","SecurityQuestionId":3}
+                ],
+                "properties": {
+                  "SecurityQuestionId": {
+                    "type": "integer"
+                  },
+                  "UserId": {
+                    "type": "integer"
+                  },
+                  "answer": {
+                    "description": "Integer",
+                    "pattern": "-?\\d+",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "UserId",
+                  "SecurityQuestionId",
+                  "answer"
+                ],
+                "type": "object"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          }
+        }
+      }
+    }
+  }

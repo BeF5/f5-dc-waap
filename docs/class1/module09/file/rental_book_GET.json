@@ -1,0 +1,1 @@
+{"swagger":"2.0","info":{"description":"","title":"","version":""},"schemes":["https","http"],"paths":{"/rental/book":{"get":{"description":"Swagger auto-generated from learnt schema","consumes":["application/json"],"responses":{"200":{"description":""}},"parameters":[]}}}}

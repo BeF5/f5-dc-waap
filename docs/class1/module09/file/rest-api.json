@@ -1,0 +1,270 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "Juice Shop REST",
+      "title": "Juice Shop REST",
+      "version": "v1"
+    },
+    "basePath": "/rest",
+    "schemes": [
+      "http",
+      "https"
+    ],
+    "paths": {
+      "/basket/{id}": {
+        "get": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          }
+        }
+      },
+      "/captcha": {
+        "get": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "parameters": [
+            
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          }
+        }
+      },
+      "/languages": {
+        "get": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "parameters": [
+            
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          }
+        }
+      },
+      "/memories": {
+        "get": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "parameters": [
+            
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          }
+        }
+      },
+      "/saveLoginIp": {
+        "get": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "parameters": [
+            
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          }
+        }
+      },
+      "/products/{id}/reviews": {
+        "get": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          }
+        },
+        "put": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          }
+        }
+      },
+      "/products/{id}": {
+        "get": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          }
+        },
+        "post": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          }
+        }
+      },
+      "/basket/{id}/checkout": {
+        "post": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          }
+        }
+      },
+      "/wallet/balance": {
+       "get": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "parameters": [
+            
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          },
+          "x-volterra-api-group":"sensitive"
+        }
+      },
+      "/track-order/{id}": {
+      "get": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          }
+        }
+      },
+      "/user/whoami": {
+      "get": {
+          "consumes": [
+            "application/json"
+          ],
+          "description": "Swagger auto-generated from learnt schema",
+          "parameters": [
+              
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          },
+          "x-volterra-api-group":"sensitive"
+        }    
+      }
+    }
+  }
