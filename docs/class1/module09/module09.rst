@@ -396,7 +396,6 @@ API Definitionで生成される、Child Objectsが表示されます。
 - 54行目 `x-volterra-api-group` でAPI Groupを指定することが可能です。この例では、 `sensitive` というAPI Groupを指定しています
 - 40行目 path `/wallet/balance` は54行目の内容により、 `sensitive` のAPI Groupとするよう指定しています
 
-
 `base-urls` の API Group を確認します。
 
 .. code-block:: json
@@ -417,7 +416,7 @@ API Definitionで生成される、Child Objectsが表示されます。
     "spec": {
       "elements": [
         
-    ** 省略 **
+      ** 省略 **
     
         {
           "methods": [
@@ -455,12 +454,12 @@ API Definitionで生成される、Child Objectsが表示されます。
         "ves.io/api-scope": "ves-io-demo-app-api-definition"
       },
      
-  ** 省略 **
+    ** 省略 **
   
     "spec": {
       "elements": [
      
-  ** 省略 **
+      ** 省略 **
   
         {
           "methods": [
@@ -488,7 +487,7 @@ API Definitionで生成される、Child Objectsが表示されます。
         "ves.io/api-scope": "ves-io-demo-app-api-definition"
       },
                   
-  ** 省略 **
+      ** 省略 **
   
     "spec": {
       "elements": [
@@ -512,26 +511,59 @@ API Definitionで生成される、Child Objectsが表示されます。
 - 3行目の通り、 `REST API Swagger File` の 54行目 `sensitive` の名称で API Group が作成されています
 - 28行目の内容を確認すると、basePath `/rest` に `REST API Swagger File` の 40行目 path を追加した内容が確認できます
 
+4. API Definition の作成
+----
 
-作成済みのHTTP Load Balancerに Malicious User Detaction & Mitigation に関連するパラメータを設定します。
+作成済みのHTTP Load Balancerに APIのAccess Control に関連するパラメータを設定します。
 HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ を参照ください
+
+本手順では、HTTP Load BalancerからAPI Definitionを定義します。
 
 画面左側 Manage欄の ``Load Balancers`` 、 ``HTTP Load Balancers`` を開き、対象のLoad Balancerを表示し画面右側に遷移します。
 
-   .. image:: ./media/dcs-edit-lb.jpg
+   .. image:: ../module05/media/dcs-edit-lb.jpg
        :width: 400
 
 すでに作成済みのオブジェクトを変更する場合、対象のオブジェクト一番右側 ``‥`` から、 ``Manage Configuration`` をクリックします
 
-   .. image:: ./media/dcs-edit-lb2.jpg
+   .. image:: ../module05/media/dcs-edit-lb2.jpg
        :width: 400
 
 設定の結果が一覧で表示されます。画面右上 ``Edit Configuration`` から設定の変更します。
 Security Configuration 欄 右上の ``Show Advanced Fields`` をクリックします。
+`API Definitions` の `Add Item` をクリックします。新規作成のため、 `Create new API Definition` をクリックします
+
+   .. image:: ./media/dcs-waap-lb-api-definition.jpg
+       :width: 400
 
 
-3. API Discovery の結果
+`Name` 欄に API Definition の `demo-app-api-definition` を入力します。
+Swagger Specs の欄に先程ImportしたSwagger FileのURLを入力します。 `Add Item` で入力欄を追加し、双方のURLを入力し、 `Continue` をクリックします
+
+   .. image:: ./media/dcs-waap-lb-api-definition2.jpg
+       :width: 400
+
+次に `Service Policies` を用いて、API の Access Control を設定します。
+`ML Config` ですが、本機能では使用しませんので、 `Single ...` から `Multi ...` と変更いただいても問題ありません。
+
+画面上部、 `Servgice Policies` で `Apply Specified Service Policies` を選択し、 `Configure` をクリックします
+
+   .. image:: ./media/dcs-waap-lb-service-policy.jpg
+       :width: 400
+
+`List of Policy` の `Select Service policy` から `Create new service policy` をクリックしてください
+
+   .. image:: ./media/dcs-waap-lb-service-policy2.jpg
+       :width: 400
+
+`Name` 欄に `demo-app-service-policy` と入力します。
+`Rules` の `Select Policy Rules` で `Custom Rule List` を選択し、 `Configure` をクリックします。
+この項目で、通信制御のRuleを複数設定します
+
+   .. image:: ./media/dcs-waap-lb-service-policy3.jpg
+       :width: 400
+
+
+4. 動作確認
 ----
 
-3. API Discovery の結果
-----

@@ -321,7 +321,7 @@ Captcha による Challenge の動作を確認します。
   JS / Captcha Challengeがクライアントに表示される動作は、各種ログ ``Security Events`` や ``Malicious Users`` に都度記録されるものではありません
 
 
-4. F5 DCS Malicious User Detection の解除
+5. F5 DCS Malicious User Detection の解除
 ====
 
 その他の機能を確認するための手順です。
