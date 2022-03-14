@@ -269,8 +269,8 @@ JSON形式の内容を貼り付ける場合、YAMLへの変換に関する確認
 
 以下をSwagger Fileのサンプルとして紹介します。必要に応じてファイルをダウンロードしてください。
 
-:download: `User API Swagger File <./file/user-api.json>`
-:download: `REST API Swagger File <./file/rest-api.json>`
+:download:`User API Swagger File <./file/user-api.json>`
+:download:`REST API Swagger File <./file/rest-api.json>`
 
 メニューより ``Web App & API Protection`` を開いてください。
 
@@ -314,11 +314,203 @@ Importが完了したSwagger FileのURL情報を取得します。このURL情�
 
 ``Web App & API Protection`` の画面左側 Manage欄、 ``API Management`` 、 ``API Definition`` を開き、作成したオブジェクト ``...`` から ``Show Child Objects`` をクリックしてください
 
-   .. image:: ./media/dcs-waap-get-swaggerurls.jpg
+   .. image:: ./media/dcs-waap-swagger-childobjects.jpg
        :width: 400
 
 API Definitionで生成される、Child Objectsが表示されます。
-今回の設定例では、このうち2つのObjectsの名称が必要となりますので、それぞれの名称をメモしてください
+今回の設定例では、2つのObjectsの名称が必要となりますので、それぞれの名称をメモしてください。
+
+   .. image:: ./media/dcs-waap-swagger-childobjects2.jpg
+       :width: 400
+
+
+次に、 :download:`REST API Swagger File <./file/rest-api.json>` の内容と生成された Child Object の内容を確認します。
+
+.. code-block:: json
+  :linenos:
+  :caption: REST API Swagger File
+  :emphasize-lines: 8,14,40,54
+
+  {
+      "swagger": "2.0",
+      "info": {
+        "description": "Juice Shop REST",
+        "title": "Juice Shop REST",
+        "version": "v1"
+      },
+      "basePath": "/rest",
+      "schemes": [
+        "http",
+        "https"
+      ],
+      "paths": {
+        "/basket/{id}": {
+          "get": {
+            "consumes": [
+              "application/json"
+            ],
+            "description": "Swagger auto-generated from learnt schema",
+            "parameters": [
+              {
+                "name": "id",
+                "in": "path",
+                "description": "ID",
+                "required": true,
+                "type": "integer",
+                "format": "int64"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": ""
+              }
+            }
+          }
+        },
+                
+        ** 省略 **
+        
+        "/wallet/balance": {
+         "get": {
+            "consumes": [
+              "application/json"
+            ],
+            "description": "Swagger auto-generated from learnt schema",
+            "parameters": [
+              
+            ],
+            "responses": {
+              "200": {
+                "description": ""
+              }
+            },
+            "x-volterra-api-group":"sensitive"
+          }
+        },
+                
+        ** 省略 **
+
+
+- 8行目 basePath `/rest` であることが確認できます
+- 14行目 path `/basket/{id}` であることが確認できます
+- 54行目 `x-volterra-api-group` でAPI Groupを指定することが可能です。この例では、 `sensitive` というAPI Groupを指定しています
+- 40行目 path `/wallet/balance` は54行目の内容により、 `sensitive` のAPI Groupとするよう指定しています
+
+
+`base-urls` の API Group を確認します。
+
+.. code-block:: json
+  :linenos:
+  :caption: API Group (ves-io-api-def-demo-app-api-definition-base-urls)
+  :emphasize-lines: 3,28      
+
+  {
+    "metadata": {
+      "name": "ves-io-api-def-demo-app-api-definition-base-urls",
+      "namespace": "h-matsumoto",
+      "labels": {
+        "ves.io/api-scope": "ves-io-demo-app-api-definition"
+      },
+        
+    ** 省略 **
+    
+    "spec": {
+      "elements": [
+        
+    ** 省略 **
+    
+        {
+          "methods": [
+            "GET",
+            "HEAD",
+            "POST",
+            "PUT",
+            "DELETE",
+            "CONNECT",
+            "OPTIONS",
+            "TRACE",
+            "PATCH"
+          ],
+          "path_regex": "^/rest/.*$"
+        }
+      ]
+    },
+     
+  ** 省略 **
+
+- 28行目の内容を確認すると、 `REST API Swagger File` の 8行目 basePath の内容が確認できます
+
+`all-operations` の API Group を確認します。
+
+.. code-block:: json
+  :linenos:
+  :caption: API Group (ves-io-api-def-demo-app-api-definition-all-operations)
+  :emphasize-lines: 3,20  
+
+  {
+    "metadata": {
+      "name": "ves-io-api-def-demo-app-api-definition-all-operations",
+      "namespace": "h-matsumoto",
+      "labels": {
+        "ves.io/api-scope": "ves-io-demo-app-api-definition"
+      },
+     
+  ** 省略 **
+  
+    "spec": {
+      "elements": [
+     
+  ** 省略 **
+  
+        {
+          "methods": [
+            "GET"
+          ],
+          "path_regex": "^/rest/basket/([\\w\\-._~%!$&'()*+,;=:]+)$"
+        }
+      ]
+    },
+     
+  ** 省略 **
+
+- 28行目の内容を確認すると、basePath `/rest` に `REST API Swagger File` の 14行目 path を追加した内容が確認できます
+
+.. code-block:: json
+  :linenos:
+  :caption: API Group (ves-io-api-def-demo-app-api-definition-sensitive)
+  :emphasize-lines: 3,17      
+
+  {
+    "metadata": {
+      "name": "ves-io-api-def-demo-app-api-definition-sensitive",
+      "namespace": "h-matsumoto",
+      "labels": {
+        "ves.io/api-scope": "ves-io-demo-app-api-definition"
+      },
+                  
+  ** 省略 **
+  
+    "spec": {
+      "elements": [
+        {
+          "methods": [
+            "GET"
+          ],
+          "path_regex": "^/rest/wallet/balance$"
+        },
+        {
+          "methods": [
+            "GET"
+          ],
+          "path_regex": "^/rest/user/whoami$"
+        }
+      ]
+    },
+                  
+  ** 省略 **
+
+- 3行目の通り、 `REST API Swagger File` の 54行目 `sensitive` の名称で API Group が作成されています
+- 28行目の内容を確認すると、basePath `/rest` に `REST API Swagger File` の 40行目 path を追加した内容が確認できます
 
 
 作成済みのHTTP Load Balancerに Malicious User Detaction & Mitigation に関連するパラメータを設定します。
