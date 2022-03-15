@@ -2,8 +2,7 @@ F5 DCS DDoS
 ####
 
 F5 DCS で DDoS について紹介します
-
-こちらの記事はマニュアルページの解説です。実際のDDoS攻撃のエミュレートが難しいため、
+こちらの記事はマニュアルページの解説です。実際のDDoS攻撃のエミュレートが難しいため解説のみを行っています。
 
 マニュアルは以下のページの ``Monitor HTTP Load Balancer > Explore Security Monitoring > DDoS`` を参照してください
 
@@ -25,15 +24,9 @@ F5 DCS WAAPはこれらの高度なセキュリティをアプリケーション
 2. DDoS の設定・確認
 ====
 
-2. Security Event の確認
-----
-
 以下の手順で Security Event を開いてください
 
    .. image:: ../module05/media/dcs-app-fw-log.jpg
-       :width: 400
-
-   .. image:: ../module05/media/dcs-app-fw-log2.jpg
        :width: 400
 
 ``DDoS`` のタブをクリックしてください。
