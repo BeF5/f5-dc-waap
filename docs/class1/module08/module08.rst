@@ -191,7 +191,7 @@ JSONの表示内容は以下のとおりです。
 その他にも多くの情報が記載されておりますので、適宜参照してください。
 
 
-2. Malicious Users の確認
+3. Malicious Users の確認
 ----
 
 Security Event は主に時系列でのイベントを表示しています。

@@ -69,7 +69,7 @@ API Discovery を設定します。
    .. image:: ./media/dcs-edit-lb-api-discovery.jpg
        :width: 400
 
-1. サンプルリクエストの送付
+2. サンプルリクエストの送付
 ----
 
 Curlコマンドによりサンプルリクエストを送付します。
@@ -325,7 +325,7 @@ API Definitionで生成される、Child Objectsが表示されます。
 ImportしたSwagger Fileと生成されたConfiguration Objectの詳細については Tips1 を参照してください
 
 
-4. API Definition の作成
+3. API Definition の作成
 ----
 
 作成済みのHTTP Load Balancerに APIのAccess Control に関連するパラメータを設定します。
