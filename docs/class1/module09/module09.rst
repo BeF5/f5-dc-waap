@@ -700,7 +700,7 @@ Tips1. Swagger File と Configuration Objectの詳細
 - 3行目の通り、 ``REST API Swagger File`` の 54行目 ``sensitive`` の名称で API Group が作成されています
 - 28行目の内容を確認すると、basePath ``/rest`` に ``REST API Swagger File`` の 40行目 path を追加した内容が確認できます
 
-5. F5 DCS API Security の解除
+4. F5 DCS API Security の解除
 ====
 
 その他の機能を確認するための手順です。
