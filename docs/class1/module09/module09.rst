@@ -492,7 +492,11 @@ Rule の作成を完了するため、 ``API Group Matcher`` 、 ``Rule`` 双方
   <h1>
   Error 403 - Forbidden
   </h1>
-      
+
+ブラウザでアクセスした場合には以下のようにエラーが確認できます
+
+   .. image:: ./media/dcs-waap-api-service-policy-browser.jpg
+       :width: 400
 
 以下リクエストは3つ目のルールに該当します。Curlコマンドでリクエストを送付し、通信が ``許可`` されることが確認できます
 
