@@ -1,4 +1,4 @@
-F5 DCS API Security (作成中)
+F5 DCS API Security 
 ####
 
 F5 DCS で API Security を利用する方法や、各種設定について紹介します
@@ -449,8 +449,60 @@ Rule の作成を完了するため、 ``API Group Matcher`` 、 ``Rule`` 双方
 
 以下のようにService Policyが作成されます。
 
+   .. image:: ./media/dcs-waap-lb-service-policy-rule2.jpg
+       :width: 400
+
+表にまとめると以下の内容となります。
+
+= ================= =======================================================
+1 demo-app-sp-rule1 ``all-operations`` の API Group に該当する通信を ``許可``
+2 demo-app-sp-rule2 ``base-urls`` の API Group に該当する通信を ``拒否``
+3 demo-app-sp-rule3 すべての通信を ``許可``
+= ================= =======================================================
+
+画面右下の ``Apply`` を複数回クリックし、設定を完了します
+
+   .. image:: ./media/dcs-waap-lb-service-policy-rule3.jpg
+       :width: 400
+
+
 4. 動作確認
 ----
+
+``all-operations`` の API Group に該当するリクエストをCurlコマンドで実施し、通信が ``許可`` されることが確認できます
+
+.. code-block:: bash
+  :linenos:
+  :caption: Curl コマンドを使った https://echoapp.f5demo.net/rest/basket/1 への接続結果  
+
+  $ curl -ks https://echoapp.f5demo.net/rest/basket/1
+  {"request":{"headers":[["host","app1.test10demo.xyz"],["user-agent","curl/7.58.0"],["accept","*/*"],["x-forwarded-for","18.178.83.1"],["x-forwarded-proto","https"],["x-envoy-external-address","18.178.83.1"],["x-request-id","33a40044-32b4-4e8e-8705-ea0e351d0c75"],["content-length","0"]],"status":0,"httpversion":"1.1","method":"GET","scheme":"http","uri":"/rest/basket/1","requestText":"","fullPath":"/rest/basket/1"},"network":{"clientPort":"49244","clientAddress":"103.135.56.118","serverAddress":"192.168.16.2","serverPort":"80"},"ssl":{"isHttps":false},"session":{"requestId":"872c2a9a09cad3dd53d61df4ce216178","connection":"7","connectionNumber":"1"},"environment":{"hostname":"echoapp"}}
+
+
+``base-urls`` の API Group に該当するリクエストをCurlコマンドで実施し、通信が ``拒否`` されることが確認できます
+
+.. code-block:: bash
+  :linenos:
+  :caption: Curl コマンドを使った https://echoapp.f5demo.net/rest/ への接続結果  
+
+  $  curl -vks https://echoapp.f5demo.net/rest/
+  
+  ** 省略 **
+  
+  <h1>
+  Error 403 - Forbidden
+  </h1>
+      
+
+以下リクエストは3つ目のルールに該当します。Curlコマンドでリクエストを送付し、通信が ``許可`` されることが確認できます
+
+.. code-block:: bash
+  :linenos:
+  :caption: Curl コマンドを使った https://echoapp.f5demo.net/others への接続結果  
+
+  $ curl -ks https://echoapp.f5demo.net/others
+  {"request":{"headers":[["host","app1.test10demo.xyz"],["user-agent","curl/7.58.0"],["accept","*/*"],["x-forwarded-for","18.178.83.1"],["x-forwarded-proto","https"],["x-envoy-external-address","18.178.83.1"],["x-request-id","31e50ded-03cd-4bb5-b514-03fea51cc18b"],["content-length","0"]],"status":0,"httpversion":"1.1","method":"GET","scheme":"http","uri":"/others","requestText":"","fullPath":"/others"},"network":{"clientPort":"33739","clientAddress":"103.135.56.106","serverAddress":"192.168.16.2","serverPort":"80"},"ssl":{"isHttps":false},"session":{"requestId":"d05e00c647ead07c37f2bb0d6aad3f69","connection":"6","connectionNumber":"1"},"environment":{"hostname":"echoapp"}}
+
 
 
 
