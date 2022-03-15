@@ -15,7 +15,6 @@ F5 DCS API Securityは、以下の特徴を備えております
 - APIスキーマとSwaggerファイルを生成し、APIエンドポイントの手動トラッキングを最小限に抑える
 - 不審なリクエストをブロックし、データ漏洩を防止
 - APIセキュリティポリシーの設定・導入にかかる時間を短縮
-- ユーザの異常な行動を分析、特定し、悪意のある攻撃をブロック
 
 F5 DCS WAAPはこれらの高度なセキュリティをアプリケーションの迅速な展開に合わせて自由にご利用いただける環境を実現します
 
@@ -699,3 +698,14 @@ Tips1. Swagger File と Configuration Objectの詳細
 
 - 3行目の通り、 ``REST API Swagger File`` の 54行目 ``sensitive`` の名称で API Group が作成されています
 - 28行目の内容を確認すると、basePath ``/rest`` に ``REST API Swagger File`` の 40行目 path を追加した内容が確認できます
+
+5. F5 DCS API Security の解除
+====
+
+その他の機能を確認するための手順です。
+
+`こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module08/module08.html#single-lb-malicious-user>`__ の手順を参考に、HTTP Load Balancerに割り当てたMalicious Userの設定を解除してください
+
+   .. image:: ./media/dcs-single-api-security-disable.jpg
+       :width: 400
+
