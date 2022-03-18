@@ -39,19 +39,36 @@ HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedoc
        :width: 400
 
 設定の結果が一覧で表示されます。画面右上 ``Edit Configuration`` から設定の変更します。 
-Security COnfiguration 欄の ``Bot Defense Config`` から設定します
+Security Configuration 欄の ``Bot Defense Config`` から設定します
+
+``Specify Bot Defense Configuration`` を選択し、 ``Bot Defense Regional Endopoint`` に ``Asia`` を選択し、その下に表示される ``Configure`` をクリックします。
 
    .. image:: ./media/dcs-edit-lb-bot.jpg
        :width: 400
 
+Protected App Endopoints の App Endpoint Type 下に表示される ``Configure`` をクリックします。
+
    .. image:: ./media/dcs-edit-lb-bot2.jpg
        :width: 400
+
+``Add Item`` をクリックします。
 
    .. image:: ./media/dcs-edit-lb-bot3.jpg
        :width: 400
 
+以下のパラメータを入力します。
+
+- 入力パラメータ
+============ =================
+name         demo-bot-endpoint
+HTTP Methods ANY
+Prefix       /
+============ =================
+
    .. image:: ./media/dcs-edit-lb-bot4.jpg
        :width: 400
+
+各種設定を反映するため、画面右下の ``Apply`` をクリックし、最後にHTTP load Balancerの ``Save and Exit`` をクリックしてください
 
    .. image:: ./media/dcs-edit-lb-bot5.jpg
        :width: 400
