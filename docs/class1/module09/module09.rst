@@ -255,13 +255,14 @@ JSON形式の内容を貼り付ける場合、YAMLへの変換に関する確認
        :width: 400
 
 
-3. Swagger File による API Group の定義
+3. Swagger File を利用した API Group による通信制御
 ====
 
 先程の手順でF5 DCSが生成したSwagger Fileを用いてAPI Groupを定義します。
 細かくAPIへの接続を制御することが可能です。
 
 マニュアルは以下のページを参照してください
+
 - `Import Swagger to Define and Control API Groups <https://docs.cloud.f5.com/docs/how-to/advanced-security/import-swagger-control-api-access>`__
 
 1. Swagger File のImport
