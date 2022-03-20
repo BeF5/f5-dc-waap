@@ -26,7 +26,7 @@ F5 DCS WAAPはこれらの高度なセキュリティをアプリケーション
 
 以下の手順で Security Event を開いてください
 
-   .. image:: ../module05/media/dcs-app-fw-log.jpg
+   .. image:: ../module06/media/dcs-app-fw-log.jpg
        :width: 400
 
 ``DDoS`` のタブをクリックしてください。

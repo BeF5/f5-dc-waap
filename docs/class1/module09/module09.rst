@@ -29,16 +29,16 @@ F5 DCS WAAPはこれらの高度なセキュリティをアプリケーション
 ----
 
 作成済みのHTTP Load Balancerに Malicious User Detaction & Mitigation に関連するパラメータを設定します。
-HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ を参照ください
+HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module04/module04.html>`__ を参照ください
 
 画面左側 Manage欄の ``Load Balancers`` 、 ``HTTP Load Balancers`` を開き、対象のLoad Balancerを表示し画面右側に遷移します。
 
-   .. image:: ../module05/media/dcs-edit-lb.jpg
+   .. image:: ../module06/media/dcs-edit-lb.jpg
        :width: 400
 
 すでに作成済みのオブジェクトを変更する場合、対象のオブジェクト一番右側 ``‥`` から、 ``Manage Configuration`` をクリックします
 
-   .. image:: ../module05/media/dcs-edit-lb2.jpg
+   .. image:: ../module06/media/dcs-edit-lb2.jpg
        :width: 400
 
 設定の結果が一覧で表示されます。画面右上 ``Edit Configuration`` から設定の変更します。
@@ -94,10 +94,10 @@ Malicious User Detection の方法を指定します。
 
 以下の手順で Security Event を開いてください
 
-   .. image:: ../module05/media/dcs-app-fw-log.jpg
+   .. image:: ../module06/media/dcs-app-fw-log.jpg
        :width: 400
 
-   .. image:: ../module05/media/dcs-app-fw-log2.jpg
+   .. image:: ../module06/media/dcs-app-fw-log2.jpg
        :width: 400
 
 最新の情報を取得するため、画面右上 ``Refresh`` をクリックしてください。
@@ -107,7 +107,7 @@ Malicious User Detection の方法を指定します。
    .. image:: ./media/dcs-malicious-user-log.jpg
        :width: 400
 
-詳細は別途 `F5 DCS WAF <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module05/module05.html>`__ を参照ください。
+詳細は別途 `F5 DCS WAF <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module06/module06.html>`__ を参照ください。
 
 画面中段の ``Malicious User Events`` が選択してください。
 下に ``Malicious User events`` の一覧が表示されていることを確認してください。
@@ -327,8 +327,59 @@ Captcha による Challenge の動作を確認します。
 
 その他の機能を確認するための手順です。
 
-`こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module08/module08.html#single-lb-malicious-user>`__ の手順を参考に、HTTP Load Balancerに割り当てたMalicious Userの設定を解除してください
+`こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module09/module09.html#single-lb-malicious-user>`__ の手順を参考に、HTTP Load Balancerに割り当てたMalicious Userの設定を解除してください
 
    .. image:: ./media/dcs-single-malicious-user-disable.jpg
        :width: 400
 
+6. Terraform を用いた HTTP Load Balancer + Malicious User Detection の作成
+====
+
+ここで紹介したHTTP load Balancer + Malicious User Detection を Terraform を使ってデプロイすることが可能です。
+
+Terraform を用いた設定の作成方法については `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ の手順を参考してください
+
+実行に必要なファイル、また実行環境に合わせたパラメータを指定してください
+
+.. code-block:: bash
+  :linenos:
+  :caption: terraform 実行前作業
+
+  $ git clone https://github.com/hiropo20/terraform-f5dcs-waap.git
+  $ cd malicious-user-detection
+
+  $ vi terraform.tfvars
+  # ** 環境に合わせて適切な内容に変更してください **
+  api_p12_file     = "**/path/to/p12file**"        // Path for p12 file downloaded from VoltConsole
+  api_url          = "https://**api url**"     // API URL for your tenant
+
+  # 本手順のサンプルで表示したパラメータの場合、以下のようになります 
+  myns             = "**your namespace**"      // Name of your namespace
+  op_name          = "demo-origin-pool"        // Name of Origin Pool
+  pool_port        = "80"                      // Port Number
+  server_name1     = "**your target fqdn1**"   // Target Server FQDN1
+  server_name2     = "**your target fqdn1**"   // Target Server FQDN2
+  httplb_name      = "demo-echo-lb"            // Name of HTTP LoadBalancer
+  mydomain         = ["echoapp.f5demo.net"]    // Domain name to be exposed
+  
+  cert             = "string///**base 64 encode SSL Certificate**"  // SSL Certificate for HTTPS access
+  private_key      = "string///**base 64 encode SSL Private Key**"  // SSL Private Key for HTTPS access
+
+  // WAF Parameter
+  waf_name         = "demo-app-fw"            // Name of App Firewall
+
+以下コマンドを参考に実行および削除をしてください。
+
+.. code-block:: bash
+  :linenos:
+  :caption: terraform の実行・削除
+
+  # 実行前事前作業
+  $ terraform init
+  $ terraform plan
+
+  # 設定のデプロイ
+  $ terraform apply
+
+  # 設定の削除
+  $ terraform destroy

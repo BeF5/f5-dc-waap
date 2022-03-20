@@ -47,16 +47,16 @@ PDF (Probability Distribution Function) | API EPの通信に関するメトリ�
 ----
 
 作成済みのHTTP Load Balancerに Malicious User Detaction & Mitigation に関連するパラメータを設定します。
-HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ を参照ください
+HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module04/module04.html>`__ を参照ください
 
 画面左側 Manage欄の ``Load Balancers`` 、 ``HTTP Load Balancers`` を開き、対象のLoad Balancerを表示し画面右側に遷移します。
 
-   .. image:: ../module05/media/dcs-edit-lb.jpg
+   .. image:: ../module06/media/dcs-edit-lb.jpg
        :width: 400
 
 すでに作成済みのオブジェクトを変更する場合、対象のオブジェクト一番右側 ``‥`` から、 ``Manage Configuration`` をクリックします
 
-   .. image:: ../module05/media/dcs-edit-lb2.jpg
+   .. image:: ../module06/media/dcs-edit-lb2.jpg
        :width: 400
 
 設定の結果が一覧で表示されます。画面右上 ``Edit Configuration`` から設定の変更します。
@@ -337,12 +337,12 @@ HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedoc
 
 画面左側 Manage欄の ``Load Balancers`` 、 ``HTTP Load Balancers`` を開き、対象のLoad Balancerを表示し画面右側に遷移します。
 
-   .. image:: ../module05/media/dcs-edit-lb.jpg
+   .. image:: ../module06/media/dcs-edit-lb.jpg
        :width: 400
 
 すでに作成済みのオブジェクトを変更する場合、対象のオブジェクト一番右側 ``‥`` から、 ``Manage Configuration`` をクリックします
 
-   .. image:: ../module05/media/dcs-edit-lb2.jpg
+   .. image:: ../module06/media/dcs-edit-lb2.jpg
        :width: 400
 
 設定の結果が一覧で表示されます。画面右上 ``Edit Configuration`` から設定の変更します。
@@ -706,8 +706,135 @@ Tips1. Swagger File と Configuration Objectの詳細
 
 その他の機能を確認するための手順です。
 
-`こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module08/module08.html#single-lb-malicious-user>`__ の手順を参考に、HTTP Load Balancerに割り当てたMalicious Userの設定を解除してください
+`こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module09/module09.html#single-lb-malicious-user>`__ の手順を参考に、HTTP Load Balancerに割り当てたMalicious Userの設定を解除してください
 
    .. image:: ./media/dcs-single-api-security-disable.jpg
        :width: 400
 
+
+5. Terraform を用いた HTTP Load Balancer + API Discovery の作成
+====
+
+ここで紹介したHTTP load Balancer + API Discovery を Terraform を使ってデプロイすることが可能です。
+
+Terraform を用いた設定の作成方法については `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ の手順を参考してください
+
+実行に必要なファイル、また実行環境に合わせたパラメータを指定してください
+
+.. code-block:: bash
+  :linenos:
+  :caption: terraform 実行前作業
+
+  $ git clone https://github.com/hiropo20/terraform-f5dcs-waap.git
+  $ cd api-discovery
+
+  $ vi terraform.tfvars
+  # ** 環境に合わせて適切な内容に変更してください **
+  api_p12_file     = "**/path/to/p12file**"        // Path for p12 file downloaded from VoltConsole
+  api_url          = "https://**api url**"     // API URL for your tenant
+
+  # 本手順のサンプルで表示したパラメータの場合、以下のようになります 
+  myns             = "**your namespace**"      // Name of your namespace
+  op_name          = "demo-origin-pool"        // Name of Origin Pool
+  pool_port        = "80"                      // Port Number
+  server_name1     = "**your target fqdn1**"   // Target Server FQDN1
+  server_name2     = "**your target fqdn1**"   // Target Server FQDN2
+  httplb_name      = "demo-echo-lb"            // Name of HTTP LoadBalancer
+  mydomain         = ["echoapp.f5demo.net"]    // Domain name to be exposed
+  
+  cert             = "string///**base 64 encode SSL Certificate**"  // SSL Certificate for HTTPS access
+  private_key      = "string///**base 64 encode SSL Private Key**"  // SSL Private Key for HTTPS access
+
+以下コマンドを参考に実行および削除をしてください。
+
+.. code-block:: bash
+  :linenos:
+  :caption: terraform の実行・削除
+
+  # 実行前事前作業
+  $ terraform init
+  $ terraform plan
+
+  # 設定のデプロイ
+  $ terraform apply
+
+  # 設定の削除
+  $ terraform destroy
+
+6. Terraform を用いた HTTP Load Balancer + API Definitionを用いた通信制御 の作成
+====
+
+ここで紹介したHTTP load Balancer + API Definitionを用いた通信制御 を Terraform を使ってデプロイすることが可能です。
+
+Terraform を用いた設定の作成方法については `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ の手順を参考してください
+
+Swagger FileのImport及び、API DefinitionはコンソールよりGUIで設定する必要があります。
+`こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module10/module10.html#swagger-file-api-group>`__ の手順に従って操作をしてください。
+``3. API Definition の作成`` のマニュアルはHTTP load Balancerから設定する手順としていますが、個別に作成する場合には以下手順に従って、 ``API Definition`` を作成してください
+
+
+メニューより ``Web App & API Protection`` を開いてください。
+
+   .. image:: ./media/dcs-console-waap.jpg
+       :width: 400
+
+画面左側 Manage欄の ``API Management`` 、 ``API Definition`` を開き、 ``Add API Definition`` より新規作成してください
+
+   .. image:: ./media/dcs-console-waap.jpg
+       :width: 400
+
+``Name`` 欄に API Definition の ``demo-app-api-definition`` を入力します。
+Swagger Specs の欄に先程ImportしたSwagger FileのURLを入力します。 ``Add Item`` で入力欄を追加し、双方のURLを入力し、 ``Continue`` をクリックします
+
+   .. image:: ./media/dcs-waap-lb-api-definition2.jpg
+       :width: 400
+
+.. NOTE::
+  Terraform のサンプルファイルは、API Definition の名称が ``demo-app-api-definition`` という想定となっております。
+  API Definition の名称が異なる場合、生成されるChild Objectの名称も異なるため、 ``all-operations`` 、 ``base-urls`` 等に関連する名称を適切に変更してください。
+
+
+実行に必要なファイル、また実行環境に合わせたパラメータを指定してください
+
+.. code-block:: bash
+  :linenos:
+  :caption: terraform 実行前作業
+
+  $ git clone https://github.com/hiropo20/terraform-f5dcs-waap.git
+  $ cd api-control
+
+  $ vi terraform.tfvars
+  # ** 環境に合わせて適切な内容に変更してください **
+  api_p12_file     = "**/path/to/p12file**"        // Path for p12 file downloaded from VoltConsole
+  api_url          = "https://**api url**"     // API URL for your tenant
+
+  # 本手順のサンプルで表示したパラメータの場合、以下のようになります 
+  myns             = "**your namespace**"      // Name of your namespace
+  op_name          = "demo-origin-pool"        // Name of Origin Pool
+  pool_port        = "80"                      // Port Number
+  server_name1     = "**your target fqdn1**"   // Target Server FQDN1
+  server_name2     = "**your target fqdn1**"   // Target Server FQDN2
+  httplb_name      = "demo-echo-lb"            // Name of HTTP LoadBalancer
+  mydomain         = ["echoapp.f5demo.net"]    // Domain name to be exposed
+  
+  cert             = "string///**base 64 encode SSL Certificate**"  // SSL Certificate for HTTPS access
+  private_key      = "string///**base 64 encode SSL Private Key**"  // SSL Private Key for HTTPS access
+
+  // Service Policy Parameter
+  sp_name          = "demo-app-service-policy"
+
+以下コマンドを参考に実行および削除をしてください。
+
+.. code-block:: bash
+  :linenos:
+  :caption: terraform の実行・削除
+
+  # 実行前事前作業
+  $ terraform init
+  $ terraform plan
+
+  # 設定のデプロイ
+  $ terraform apply
+
+  # 設定の削除
+  $ terraform destroy

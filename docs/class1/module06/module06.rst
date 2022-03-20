@@ -95,7 +95,7 @@ App Firewall で表示される主要な項目について説明します。実�
 ----
 
 作成済みのHTTP Load Balancerに作成した App Firewall Policyを割り当てます
-HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ を参照ください
+HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module04/module04.html>`__ を参照ください
 
 
 画面左側 Manage欄の ``Load Balancers`` 、 ``HTTP Load Balancers`` を開き、対象のLoad Balancerを表示し画面右側に遷移します。
@@ -1164,8 +1164,59 @@ Content-Type application/json
 
 その他の機能を確認するための手順です。
 
-`こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module05/module05.html#http-load-balancer-app-firewall-policy>`__ の手順を参考に、HTTP Load Balancerに割り当てたApp FirewallのPolicyを解除してください
+`こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module06/module06.html#http-load-balancer-app-firewall-policy>`__ の手順を参考に、HTTP Load Balancerに割り当てたApp FirewallのPolicyを解除してください
 
    .. image:: ./media/dcs-app-fw-detach.jpg
        :width: 400
 
+4. Terraform を用いた HTTP Load Balancer + WAF の作成
+====
+
+ここで紹介したHTTP load Balancer + WAF を Terraform を使ってデプロイすることが可能です。
+
+Terraform を用いた設定の作成方法については `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ の手順を参考してください
+
+実行に必要なファイル、また実行環境に合わせたパラメータを指定してください
+
+.. code-block:: bash
+  :linenos:
+  :caption: terraform 実行前作業
+
+  $ git clone https://github.com/hiropo20/terraform-f5dcs-waap.git
+  $ cd waf
+
+  $ vi terraform.tfvars
+  # ** 環境に合わせて適切な内容に変更してください **
+  api_p12_file     = "**/path/to/p12file**"        // Path for p12 file downloaded from VoltConsole
+  api_url          = "https://**api url**"     // API URL for your tenant
+
+  # 本手順のサンプルで表示したパラメータの場合、以下のようになります 
+  myns             = "**your namespace**"      // Name of your namespace
+  op_name          = "demo-origin-pool"        // Name of Origin Pool
+  pool_port        = "80"                      // Port Number
+  server_name1     = "**your target fqdn1**"   // Target Server FQDN1
+  server_name2     = "**your target fqdn1**"   // Target Server FQDN2
+  httplb_name      = "demo-echo-lb"            // Name of HTTP LoadBalancer
+  mydomain         = ["echoapp.f5demo.net"]    // Domain name to be exposed
+  
+  cert             = "string///**base 64 encode SSL Certificate**"  // SSL Certificate for HTTPS access
+  private_key      = "string///**base 64 encode SSL Private Key**"  // SSL Private Key for HTTPS access
+
+  // WAF Parameter
+  waf_name         = "demo-app-fw"            // Name of App Firewall
+
+以下コマンドを参考に実行および削除をしてください。
+
+.. code-block:: bash
+  :linenos:
+  :caption: terraform の実行・削除
+
+  # 実行前事前作業
+  $ terraform init
+  $ terraform plan
+
+  # 設定のデプロイ
+  $ terraform apply
+
+  # 設定の削除
+  $ terraform destroy
