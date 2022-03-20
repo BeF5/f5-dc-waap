@@ -157,7 +157,7 @@ Terraform の動作確認
 Terraform の動作確認
 ----
 
-terraform init を実行します。初回実行時、6-8行目に示す通り、Providerが取得されます
+``terraform init`` を実行します。初回実行時、6-8行目に示す通り、Providerが取得されます
 
 .. code-block:: bash
   :linenos:
