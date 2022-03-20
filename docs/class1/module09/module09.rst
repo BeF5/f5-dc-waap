@@ -45,7 +45,7 @@ HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedoc
 Security Configuration 欄 右上の ``Show Advanced Fields`` をクリックします。
 
 動作確認するクライアントの通信を Malicious User として判定するため、App Firewallを用いて通信をブロックします。
-以前作成した App Firewall のポリシーを割り当てます。（App Firewallの操作手順は `F5 DCS WAF <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module05/module05.html>`__ を参照してください。
+以前作成した App Firewall のポリシーを割り当てます。（App Firewallの操作手順は `F5 DCS WAF <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module06/module06.html>`__ を参照してください。
 
    .. image:: ./media/dcs-edit-lb-malicious-user-waf.jpg
        :width: 400
@@ -325,7 +325,7 @@ Captcha による Challenge の動作を確認します。
 5. F5 DCS Malicious User Detection の解除
 ====
 
-その他の機能を確認するための手順です。
+その他の機能を確認するため設定を解除する手順です。
 
 `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module09/module09.html#single-lb-malicious-user>`__ の手順を参考に、HTTP Load Balancerに割り当てたMalicious Userの設定を解除してください
 
@@ -367,6 +367,31 @@ Terraform を用いた設定の作成方法については `こちら <https://f
 
   // WAF Parameter
   waf_name         = "demo-app-fw"            // Name of App Firewall
+
+Terraform でオブジェクトを作成すると、Malicious User Detectionの動作を確認できます。
+その他、本資料で紹介した、JS/Captcha Challenge について確認をしたい場合、以下の内容を参考に ``main.tf`` を修正してください。
+
+.. code-block:: bash
+  :linenos:
+  :caption: main.tf JS/Captch Challenge に関する内容
+  :emphasize-lines: 12-14
+
+  // Manage HTTP LoadBalancer
+  resource "volterra_http_loadbalancer" "example" {
+    name                            = var.httplb_name
+    namespace                       = var.myns
+    domains                         = var.mydomain
+    advertise_on_public_default_vip = true
+    // no_challenge                    = true
+    policy_based_challenge {
+      default_js_challenge_parameters      = true
+      default_captcha_challenge_parameters = true
+      default_mitigation_settings          = true
+      no_challenge                         = true     // JS/Captcha Challenge を利用する場合、こちらをコメントアウトしてください
+      // always_enable_js_challenge           = true  // JS Challenge を利用する場合、こちらの行を有効にしてください
+      // always_enable_captcha_challenge      = true  // Captcha Challenge を利用する場合、こちらの行を有効にしてください
+    }
+
 
 以下コマンドを参考に実行および削除をしてください。
 

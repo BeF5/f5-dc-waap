@@ -177,7 +177,7 @@ URL Path を階層(Segment)毎に表示しており、各APIのEPが表示され
 
 Swagger Fileのサンプルは以下です
 
-:download: `API Discovery Sample Swagger File <./file/ves-io-http-loadbalancer-demo-echo-lb.json>`
+- :download:`API Discovery Sample Swagger File <./file/ves-io-http-loadbalancer-demo-echo-lb.json>`
 
 
 各APIのEPの項目は以下を示します
@@ -223,7 +223,7 @@ Swagger タブを開くと、対象のAPI EPの構成情報をSwagger Fileとし
 
 Swagger Fileのサンプルは以下です
 
-:download: `特定API EP Sample Swagger File <./file/rental_book_GET.json>`
+- :download:`特定API EP Sample Swagger File <./file/rental_book_GET.json>`
 
 
 画面上部の ``Table`` を選択すると、表敬式で情報を確認することができます。
@@ -704,9 +704,7 @@ Tips1. Swagger File と Configuration Objectの詳細
 4. F5 DCS API Security の解除
 ====
 
-その他の機能を確認するための手順です。
-
-`こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module09/module09.html#single-lb-malicious-user>`__ の手順を参考に、HTTP Load Balancerに割り当てたMalicious Userの設定を解除してください
+その他の機能を確認するため設定を解除する手順です。HTTP Load Balancerに割り当てたAPI Security に関連する設定を解除してください
 
    .. image:: ./media/dcs-single-api-security-disable.jpg
        :width: 400
