@@ -1,7 +1,18 @@
 F5 DCS WAAP 構成と事前作業
 ####
 
-1. F5 DCS WAAPの構成
+1. F5 DCS WAAP を設定する方法
+====
+
+F5 DCS WAAP は以下の方法で設定することが可能です
+
+- コンソール画面からGUIで操作し、オブジェクトの作成
+- Terraform Provider を利用したオブジェクトの作成
+- API を利用したオブジェクトの作成
+
+用途に合わせてご利用ください
+
+2. F5 DCS WAAPの構成
 ====
 
 F5 DCS WAAPの構成について紹介します。
@@ -30,7 +41,7 @@ HTTP Load Balancerの外部で定義された 設定オブジェクト は同一
    .. image:: ./media/dcs-waap-objects.JPG
        :width: 600
 
-2. Namespaceの作成
+3. Namespaceの作成
 ====
 
 本ラボで利用する ``Namespace`` を別に作成する場合、新規に作成頂くことが可能です。
