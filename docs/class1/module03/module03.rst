@@ -157,12 +157,12 @@ Terraform の動作確認
 Terraform の動作確認
 ----
 
-terraform init を実行します。初回実行時、5-7行目に示す通り、Providerが取得されます
+terraform init を実行します。初回実行時、6-8行目に示す通り、Providerが取得されます
 
 .. code-block:: bash
   :linenos:
   :caption: terraform initの実行結果
-  :emphasize-lines: 5-7
+  :emphasize-lines: 6-8
 
   $ terraform init
   
@@ -193,12 +193,11 @@ terraform init を実行します。初回実行時、5-7行目に示す通り�
   commands will detect it and remind you to do so if necessary.
 
 
-terraform plan を実行します
+``terraform plan`` を実行します
 
 .. code-block:: bash
   :linenos:
   :caption: terraform planの実行結果
-  :emphasize-lines: 8
 
   $ terraform plan
   
@@ -233,7 +232,7 @@ terraform plan を実行します
   Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform
   apply" now.
 
-terraform apply を実行し、設定を反映します。
+``terraform apply`` を実行し、設定を反映します。
 
 .. code-block:: bash
   :linenos:
@@ -284,8 +283,7 @@ Applyが完了しました。コンソールを開き、正しくオブジェク
    .. image:: ./media/dcs-terraform-apply-dummy.jpg
        :width: 400
 
-terraform destroy を実行し、設定を削除します
-
+``terraform destroy`` を実行し、設定を削除します
 
 .. code-block:: bash
   :linenos:
