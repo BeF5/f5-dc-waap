@@ -24,7 +24,7 @@ F5 DCS WAAPはこれらの高度なセキュリティをアプリケーション
 1. Bot Defence Config の設定
 ----
 
-作成済みのHTTP Load Balancerに Bot Defence Config を設定します
+作成済みのHTTP Load Balancerに Bot Defence Config を設定します。
 HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module04/module04.html>`__ を参照ください
 
 
