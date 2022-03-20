@@ -159,7 +159,10 @@ Origin Poolの選択画面が表示されます。これから新規にOrigin Po
    .. image:: ./media/dcs-lb-done.jpg
        :width: 400
 
-3. クライアントのhostsファイルを変更
+2. 動作確認
+====
+
+1. クライアントのhostsファイルを変更
 ----
 
 設定したHTTPSサイトに接続するため、クライアントのhostsファイルを変更します
@@ -189,7 +192,7 @@ CNAME欄に指定されたFQDNのアドレスをDNSサーバで解決し、IPア
   72.19.3.189 echoapp.f5demo.net
 
 
-4. クライアントから動作確認
+2. クライアントから動作確認
 ----
 
 ブラウザから ``https://echoapp.f5demo.net`` へアクセスします。後ほど、コンソールから接続結果を確認するため複数回アクセスしてください
@@ -197,7 +200,7 @@ CNAME欄に指定されたFQDNのアドレスをDNSサーバで解決し、IPア
    .. image:: ./media/dcs-sample-access.jpg
        :width: 400
 
-5. 接続結果の確認
+3. 接続結果の確認
 ----
 
 接続結果を確認します。
@@ -228,3 +231,30 @@ CNAME欄に指定されたFQDNのアドレスをDNSサーバで解決し、IPア
 
    .. image:: ./media/dcs-lb-mesh2.jpg
        :width: 400
+
+2. Terraform で HTTP Load Balancer の作成
+====
+
+ここで紹介したHTTP load Balancer を Terraform を使ってデプロイすることが可能です。
+
+Terraform を用いた設定の作成方法については `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ の手順を参考してください
+
+.. code-block:: bash
+  :linenos:
+  :caption: terraform initの実行
+
+  $ git clone https://github.com/hiropo20/terraform-f5dcs-waap.git
+  $ cd http-load-balancer
+
+  $ vi terraform.tfvars
+  ** 環境に合わせて適切な内容に変更してください **
+  
+  # 実行前事前作業
+  $ terraform init
+  $ terraform plan
+
+  # 設定のデプロイ
+  $ terraform apply
+
+  # 設定の削除
+  $ terraform destroy
