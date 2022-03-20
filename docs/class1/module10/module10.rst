@@ -780,7 +780,7 @@ Swagger FileのImport及び、API DefinitionはコンソールよりGUIで設定
 
 画面左側 Manage欄の ``API Management`` 、 ``API Definition`` を開き、 ``Add API Definition`` より新規作成してください
 
-   .. image:: ./media/dcs-console-waap.jpg
+   .. image:: ./media/dcs-waap-api-definition.jpg
        :width: 400
 
 ``Name`` 欄に API Definition の ``demo-app-api-definition`` を入力します。
