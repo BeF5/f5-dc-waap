@@ -1,7 +1,7 @@
-F5 DCS WAAP Terraform の利用
+F5 DCS WAAP Terraform/API の事前準備
 ####
 
-F5 DCS WAAP に関連する Terraform/API の事前準備
+F5 DCS WAAP を操作するために必要な Terraform/API の事前準備
 ====
 
 この章では、F5 DCS WAAP に関連するTerraform/APIの情報を紹介します
