@@ -1,56 +1,12 @@
 F5 DCS WAAP Terraform の利用
 ####
 
-F5 DCS WAAP に関連する Terraform の情報について
+F5 DCS WAAP に関連する Terraform/API の事前準備
 ====
 
-この章では、F5 DCS WAAP に関連するTerraformの情報を紹介します
+この章では、F5 DCS WAAP に関連するTerraform/APIの情報を紹介します
 
-Terraform ドキュメント
-----
-
-F5 DCS WAAP の Terraform は以下ドキュメントで紹介されています
-
-- `Terraform F5 DCS <https://registry.terraform.io/namespaces/volterraedge>`__ 
-
-画面右上の ``Documentation`` を開いてください
-
-   .. image:: ./media/terraform-volterra.jpg
-       :width: 400
-
-利用の開始は記事中の内容に従って操作してください。
-また、画面左側から Provider が提供する各種機能を参照できます
-
-   .. image:: ./media/terraform-volterra2.jpg
-       :width: 400
-
-F5 DCS WAAP で Terraform を利用する方法
-====
-
-F5 DCS WAAP Terraform Provider
-----
-
-Provider を利用する際、に以下を記述します
-
-.. code-block:: bash
-  :linenos:
-  :caption: F5 DCS Provider を利用する方法
-
-  provider "volterra" {
-    api_p12_file     = "/path/to/api_credential.p12"
-    url              = "https://<tenant_name>.console.ves.volterra.io/api"
-  }
-
-以下パラメータを指定します。
-
-============= ==== ==================================================
-api_p12_file  `-`  APIの認証情報として用いる、P12のファイルのPath情報
-url           必須 F5 DCS の API Endopoint を示すURL
-============= ==== ==================================================
-
-その他詳細についてはマニュアルの内容を参照してください。
-
-Terraform で利用する API 証明書の取得
+Terraform/API で利用する証明書の取得
 ----
 
 Terraformを実行するホストでAPIに接続するための証明書が必要となります。証明書の作成方法を示します。
@@ -76,6 +32,32 @@ Personal Management の ``Credentials`` を開き、上部に表示される ``C
 
 入力後、画面最下部の ``Download`` をクリックします。ポップアップでファイルのダウンロードを求められますので適当な場所に APIに用いる証明書を保存してください
 
+F5 DCS WAAP で Terraform を利用する方法
+====
+
+Terraform ドキュメント
+----
+
+F5 DCS WAAP の Terraform は以下ドキュメントで紹介されています
+
+- `Terraform F5 DCS <https://registry.terraform.io/namespaces/volterraedge>`__ 
+
+画面右上の ``Documentation`` を開いてください
+
+   .. image:: ./media/terraform-volterra.jpg
+       :width: 400
+
+利用の開始は記事中の内容に従って操作してください。
+また、画面左側から Provider が提供する各種機能を参照できます
+
+   .. image:: ./media/terraform-volterra2.jpg
+       :width: 400
+
+Terraform 証明書の利用
+----
+
+先述の手順で取得した証明書を、Terraformを実行するホストに保存し、Path情報をメモします。
+
 こちらの証明書を利用する際、Terraformは環境変数の ``VES_P12_PASSWORD`` の値が、作成した証明書の値と一致する必要があります。実行する環境に合わせて環境変数を設定してください。以下はUbuntuの環境でbashの環境変数として指定する例です
 
 .. code-block:: bash
@@ -84,11 +66,33 @@ Personal Management の ``Credentials`` を開き、上部に表示される ``C
 
   $ export VES_P12_PASSWORD=**password-string**
 
+F5 DCS WAAP Terraform Provider
+----
+
+Provider を利用する際、Terraformで以下ように記述します
+
+.. code-block:: bash
+  :linenos:
+  :caption: F5 DCS Provider を利用する方法
+
+  provider "volterra" {
+    api_p12_file     = "/path/to/api_credential.p12"
+    url              = "https://<tenant_name>.console.ves.volterra.io/api"
+  }
+
+パラメータとして以下を指定します。
+
+============= ==== ==================================================
+api_p12_file  `-`  APIの認証情報として用いる、P12のファイルのPath情報
+url           必須 F5 DCS の API Endopoint を示すURL
+============= ==== ==================================================
+
+その他詳細についてはマニュアルの内容を参照してください。
+
 必要なパッケージの確認
 ----
 
-F5 DCS が提供するため Terraform と Go言語 のパッケージが必要となります。 
-本書作成時点のの対応バージョンは以下となります。
+F5 DCS Terraform の本書作成時点の対応バージョンは以下となります。
 
 - Terraform >= 0.13.x
 
@@ -119,7 +123,7 @@ Terraform の動作確認
 
 .. code-block:: bash
   :linenos:
-  :caption: terraform initの実行結果
+  :caption: test.tf の修正
   :emphasize-lines: 13,14,20
 
   $ vi test.tf
@@ -154,8 +158,6 @@ Terraform の動作確認
   }
 
 
-Terraform の動作確認
-----
 
 ``terraform init`` を実行します。初回実行時、6-8行目に示す通り、Providerが取得されます
 
