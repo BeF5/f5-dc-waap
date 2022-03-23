@@ -847,15 +847,19 @@ API の利用方法については `こちら <https://f5j-dc-waap.readthedocs.i
 以下マニュアルを参考に、パラメータを指定して実行してください。
 
 - Service Policy
+
   - `API for service_policy <https://docs.cloud.f5.com/docs/api/service-policy>`__
   - `Example of creating service_policy <https://docs.cloud.f5.com/docs/reference/api-ref/ves-io-schema-service_policy-api-create>`__
+
     - ページ中段 ``Request using curl`` をご覧ください
 
 作成したオブジェクトを適宜HTTP Load Balancerから参照してください
 
 - HTTP Load Balancer
+
   - `API for http_loadbalancer <https://docs.cloud.f5.com/docs/api/views-http-loadbalancer>`__
   - `Example of creating http_loadbalancer <https://docs.cloud.f5.com/docs/reference/api-ref/ves-io-schema-views-http_loadbalancer-api-create>`__
+
     - ページ中段 ``Request using curl`` をご覧ください
 
 送付するJSON データの書式は実際に作成したコンフィグのJSONデータからも確認をいただけます。合わせてご確認ください
