@@ -301,4 +301,4 @@ API の利用方法については `こちら <https://f5j-dc-waap.readthedocs.i
   - `Example of creating http_loadbalancer <https://docs.cloud.f5.com/docs/reference/api-ref/ves-io-schema-views-http_loadbalancer-api-create>`__
     - ページ中段 ``Request using curl`` をご覧ください
 
-送付するJSON Objectは実際に作成したコンフィグのJSONデータからも確認をいただけます。合わせてご確認ください
+送付するJSON データの書式は実際に作成したコンフィグのJSONデータからも確認をいただけます。合わせてご確認ください
