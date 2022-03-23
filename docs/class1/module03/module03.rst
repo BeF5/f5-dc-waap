@@ -346,8 +346,8 @@ Applyが完了しました。コンソールを開き、正しくオブジェク
   }
   
   provider "volterra" {
-    api_p12_file = "/home/ubuntu/f5-apac-ent.console.ves.volterra.io.api-creds.p12"
-    url          = "https://f5-apac-ent.console.ves.volterra.io/api"
+    api_p12_file = "**/path/to/api_credential.p12-file**"
+    url          = "https://**tenant_name**.console.ves.volterra.io/api"
   }
   
   // example: create healthcheck object
@@ -373,6 +373,65 @@ Applyが完了しました。コンソールを開き、正しくオブジェク
 
 
 Terraformを使って正しく、追加、削除が出来ることが確認できました
+
+
+
+F5 DCS WAAP で API を利用する方法
+====
+
+API ドキュメント
+----
+
+F5 DCS WAAP の API は以下ドキュメントで紹介されています
+
+- `F5 Distributed Cloud Services API <https://docs.cloud.f5.com/docs/api>`__ 
+
+APIのEndpointは以下の内容で指定いただくことが可能です。
+
+.. code-block:: bash
+  :linenos:
+  :caption: 環境変数の指定
+
+  **METHOD**  https://**tenant_name**.console.ves.volterra.io/api/**service_prefix**/namespaces/**namespace**/
+
+各要素は以下の通りです。
+
+ ============== ==========================================================================
+ METHOD         実行するHTTP Method。GET / PUT / POST / DELETE 等 用途に合わせて指定する
+ tenant_name    APIの対象となるTenant名
+ service_prefix 対象となるサービスの名称。以下が主要なPrefix。詳細は各API Documentを参照のこと
+                ・/api/config/  - 設定オブジェクトに対するCRUD操作
+                ・/api/data/    - モニタリング等アナリティクス用途
+                ・/api/ml/data/ - Machine Learningに関する情報取得用途
+                ・/api/waf/     - WAFの管理用途
+ namespace      対象となるネームスペースの名称
+ ============== ==========================================================================
+
+API 証明書の利用
+----
+
+先述の手順で取得した証明書を、APIで参照し利用します。
+証明書の利用方法や、オプション、APIクライアントが対応する証明書の形式などは適宜マニュアルを参照してください。
+
+Curlコマンドで実行する場合のサンプルを以下に示します
+
+.. code-block:: bash
+  :linenos:
+  :caption: Curlコマンドを利用した Object の作成サンプル
+
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/http_loadbalancers \
+         --cert **/path/to/api_credential.p12-file** \
+         --cert-type P12 \
+         -X POST \
+         -d @**OBJECT-CONFIGURATION-JSON**.json
+
+- ``1行目`` : URLで対象となるテナント、Namespaceを指定しています
+- ``2行目`` : 利用するP12ファイルのPATHを指定しています
+- ``3行目`` : 証明書タイプをP12と指定しています
+- ``4行目`` : 新規作成のため、POST Methodを指定しています
+- ``5行目`` : 対象となるサービスで作成するオブジェクトの設定内容をJSONで送付します
+
+要件に応じてMethodやパラメータを変更することで、設定の追加、変更、削除、ステータスの確認などを行うことが可能です
 
 Tips1. Terraform Provider の利用・調査方法について
 ====
