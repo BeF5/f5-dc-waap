@@ -61,3 +61,19 @@ Personal Management の ``My Namespaces`` を開き、上部に表示される `
 
    .. image:: ./media/dcs-waap-add-namespace2.JPG
        :width: 400
+
+3. Tenant ID等の確認
+====
+
+ご利用されるアカウントのテナントID等の情報は以下の手順でご確認いただけます。
+それぞれの情報はTerraform/APIなどで利用いたします。利用の際にはこちらの項目をご確認ください。
+
+F5 DCS のコンソールを開き、 ``Administration`` を開きます
+
+   .. image:: ./media/dcs-console-administration.JPG
+       :width: 400
+
+画面左側 ``Tenant Settings`` の ``Tenant Overview`` を開き、画面に表示される内容を確認してください。
+
+   .. image:: ./media/dcs-administration-tenant-information.jpg
+       :width: 400

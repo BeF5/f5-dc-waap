@@ -397,7 +397,8 @@ APIのEndpointは以下の内容で指定いただくことが可能です。
 
  ============== ==========================================================================
  METHOD         実行するHTTP Method。GET / PUT / POST / DELETE 等 用途に合わせて指定する
- tenant_name    APIの対象となるTenant名
+ tenant_name    APIの対象となるTenant名。
+                `Tenant Information <>`__ のCompany Nameに記載の文字列
  service_prefix | 対象となるサービスの名称。以下が主要なPrefix。詳細は各API Documentを参照のこと
                 | ・ ``/api/config/``  - 設定オブジェクトに対するCRUD操作
                 | ・ ``/api/data/``    - モニタリング等アナリティクス用途
