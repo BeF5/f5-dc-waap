@@ -292,12 +292,16 @@ API の利用方法については `こちら <https://f5j-dc-waap.readthedocs.i
 以下マニュアルを参考に、パラメータを指定して実行してください。
 
 - Origin Pool
+
   - `API for origin_pool <https://docs.cloud.f5.com/docs/api/views-origin-pool>`__
   - `Example of creating origin_pool <https://docs.cloud.f5.com/docs/reference/api-ref/ves-io-schema-views-origin_pool-api-create>`__
+
     - ページ中段 ``Request using curl`` をご覧ください
 
 - HTTP Load Balancer
+
   - `API for http_loadbalancer <https://docs.cloud.f5.com/docs/api/views-http-loadbalancer>`__
+
   - `Example of creating http_loadbalancer <https://docs.cloud.f5.com/docs/reference/api-ref/ves-io-schema-views-http_loadbalancer-api-create>`__
     - ページ中段 ``Request using curl`` をご覧ください
 
