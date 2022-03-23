@@ -389,7 +389,6 @@ F5 DCS WAAP の API は以下ドキュメントで紹介されています
 APIのEndpointは以下の内容で指定いただくことが可能です。
 
 .. code-block:: bash
-  :linenos:
   :caption: 環境変数の指定
 
   **METHOD**  https://**tenant_name**.console.ves.volterra.io/api/**service_prefix**/namespaces/**namespace**/
@@ -399,11 +398,11 @@ APIのEndpointは以下の内容で指定いただくことが可能です。
  ============== ==========================================================================
  METHOD         実行するHTTP Method。GET / PUT / POST / DELETE 等 用途に合わせて指定する
  tenant_name    APIの対象となるTenant名
- service_prefix 対象となるサービスの名称。以下が主要なPrefix。詳細は各API Documentを参照のこと
-                ・/api/config/  - 設定オブジェクトに対するCRUD操作
-                ・/api/data/    - モニタリング等アナリティクス用途
-                ・/api/ml/data/ - Machine Learningに関する情報取得用途
-                ・/api/waf/     - WAFの管理用途
+ service_prefix | 対象となるサービスの名称。以下が主要なPrefix。詳細は各API Documentを参照のこと
+                | ・ ``/api/config/``  - 設定オブジェクトに対するCRUD操作
+                | ・ ``/api/data/``    - モニタリング等アナリティクス用途
+                | ・ ``/api/ml/data/`` - Machine Learningに関する情報取得用途
+                | ・ ``/api/waf/``     - WAFの管理用途
  namespace      対象となるネームスペースの名称
  ============== ==========================================================================
 
