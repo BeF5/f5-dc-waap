@@ -418,13 +418,13 @@ Curlコマンドで実行する場合のサンプルを以下に示します
   :caption: Curlコマンドを利用した Object の作成サンプル
 
   $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/http_loadbalancers \
-         --cert **/path/to/api_credential.p12-file** \
+         --cert **/path/to/api_credential.p12-file**:**password** \
          --cert-type P12 \
          -X POST \
          -d @**OBJECT-CONFIGURATION-JSON**.json
 
 - ``1行目`` : URLで対象となるテナント、Namespaceを指定しています
-- ``2行目`` : 利用するP12ファイルのPATHを指定しています
+- ``2行目`` : 利用するP12ファイルのPATHを指定しています。またコロン(:)に続いて、証明書作成時に指定したパスワードを指定します
 - ``3行目`` : 証明書タイプをP12と指定しています
 - ``4行目`` : 新規作成のため、POST Methodを指定しています
 - ``5行目`` : 対象となるサービスで作成するオブジェクトの設定内容をJSONで送付します
