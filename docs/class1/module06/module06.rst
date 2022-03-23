@@ -1220,3 +1220,27 @@ Terraform を用いた設定の作成方法については `こちら <https://f
 
   # 設定の削除
   $ terraform destroy
+
+  4. API を用いた HTTP Load Balancer の作成
+====
+
+ここで紹介したHTTP load Balancer を API を使ってデプロイすることが可能です。
+APIでオブジェクトを作成する場合、Origin PoolとHTTP Load Balancerを作成する必要があります。
+
+API の利用方法については `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ の手順を参考してください
+
+以下マニュアルを参考に、パラメータを指定して実行してください。
+
+- Origin Pool
+  - `API for app_firewall <https://docs.cloud.f5.com/docs/api/app-firewall>`__
+  - `Example of creating app_firewall <https://docs.cloud.f5.com/docs/reference/api-ref/ves-io-schema-app_firewall-api-create>`__
+    - ページ中段 ``Request using curl`` をご覧ください
+
+作成したオブジェクトを適宜HTTP Load Balancerから参照してください
+
+- HTTP Load Balancer
+  - `API for http_loadbalancer <https://docs.cloud.f5.com/docs/api/views-http-loadbalancer>`__
+  - `Example of creating http_loadbalancer <https://docs.cloud.f5.com/docs/reference/api-ref/ves-io-schema-views-http_loadbalancer-api-create>`__
+    - ページ中段 ``Request using curl`` をご覧ください
+
+送付するJSON Objectは実際に作成したコンフィグのJSONデータからも確認をいただけます。合わせてご確認ください
