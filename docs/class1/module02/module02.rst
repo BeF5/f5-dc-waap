@@ -62,7 +62,7 @@ Personal Management の ``My Namespaces`` を開き、上部に表示される `
    .. image:: ./media/dcs-waap-add-namespace2.JPG
        :width: 400
 
-3. Tenant ID等の確認
+4. Tenant ID等の確認
 ====
 
 ご利用されるアカウントのテナントID等の情報は以下の手順でご確認いただけます。
