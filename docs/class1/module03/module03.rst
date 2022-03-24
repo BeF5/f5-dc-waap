@@ -489,17 +489,10 @@ Curlコマンドを使った接続確認方法を示します。
     ]
   }
 
-Tips1. Terraform Provider の利用・調査方法について
+Tips1. Terraform / API の利用・調査方法について
 ====
 
-Terraform Providerはドキュメントに詳細が記載されています。ドキュメントから利用方法を確認します
-
-- `Terraform F5 DCS <https://registry.terraform.io/namespaces/volterraedge>`__ 
-
-   .. image:: ./media/terraform-volterra2.jpg
-       :width: 400
-
-また、F5 DCS は作成済みのオブジェクトがどのような構成情報となるかJSON形式で確認することが可能です。
+F5 DCS は作成済みのオブジェクトがどのような構成情報となるかJSON形式で確認することが可能です。
 
 すでに作成済みのオブジェクトの情報を確認します。対象のオブジェクト一番右側 ``‥`` から、 ``Manage Configuration`` をクリックします
 
@@ -511,9 +504,25 @@ Terraform Providerはドキュメントに詳細が記載されています。�
    .. image:: ./media/dcs-setting-view-json.jpg
        :width: 400
 
+
+Terraform での利用
+----
+
+Terraform Providerはドキュメントに詳細が記載されています。ドキュメントから利用方法を確認します
+
+- `Terraform F5 DCS <https://registry.terraform.io/namespaces/volterraedge>`__ 
+
+   .. image:: ./media/terraform-volterra2.jpg
+       :width: 400
+
 Terraformで作成されたいオブジェクトをGUIから実際に作成し、作成されたオブジェクトのJSON情報を参考にTerraform Providerの情報を確認すると効率的に調査を進めることが可能です。
 
 また、同等の設定を持つオブジェクトのJSONを保存し、Terraform を通じて作成したObjectのJSONの値と比較することで同等の情報を持つか確認することができます。
 
+API での利用
+----
 
+APIではこちらの画面で取得したJSONをPOSTで送付することで同じオブジェクトを作成することが可能です。
+
+まずはJSONのデータでObjectを作成し、APIの振る舞いを確認し、その後不要な項目の削除やパラメータの確認を進めることができます。
 
