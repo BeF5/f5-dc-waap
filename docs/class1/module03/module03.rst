@@ -436,6 +436,59 @@ Curlコマンドで実行する場合のサンプルを以下に示します
 
 要件に応じてMethodやパラメータを変更することで、設定の追加、変更、削除、ステータスの確認などを行うことが可能です
 
+API の接続確認
+----
+
+Curlコマンドを使った接続確認方法を示します。
+``System`` namespace の情報をAPIで取得し、正しく表示されればAPIの接続が正しいことを確認できます
+
+.. code-block:: bash
+  :linenos:
+  :caption: Curlコマンドを利用した APIの接続確認
+
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/web/namespaces/system \
+         --cert **/path/to/api_credential.p12-file**:**password** \
+         --cert-type P12 \
+         -X GET
+
+  {
+    "object": null,
+    "create_form": null,
+    "replace_form": null,
+    "resource_version": "********",
+    "metadata": {
+      "name": "system",
+      "namespace": "",
+      "labels": {
+      },
+      "annotations": {
+      },
+      "description": "",
+      "disable": false
+    },
+    "system_metadata": {
+      "uid": "********",
+      "creation_timestamp": "********",
+      "deletion_timestamp": null,
+      "modification_timestamp": "********",
+      "initializers": null,
+      "finalizers": [
+      ],
+      "tenant": "**your tenant name**",
+      "creator_class": "******",
+      "creator_id": "",
+      "object_index": 0,
+      "owner_view": null
+    },
+    "spec": {
+  
+    },
+    "status": [
+    ],
+    "referring_objects": [
+    ]
+  }
+
 Tips1. Terraform Provider の利用・調査方法について
 ====
 
