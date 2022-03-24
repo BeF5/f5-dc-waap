@@ -254,14 +254,17 @@ HTTP Load Balancer の設定を変更し、Botをブロックする設定とし�
 
 Terraform を用いた設定の作成方法については `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ の手順を参考してください
 
+パラメータの指定
+----
+
 実行に必要なファイル、また実行環境に合わせたパラメータを指定してください
 
 .. code-block:: bash
   :linenos:
   :caption: terraform 実行前作業
 
-  $ git clone https://github.com/hiropo20/terraform-f5dcs-waap.git
-  $ cd bot-protection
+  $ git clone https://github.com/BeF5/f5j-dc-waap-automation
+  $ cd f5j-dc-waap-automation/terraform/bot-protection
 
   $ vi terraform.tfvars
   # ** 環境に合わせて適切な内容に変更してください **
@@ -279,6 +282,9 @@ Terraform を用いた設定の作成方法については `こちら <https://f
   
   cert             = "string///**base 64 encode SSL Certificate**"  // SSL Certificate for HTTPS access
   private_key      = "string///**base 64 encode SSL Private Key**"  // SSL Private Key for HTTPS access
+
+Terraform の利用
+----
 
 以下コマンドを参考に実行および削除をしてください。
 
@@ -314,3 +320,66 @@ API の利用方法については `こちら <https://f5j-dc-waap.readthedocs.i
     - ページ中段 ``Request using curl`` をご覧ください
 
 送付するJSON データの書式は実際に作成したコンフィグのJSONデータからも確認をいただけます。合わせてご確認ください
+
+パラメータの指定
+----
+
+GitHubよりファイルを取得します。 ``bot-protection-httplb.json`` をAPIの値として指定します。
+``**<変数名>**`` が環境に合わせて変更するパラメータとなります。適切な内容に変更してください。
+
+``Originl Pool Object`` は HTTP Load Balancer の Originl Pool 作成手順に従って作成ください
+
+APIの利用
+----
+
+以下のサンプルを参考にAPIを実行してください。
+証明書のファイル名、パスワード情報は適切な内容を指定してください。
+
+- ファイル取得
+
+.. code-block:: bash
+  :linenos:
+  :caption: APIによるオブジェクトの作成
+
+  $ git clone https://github.com/BeF5/f5j-dc-waap-automation
+  $ cd f5j-dc-waap-automation/api/bot-protection
+
+- オブジェクトの作成
+
+.. code-block:: bash
+  :linenos:
+  :caption: APIによるオブジェクトの作成 (HTTP Load Balancer の Origin Pool 設定ファイルを指定)
+
+  # Originl Pool の作成 (HTTP LoadBalancer のパラメータを指定)
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/origin_pools \
+       --cert **/path/to/api_credential.p12-file**:**password** \
+       --cert-type P12 \
+       -X POST \
+       -d @../http-load-balancer/base-origin-pool.json
+
+  # HTTP LB の作成
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/http_loadbalancers \
+       --cert **/path/to/api_credential.p12-file**:**password** \
+       --cert-type P12 \
+       -X POST \
+       -d @bot-protection-httplb.json
+
+
+- オブジェクトの削除
+
+.. code-block:: bash
+  :linenos:
+  :caption: APIによるオブジェクトの削除
+
+  # HTTP LB の削除
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/http_loadbalancers/**httplb_name** \
+       --cert **/path/to/api_credential.p12-file**:**password** \
+       --cert-type P12 \
+       -X DELETE
+
+  # Origin Pool の削除
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/origin_pools/**op_name** \
+       --cert **/path/to/api_credential.p12-file**:**password** \
+       --cert-type P12 \
+       -X DELETE
+

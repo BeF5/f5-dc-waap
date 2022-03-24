@@ -249,7 +249,7 @@ Terraform を用いた設定の作成方法については `こちら <https://f
   :caption: terraform 実行前作業
 
   $ git clone https://github.com/BeF5/f5j-dc-waap-automation
-  $ cd terraform/http-load-balancer
+  $ cd f5j-dc-waap-automation/terraform/http-load-balancer
 
   $ vi terraform.tfvars
   # ** 環境に合わせて適切な内容に変更してください **
@@ -318,7 +318,7 @@ API の利用方法については `こちら <https://f5j-dc-waap.readthedocs.i
 パラメータの指定
 ----
 
-GitHubよりファイルを取得します。``base-httplb.json`` と ``base-origin-pool.json`` をAPIの値として指定します。
+GitHubよりファイルを取得します。 ``base-httplb.json`` と ``base-origin-pool.json`` をAPIの値として指定します。
 ``**<変数名>**`` が環境に合わせて変更するパラメータとなります。適切な内容に変更してください。
 
 APIの利用
@@ -334,7 +334,7 @@ APIの利用
   :caption: APIによるオブジェクトの作成
 
   $ git clone https://github.com/BeF5/f5j-dc-waap-automation
-  $ cd api/http-load-balancer
+  $ cd f5j-dc-waap-automation/api/http-load-balancer
 
 - オブジェクトの作成
 

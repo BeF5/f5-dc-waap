@@ -717,14 +717,17 @@ Tips1. Swagger File と Configuration Objectの詳細
 
 Terraform を用いた設定の作成方法については `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ の手順を参考してください
 
+パラメータの指定
+----
+
 実行に必要なファイル、また実行環境に合わせたパラメータを指定してください
 
 .. code-block:: bash
   :linenos:
   :caption: terraform 実行前作業
 
-  $ git clone https://github.com/hiropo20/terraform-f5dcs-waap.git
-  $ cd api-discovery
+  $ git clone https://github.com/BeF5/f5j-dc-waap-automation
+  $ cd f5j-dc-waap-automation/terraform/api-discovery
 
   $ vi terraform.tfvars
   # ** 環境に合わせて適切な内容に変更してください **
@@ -742,6 +745,9 @@ Terraform を用いた設定の作成方法については `こちら <https://f
   
   cert             = "string///**base 64 encode SSL Certificate**"  // SSL Certificate for HTTPS access
   private_key      = "string///**base 64 encode SSL Private Key**"  // SSL Private Key for HTTPS access
+
+Terraform の利用
+----
 
 以下コマンドを参考に実行および削除をしてください。
 
@@ -791,6 +797,8 @@ Swagger Specs の欄に先程ImportしたSwagger FileのURLを入力します。
   Terraform のサンプルファイルは、API Definition の名称が ``demo-app-api-definition`` という想定となっております。
   API Definition の名称が異なる場合、生成されるChild Objectの名称も異なるため、 ``all-operations`` 、 ``base-urls`` 等に関連する名称を適切に変更してください。
 
+パラメータの指定
+----
 
 実行に必要なファイル、また実行環境に合わせたパラメータを指定してください
 
@@ -798,8 +806,8 @@ Swagger Specs の欄に先程ImportしたSwagger FileのURLを入力します。
   :linenos:
   :caption: terraform 実行前作業
 
-  $ git clone https://github.com/hiropo20/terraform-f5dcs-waap.git
-  $ cd api-control
+  $ git clone https://github.com/BeF5/f5j-dc-waap-automation
+  $ cd f5j-dc-waap-automation/terraform/api-control
 
   $ vi terraform.tfvars
   # ** 環境に合わせて適切な内容に変更してください **
@@ -821,6 +829,9 @@ Swagger Specs の欄に先程ImportしたSwagger FileのURLを入力します。
   // Service Policy Parameter
   sp_name          = "demo-app-service-policy"
 
+Terraform の利用
+----
+
 以下コマンドを参考に実行および削除をしてください。
 
 .. code-block:: bash
@@ -837,10 +848,10 @@ Swagger Specs の欄に先程ImportしたSwagger FileのURLを入力します。
   # 設定の削除
   $ terraform destroy
 
-7. API を用いた HTTP Load Balancer + API Detection/API Definitionの作成
+7. API を用いた HTTP Load Balancer + API Discovery の作成
 ====
 
-ここで紹介したHTTP load Balancer + API Detection/API Definitionを API を使ってデプロイすることが可能です。
+ここで紹介したHTTP load Balancer + API Discovery を API を使ってデプロイすることが可能です。
 
 API の利用方法については `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ の手順を参考してください
 
@@ -863,3 +874,155 @@ API の利用方法については `こちら <https://f5j-dc-waap.readthedocs.i
     - ページ中段 ``Request using curl`` をご覧ください
 
 送付するJSON データの書式は実際に作成したコンフィグのJSONデータからも確認をいただけます。合わせてご確認ください
+
+パラメータの指定
+----
+
+GitHubよりファイルを取得します。 ``api-discovery-httplb.json`` をAPIの値として指定します。
+``**<変数名>**`` が環境に合わせて変更するパラメータとなります。適切な内容に変更してください。
+
+``Originl Pool Object`` は HTTP Load Balancer の Originl Pool 作成手順に従って作成ください
+
+APIの利用
+----
+
+以下のサンプルを参考にAPIを実行してください。
+証明書のファイル名、パスワード情報は適切な内容を指定してください。
+
+- ファイル取得
+
+.. code-block:: bash
+  :linenos:
+  :caption: APIによるオブジェクトの作成
+
+  $ git clone https://github.com/BeF5/f5j-dc-waap-automation
+  $ cd f5j-dc-waap-automation/api/api-discovery
+
+- オブジェクトの作成
+
+.. code-block:: bash
+  :linenos:
+  :caption: APIによるオブジェクトの作成 (HTTP Load Balancer の Origin Pool 設定ファイルを指定)
+
+  # Originl Pool の作成 (HTTP LoadBalancer のパラメータを指定)
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/origin_pools \
+       --cert **/path/to/api_credential.p12-file**:**password** \
+       --cert-type P12 \
+       -X POST \
+       -d @../http-load-balancer/base-origin-pool.json
+
+  # HTTP LB の作成
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/http_loadbalancers \
+       --cert **/path/to/api_credential.p12-file**:**password** \
+       --cert-type P12 \
+       -X POST \
+       -d @api-discovery-httplb.json
+
+
+- オブジェクトの削除
+
+.. code-block:: bash
+  :linenos:
+  :caption: APIによるオブジェクトの削除
+
+  # HTTP LB の削除
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/http_loadbalancers/**httplb_name** \
+       --cert **/path/to/api_credential.p12-file** \
+       --cert-type P12 \
+       -X DELETE
+  
+  # Origin Pool の削除
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/origin_pools/**op_name** \
+       --cert **/path/to/api_credential.p12-file** \
+       --cert-type P12 \
+       -X DELETE
+
+
+8. API を用いた HTTP Load Balancer + API Definitionを用いた通信制御 の作成
+====
+
+ここで紹介したHTTP load Balancer + API Definitionを用いた通信制御 を API を使ってデプロイすることが可能です。
+
+API の利用方法については `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ の手順を参考してください
+
+以下マニュアルを参考に、パラメータを指定して実行してください。
+
+- Service Policy
+
+  - `API for service_policy <https://docs.cloud.f5.com/docs/api/service-policy>`__
+  - `Example of creating service_policy <https://docs.cloud.f5.com/docs/reference/api-ref/ves-io-schema-service_policy-api-create>`__
+
+    - ページ中段 ``Request using curl`` をご覧ください
+
+作成したオブジェクトを適宜HTTP Load Balancerから参照してください
+
+- HTTP Load Balancer
+
+  - `API for http_loadbalancer <https://docs.cloud.f5.com/docs/api/views-http-loadbalancer>`__
+  - `Example of creating http_loadbalancer <https://docs.cloud.f5.com/docs/reference/api-ref/ves-io-schema-views-http_loadbalancer-api-create>`__
+
+    - ページ中段 ``Request using curl`` をご覧ください
+
+送付するJSON データの書式は実際に作成したコンフィグのJSONデータからも確認をいただけます。合わせてご確認ください
+
+パラメータの指定
+----
+
+GitHubよりファイルを取得します。 ``api-discovery-httplb.json`` をAPIの値として指定します。
+``**<変数名>**`` が環境に合わせて変更するパラメータとなります。適切な内容に変更してください。
+
+``Originl Pool Object`` は HTTP Load Balancer の Originl Pool 作成手順に従って作成ください
+
+APIの利用
+----
+
+以下のサンプルを参考にAPIを実行してください。
+証明書のファイル名、パスワード情報は適切な内容を指定してください。
+
+- ファイル取得
+
+.. code-block:: bash
+  :linenos:
+  :caption: APIによるオブジェクトの作成
+
+  $ git clone https://github.com/BeF5/f5j-dc-waap-automation
+  $ cd f5j-dc-waap-automation/api/api-discovery
+
+- オブジェクトの作成
+
+.. code-block:: bash
+  :linenos:
+  :caption: APIによるオブジェクトの作成 (HTTP Load Balancer の Origin Pool 設定ファイルを指定)
+
+  # Originl Pool の作成 (HTTP LoadBalancer のパラメータを指定)
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/origin_pools \
+       --cert **/path/to/api_credential.p12-file**:**password** \
+       --cert-type P12 \
+       -X POST \
+       -d @../http-load-balancer/base-origin-pool.json
+
+  # HTTP LB の作成
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/http_loadbalancers \
+       --cert **/path/to/api_credential.p12-file**:**password** \
+       --cert-type P12 \
+       -X POST \
+       -d @api-discovery-httplb.json
+
+
+- オブジェクトの削除
+
+.. code-block:: bash
+  :linenos:
+  :caption: APIによるオブジェクトの削除
+
+  # HTTP LB の削除
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/http_loadbalancers/**httplb_name** \
+       --cert **/path/to/api_credential.p12-file** \
+       --cert-type P12 \
+       -X DELETE
+  
+  # Origin Pool の削除
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/origin_pools/**op_name** \
+       --cert **/path/to/api_credential.p12-file** \
+       --cert-type P12 \
+       -X DELETE
