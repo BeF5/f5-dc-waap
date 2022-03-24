@@ -1174,7 +1174,7 @@ Content-Type application/json
 
 ここで紹介したHTTP load Balancer + WAF を Terraform を使ってデプロイすることが可能です。
 
-Terraform を用いた設定の作成方法については `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ の手順を参考してください
+Terraform の利用で必要となる事前作業については `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ の手順を参考してください
 
 パラメータの指定
 ----
@@ -1232,7 +1232,7 @@ Terraform の利用
 
 ここで紹介したHTTP load Balancer + WAF を API を使ってデプロイすることが可能です。
 
-API の利用方法については `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ の手順を参考してください
+API の利用で必要となる事前作業については `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ の手順を参考してください
 
 以下マニュアルを参考に、パラメータを指定して実行してください。
 

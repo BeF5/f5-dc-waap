@@ -237,7 +237,7 @@ CNAME欄に指定されたFQDNのアドレスをDNSサーバで解決し、IPア
 
 ここで紹介したHTTP load Balancer を Terraform を使ってデプロイすることが可能です。
 
-Terraform を用いた設定の作成方法については `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ の手順を参考してください
+Terraform の利用で必要となる事前作業については `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ の手順を参考してください
 
 パラメータの指定
 ----
@@ -294,7 +294,7 @@ Terraform の利用
 ここで紹介したHTTP load Balancer を API を使ってデプロイすることが可能です。
 APIでオブジェクトを作成する場合、Origin PoolとHTTP Load Balancerを作成する必要があります。
 
-API の利用方法については `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ の手順を参考してください
+API の利用で必要となる事前作業については `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ の手順を参考してください
 
 以下マニュアルを参考に、パラメータを指定して実行してください。
 
