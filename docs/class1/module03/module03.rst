@@ -355,7 +355,7 @@ Applyが完了しました。コンソールを開き、正しくオブジェク
   // example: create healthcheck object
   resource "volterra_healthcheck" "eample-dummy-hc" {
     name                = "dummy-health-check-t"
-    namespace           = "h-matsumoto"
+    namespace           = "**your-namespace**"
     timeout             = 3
     interval            = 15
     unhealthy_threshold = 1
