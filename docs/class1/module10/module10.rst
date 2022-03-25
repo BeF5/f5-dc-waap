@@ -308,26 +308,7 @@ Importが完了したSwagger FileのURL情報を取得します。このURL情�
     https://f5-apac-ent.console.ves.volterra.io/api/object_store/namespaces/h-matsumoto/stored_objects/swagger/demo-app-user-api/v1-22-03-14
 
 
-2. Swagger File のImport結果及びConfiguration Objectの確認
-----
-
-今回のサンプルでは2つのSwagger FileをImportしています。その2つのFileがどのような形でImportされ、またObjectが生成されているか確認します
-
-``Web App & API Protection`` の画面左側 Manage欄、 ``API Management`` 、 ``API Definition`` を開き、作成したオブジェクト ``...`` から ``Show Child Objects`` をクリックしてください
-
-   .. image:: ./media/dcs-waap-swagger-childobjects.jpg
-       :width: 400
-
-API Definitionで生成される、Child Objectsが表示されます。
-今回の設定例では、2つのObjectsの名称が必要となりますので、それぞれの名称をメモしてください。
-
-   .. image:: ./media/dcs-waap-swagger-childobjects2.jpg
-       :width: 400
-
-ImportしたSwagger Fileと生成されたConfiguration Objectの詳細については Tips1 を参照してください
-
-
-3. API Definition の作成
+2. API Definition の作成
 ----
 
 作成済みのHTTP Load Balancerに APIのAccess Control に関連するパラメータを設定します。
@@ -352,16 +333,36 @@ Security Configuration 欄 右上の ``Show Advanced Fields`` をクリックし
    .. image:: ./media/dcs-waap-lb-api-definition.jpg
        :width: 400
 
-
 ``Name`` 欄に API Definition の ``demo-app-api-definition`` を入力します。
 Swagger Specs の欄に先程ImportしたSwagger FileのURLを入力します。 ``Add Item`` で入力欄を追加し、双方のURLを入力し、 ``Continue`` をクリックします
 
    .. image:: ./media/dcs-waap-lb-api-definition2.jpg
        :width: 400
 
-次に ``Service Policies`` を用いて、API の Access Control を設定します。
+一旦HTTP Load Blancerの設定を完了するため、最下部の ``Save & Exit`` をクリックし、設定を保存してください。
+
+次に、今回のサンプルでは2つのSwagger FileをImportしています。その2つのFileがどのような形でImportされ、またObjectが生成されているか確認します
+``Web App & API Protection`` の画面左側 Manage欄、 ``API Management`` 、 ``API Definition`` を開き、作成したオブジェクト ``...`` から ``Show Child Objects`` をクリックしてください
+
+   .. image:: ./media/dcs-waap-swagger-childobjects.jpg
+       :width: 400
+
+API Definitionで生成される、Child Objectsが表示されます。
+今回の設定例では、2つのObjectsの名称が必要となりますので、それぞれの名称をメモしてください。
+
+   .. image:: ./media/dcs-waap-swagger-childobjects2.jpg
+       :width: 400
+
+ImportしたSwagger Fileと生成されたConfiguration Objectの詳細については Tips1 を参照してください
+
+
+3. Service Policy の割当
+----
+
+``Service Policies`` を用いて、API の Access Control を設定します。
 ``ML Config`` ですが、本機能では使用しませんので、 ``Single ...`` から ``Multi ...`` と変更いただいても問題ありません。
 
+再度HTTP LoadBalancerの設定を編集します。
 画面上部、 ``Servgice Policies`` で ``Apply Specified Service Policies`` を選択し、 ``Configure`` をクリックします
 
    .. image:: ./media/dcs-waap-lb-service-policy.jpg
@@ -1005,7 +1006,7 @@ APIの利用
        -d @../http-load-balancer/base-origin-pool.json
 
   # Service Policy の作成
-  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/service_policies \
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/service_policys \
        --cert **/path/to/api_credential.p12-file** \
        --cert-type P12 \
        -X POST \
@@ -1032,7 +1033,7 @@ APIの利用
        -X DELETE
 
   # Service Policy の削除
-  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/service_policies/**sp_name**  \
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/service_policys/**sp_name**  \
        --cert **/path/to/api_credential.p12-file** \
        --cert-type P12 \
        -X DELETE
