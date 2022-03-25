@@ -877,7 +877,7 @@ API の利用で必要となる事前作業については `こちら <https://f
 
 送付するJSON データの書式は実際に作成したコンフィグのJSONデータからも確認をいただけます。合わせてご確認ください
 
-API を用いた HTTP Load Balancer + API Discovery の作成
+HTTP Load Balancer + API Discovery の作成
 ----
 
 パラメータの指定
@@ -942,8 +942,7 @@ APIの利用
        --cert-type P12 \
        -X DELETE
 
-
-API を用いた HTTP Load Balancer + API Definitionを用いた通信制御 の作成
+HTTP Load Balancer + API Definitionを用いた通信制御 の作成
 ----
 
 パラメータの指定
