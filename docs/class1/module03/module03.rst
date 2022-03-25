@@ -91,7 +91,6 @@ url           必須 F5 DCS の API Endopoint を示すURL。``tenant_name``は
 
 .. NOTE::
   Free Plan等、個人アカウントでAPIを利用する場合、URLは ``https://console.ves.volterra.io/api`` を指定してください。
-  (ブラウザを利用し Dashboard を操作いただく際のブラウザのURLを参照ください)
 
 その他詳細についてはマニュアルの内容を参照してください。
 
@@ -411,12 +410,10 @@ APIのEndpointは以下の内容で指定いただくことが可能です。
                 | ・ ``/api/data/``    - モニタリング等アナリティクス用途
                 | ・ ``/api/ml/data/`` - Machine Learningに関する情報取得用途
  namespace      対象となるネームスペースの名称
-
  ============== ==================================================================================================================
 
 .. NOTE::
   Free Plan等、個人アカウントでAPIを利用する場合、URLは ``https://console.ves.volterra.io/api/(利用に応じたPATH)`` を指定してください。
-  (ブラウザを利用し Dashboard を操作いただく際のブラウザのURLを参照ください)
 
 API 証明書の利用
 ----
