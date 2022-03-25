@@ -138,4 +138,4 @@ Tips4. 各プランの提供内容の違い
 
 各プランの提供内容の違いは以下のドキュメントを参照してください。
 
-- `Pricing for F5 Distributed Cloud Services <https://www.f5.com/cloud/pricing>`__
+- `プライシング｜F5 Distributed Cloud Services <https://www.f5.com/ja_jp/cloud/pricing>`__
