@@ -713,15 +713,18 @@ Tips1. Swagger File と Configuration Objectの詳細
        :width: 400
 
 
-5. Terraform を用いた HTTP Load Balancer + API Discovery の作成
+5. Terraform を用いた HTTP Load Balancer + API Security の利用
 ====
+
+HTTP Load Balancer + API Discovery の作成
+----
 
 ここで紹介したHTTP load Balancer + API Discovery を Terraform を使ってデプロイすることが可能です。
 
 Terraform の利用で必要となる事前作業については `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ の手順を参考してください
 
 パラメータの指定
-----
+~~~~
 
 実行に必要なファイル、また実行環境に合わせたパラメータを指定してください
 
@@ -750,7 +753,7 @@ Terraform の利用で必要となる事前作業については `こちら <htt
   private_key      = "string///**base 64 encode SSL Private Key**"  // SSL Private Key for HTTPS access
 
 Terraform の利用
-----
+~~~~
 
 以下コマンドを参考に実行および削除をしてください。
 
@@ -768,12 +771,8 @@ Terraform の利用
   # 設定の削除
   $ terraform destroy
 
-6. Terraform を用いた HTTP Load Balancer + API Definitionを用いた通信制御 の作成
-====
-
-ここで紹介したHTTP load Balancer + API Definitionを用いた通信制御 を Terraform を使ってデプロイすることが可能です。
-
-Terraform の利用で必要となる事前作業については `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ の手順を参考してください
+HTTP Load Balancer + API Definitionを用いた通信制御
+----
 
 Swagger FileのImport及び、API DefinitionはコンソールよりGUIで設定する必要があります。
 `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module10/module10.html#swagger-file-api-group>`__ の手順に従って操作をしてください。
@@ -801,7 +800,7 @@ Swagger Specs の欄に先程ImportしたSwagger FileのURLを入力します。
   API Definition の名称が異なる場合、生成されるChild Objectの名称も異なるため、 ``all-operations`` 、 ``base-urls`` 等に関連する名称を適切に変更してください。
 
 パラメータの指定
-----
+~~~~
 
 実行に必要なファイル、また実行環境に合わせたパラメータを指定してください
 
@@ -833,7 +832,7 @@ Swagger Specs の欄に先程ImportしたSwagger FileのURLを入力します。
   sp_name          = "demo-app-service-policy"
 
 Terraform の利用
-----
+~~~~
 
 以下コマンドを参考に実行および削除をしてください。
 
@@ -851,8 +850,11 @@ Terraform の利用
   # 設定の削除
   $ terraform destroy
 
-7. API を用いた HTTP Load Balancer + API Discovery の作成
+6. API を用いた HTTP Load Balancer + API Security の利用
 ====
+
+API を用いた HTTP Load Balancer + API Discovery の作成
+----
 
 ここで紹介したHTTP load Balancer + API Discovery を API を使ってデプロイすることが可能です。
 
@@ -879,7 +881,7 @@ API の利用で必要となる事前作業については `こちら <https://f
 送付するJSON データの書式は実際に作成したコンフィグのJSONデータからも確認をいただけます。合わせてご確認ください
 
 パラメータの指定
-----
+~~~~
 
 GitHubよりファイルを取得します。 ``api-discovery-httplb.json`` をAPIの値として指定します。
 ``**<変数名>**`` が環境に合わせて変更するパラメータとなります。適切な内容に変更してください。
@@ -887,7 +889,7 @@ GitHubよりファイルを取得します。 ``api-discovery-httplb.json`` をA
 ``Originl Pool Object`` は HTTP Load Balancer の Originl Pool 作成手順に従って作成ください
 
 APIの利用
-----
+~~~~
 
 以下のサンプルを参考にAPIを実行してください。
 証明書のファイル名、パスワード情報は適切な内容を指定してください。
@@ -941,8 +943,8 @@ APIの利用
        -X DELETE
 
 
-8. API を用いた HTTP Load Balancer + API Definitionを用いた通信制御 の作成
-====
+API を用いた HTTP Load Balancer + API Definitionを用いた通信制御 の作成
+----
 
 ここで紹介したHTTP load Balancer + API Definitionを用いた通信制御 を API を使ってデプロイすることが可能です。
 
@@ -969,7 +971,7 @@ API の利用で必要となる事前作業については `こちら <https://f
 送付するJSON データの書式は実際に作成したコンフィグのJSONデータからも確認をいただけます。合わせてご確認ください
 
 パラメータの指定
-----
+~~~~
 
 GitHubよりファイルを取得します。 ``api-control-httplb.json`` をAPIの値として指定します。
 ``**<変数名>**`` が環境に合わせて変更するパラメータとなります。適切な内容に変更してください。
@@ -980,7 +982,7 @@ GitHubよりファイルを取得します。 ``api-control-httplb.json`` をAPI
 Swagger File の Import及びAPI Definitionは別途GUIから作成が必要です。詳細は `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module10/module10.html#terraform-http-load-balancer-api-definition>`__ を参照してください。
 
 APIの利用
-----
+~~~~
 
 以下のサンプルを参考にAPIを実行してください。
 証明書のファイル名、パスワード情報は適切な内容を指定してください。
