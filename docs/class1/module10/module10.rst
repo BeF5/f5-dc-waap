@@ -581,7 +581,6 @@ Tips1. Swagger File と Configuration Objectの詳細
                 
         ** 省略 **
 
-
 - 8行目 basePath ``/rest`` であることが確認できます
 - 14行目 path ``/basket/{id}`` であることが確認できます
 - 54行目 ``x-volterra-api-group`` でAPI Groupを指定することが可能です。この例では、 ``sensitive`` というAPI Groupを指定しています
