@@ -258,8 +258,8 @@ JSON形式の内容を貼り付ける場合、YAMLへの変換に関する確認
 3. Swagger File を利用した API Group による通信制御
 ====
 
-先程の手順でF5 DCSが生成したSwagger Fileを用いてAPI Groupを定義します。
-細かくAPIへの接続を制御することが可能です。
+Swagger Fileを用いてAPI Groupを定義します。
+細かなAPIへの制御が可能です。
 
 マニュアルは以下のページを参照してください
 
@@ -297,7 +297,7 @@ REST API Swagger File に対し同様の手順を行います。
    .. image:: ./media/dcs-waap-add-swaggerfile4.jpg
        :width: 400
 
-Importが完了したSwagger FileのURL情報を取得します。このURL情報は後ほどの項目で利用しますのでメモしておいてください。
+Importが完了したSwagger FileのURL情報を取得します。 後の項目で利用しますので ``このURL情報をメモ`` しておいてください。
 
    .. image:: ./media/dcs-waap-get-swaggerurls.jpg
        :width: 400
@@ -341,14 +341,17 @@ Swagger Specs の欄に先程ImportしたSwagger FileのURLを入力します。
 
 一旦HTTP Load Blancerの設定を完了するため、最下部の ``Save & Exit`` をクリックし、設定を保存してください。
 
-次に、今回のサンプルでは2つのSwagger FileをImportしています。その2つのFileがどのような形でImportされ、またObjectが生成されているか確認します
+3. 作成した API Definition の確認
+----
+
+今回のサンプルでは2つのSwagger FileをImportしています。その2つのFileがどのような形でImportされ、またObjectが生成されているか確認します
 ``Web App & API Protection`` の画面左側 Manage欄、 ``API Management`` 、 ``API Definition`` を開き、作成したオブジェクト ``...`` から ``Show Child Objects`` をクリックしてください
 
    .. image:: ./media/dcs-waap-swagger-childobjects.jpg
        :width: 400
 
 API Definitionで生成される、Child Objectsが表示されます。
-今回の設定例では、2つのObjectsの名称が必要となりますので、それぞれの名称をメモしてください。
+今回の設定例では、2つのObjectsの名称が必要となりますので、 ``それぞれの名称をメモ`` してください。
 
    .. image:: ./media/dcs-waap-swagger-childobjects2.jpg
        :width: 400
@@ -356,7 +359,7 @@ API Definitionで生成される、Child Objectsが表示されます。
 ImportしたSwagger Fileと生成されたConfiguration Objectの詳細については Tips1 を参照してください
 
 
-3. Service Policy の割当
+4. Service Policy の割当
 ----
 
 ``Service Policies`` を用いて、API の Access Control を設定します。
@@ -468,7 +471,7 @@ Rule の作成を完了するため、 ``API Group Matcher`` 、 ``Rule`` 双方
        :width: 400
 
 
-4. 動作確認
+5. 動作確認
 ----
 
 ``all-operations`` の API Group に該当するリクエストをCurlコマンドで実施し、通信が ``許可`` されることが確認できます
