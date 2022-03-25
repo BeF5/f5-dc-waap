@@ -307,3 +307,738 @@ Importが完了したSwagger FileのURL情報を取得します。このURL情�
 .. code-block:: bash
     https://f5-apac-ent.console.ves.volterra.io/api/object_store/namespaces/h-matsumoto/stored_objects/swagger/demo-app-user-api/v1-22-03-14
 
+
+2. API Definition の作成
+----
+
+作成済みのHTTP Load Balancerに APIのAccess Control に関連するパラメータを設定します。
+HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ を参照ください
+
+本手順では、HTTP Load BalancerからAPI Definitionを定義します。
+
+画面左側 Manage欄の ``Load Balancers`` 、 ``HTTP Load Balancers`` を開き、対象のLoad Balancerを表示し画面右側に遷移します。
+
+   .. image:: ../module06/media/dcs-edit-lb.jpg
+       :width: 400
+
+すでに作成済みのオブジェクトを変更する場合、対象のオブジェクト一番右側 ``‥`` から、 ``Manage Configuration`` をクリックします
+
+   .. image:: ../module06/media/dcs-edit-lb2.jpg
+       :width: 400
+
+設定の結果が一覧で表示されます。画面右上 ``Edit Configuration`` から設定の変更します。
+Security Configuration 欄 右上の ``Show Advanced Fields`` をクリックします。
+``API Definitions`` の ``Add Item`` をクリックします。新規作成のため、 ``Create new API Definition`` をクリックします
+
+   .. image:: ./media/dcs-waap-lb-api-definition.jpg
+       :width: 400
+
+``Name`` 欄に API Definition の ``demo-app-api-definition`` を入力します。
+Swagger Specs の欄に先程ImportしたSwagger FileのURLを入力します。 ``Add Item`` で入力欄を追加し、双方のURLを入力し、 ``Continue`` をクリックします
+
+   .. image:: ./media/dcs-waap-lb-api-definition2.jpg
+       :width: 400
+
+一旦HTTP Load Blancerの設定を完了するため、最下部の ``Save & Exit`` をクリックし、設定を保存してください。
+
+次に、今回のサンプルでは2つのSwagger FileをImportしています。その2つのFileがどのような形でImportされ、またObjectが生成されているか確認します
+``Web App & API Protection`` の画面左側 Manage欄、 ``API Management`` 、 ``API Definition`` を開き、作成したオブジェクト ``...`` から ``Show Child Objects`` をクリックしてください
+
+   .. image:: ./media/dcs-waap-swagger-childobjects.jpg
+       :width: 400
+
+API Definitionで生成される、Child Objectsが表示されます。
+今回の設定例では、2つのObjectsの名称が必要となりますので、それぞれの名称をメモしてください。
+
+   .. image:: ./media/dcs-waap-swagger-childobjects2.jpg
+       :width: 400
+
+ImportしたSwagger Fileと生成されたConfiguration Objectの詳細については Tips1 を参照してください
+
+
+3. Service Policy の割当
+----
+
+``Service Policies`` を用いて、API の Access Control を設定します。
+``ML Config`` ですが、本機能では使用しませんので、 ``Single ...`` から ``Multi ...`` と変更いただいても問題ありません。
+
+再度HTTP LoadBalancerの設定を編集します。
+画面上部、 ``Servgice Policies`` で ``Apply Specified Service Policies`` を選択し、 ``Configure`` をクリックします
+
+   .. image:: ./media/dcs-waap-lb-service-policy.jpg
+       :width: 400
+
+``List of Policy`` の ``Select Service policy`` から ``Create new service policy`` をクリックしてください
+
+   .. image:: ./media/dcs-waap-lb-service-policy2.jpg
+       :width: 400
+
+``Name`` 欄に ``demo-app-service-policy`` と入力します。
+``Rules`` の ``Select Policy Rules`` で ``Custom Rule List`` を選択し、 ``Configure`` をクリックします。
+この項目で、通信制御のRuleを複数設定します
+
+   .. image:: ./media/dcs-waap-lb-service-policy3.jpg
+       :width: 400
+
+Rule作成画面が表示されます。 ``Add Item`` をクリックします
+
+   .. image:: ./media/dcs-waap-lb-service-policy-rule.jpg
+       :width: 400
+
+1つ目のRuleを作成します。
+
+``Name`` 欄に ``demo-app-sp-rule1`` と入力し、 ``Configure`` をクリックします
+
+   .. image:: ./media/dcs-waap-lb-service-policy-rule_1.jpg
+       :width: 400
+
+許可ルールを作成するため、 ``Action`` で ``Allow`` を選択します。最下部に移動し、API Group 欄の ``Configure`` をクリックします
+
+   .. image:: ./media/dcs-waap-lb-service-policy-rule_1-2.jpg
+       :width: 400
+
+先程コピーしたAPI Groupの名称のうち、 ``all-operations`` に該当するもの(この例では ``ves-io-api-def-demo-app-api-definition-all-operations`` )をコピーします。
+Ruleの編集を完了するため、画面右下の ``Apply`` をクリックします
+
+   .. image:: ./media/dcs-waap-lb-service-policy-rule_1-3.jpg
+       :width: 400
+
+Rule の作成を完了するため、 ``API Group Matcher`` 、 ``Rule`` 双方の画面右下 ``Apply`` をクリックします
+
+   .. image:: ./media/dcs-waap-lb-service-policy-rule_1-4.jpg
+       :width: 400
+
+2つ目のRuleを作成します。
+
+``Name`` 欄に ``demo-app-sp-rule2`` と入力し、 ``Configure`` をクリックします
+
+   .. image:: ./media/dcs-waap-lb-service-policy-rule_2.jpg
+       :width: 400
+
+拒否ルールを作成するため、 ``Action`` で ``Deny`` を選択します。最下部に移動し、API Group 欄の ``Configure`` をクリックします
+
+   .. image:: ./media/dcs-waap-lb-service-policy-rule_2-2.jpg
+       :width: 400
+
+先程コピーしたAPI Groupの名称のうち、 ``base-urls`` に該当するもの(この例では ``ves-io-api-def-demo-app-api-definition-base-urls`` )をコピーします。
+Ruleの編集を完了するため、画面右下の ``Apply`` をクリックします
+
+   .. image:: ./media/dcs-waap-lb-service-policy-rule_2-3.jpg
+       :width: 400
+
+Rule の作成を完了するため、 ``API Group Matcher`` 、 ``Rule`` 双方の画面右下 ``Apply`` をクリックします
+
+   .. image:: ./media/dcs-waap-lb-service-policy-rule_2-4.jpg
+       :width: 400
+
+3つ目のRuleを作成します。
+
+``Name`` 欄に ``demo-app-sp-rule3`` と入力し、 ``Configure`` をクリックします
+
+   .. image:: ./media/dcs-waap-lb-service-policy-rule_3.jpg
+       :width: 400
+
+すべてを許可ルールを作成するため、 ``Action`` で ``Allow`` を選択します。最下部に移動し、API Group 欄の ``Configure`` をクリックします
+
+   .. image:: ./media/dcs-waap-lb-service-policy-rule_3-2.jpg
+       :width: 400
+
+すべての通信を許可するルールのため、API Groupの名称は指定しません。
+Rule の作成を完了するため、 ``API Group Matcher`` 、 ``Rule`` 双方の画面右下 ``Apply`` をクリックします
+
+   .. image:: ./media/dcs-waap-lb-service-policy-rule_3-3.jpg
+       :width: 400
+
+以下のようにService Policyが作成されます。
+
+   .. image:: ./media/dcs-waap-lb-service-policy-rule2.jpg
+       :width: 400
+
+表にまとめると以下の内容となります。
+
+= ================= =======================================================
+1 demo-app-sp-rule1 ``all-operations`` の API Group に該当する通信を ``許可``
+2 demo-app-sp-rule2 ``base-urls`` の API Group に該当する通信を ``拒否``
+3 demo-app-sp-rule3 すべての通信を ``許可``
+= ================= =======================================================
+
+画面右下のボタンを順次クリックし、設定を完了します
+
+   .. image:: ./media/dcs-waap-lb-service-policy-rule3.jpg
+       :width: 400
+
+
+4. 動作確認
+----
+
+``all-operations`` の API Group に該当するリクエストをCurlコマンドで実施し、通信が ``許可`` されることが確認できます
+
+.. code-block:: bash
+  :linenos:
+  :caption: Curl コマンドを使った https://echoapp.f5demo.net/rest/basket/1 への接続結果  
+
+  $ curl -ks https://echoapp.f5demo.net/rest/basket/1
+  {"request":{"headers":[["host","app1.test10demo.xyz"],["user-agent","curl/7.58.0"],["accept","*/*"],["x-forwarded-for","18.178.83.1"],["x-forwarded-proto","https"],["x-envoy-external-address","18.178.83.1"],["x-request-id","33a40044-32b4-4e8e-8705-ea0e351d0c75"],["content-length","0"]],"status":0,"httpversion":"1.1","method":"GET","scheme":"http","uri":"/rest/basket/1","requestText":"","fullPath":"/rest/basket/1"},"network":{"clientPort":"49244","clientAddress":"103.135.56.118","serverAddress":"192.168.16.2","serverPort":"80"},"ssl":{"isHttps":false},"session":{"requestId":"872c2a9a09cad3dd53d61df4ce216178","connection":"7","connectionNumber":"1"},"environment":{"hostname":"echoapp"}}
+
+
+``base-urls`` の API Group に該当するリクエストをCurlコマンドで実施し、通信が ``拒否`` されることが確認できます
+
+.. code-block:: bash
+  :linenos:
+  :caption: Curl コマンドを使った https://echoapp.f5demo.net/rest/ への接続結果  
+
+  $  curl -vks https://echoapp.f5demo.net/rest/
+  
+  ** 省略 **
+  
+  <h1>
+  Error 403 - Forbidden
+  </h1>
+
+ブラウザでアクセスした場合には以下のようにエラーが確認できます
+
+   .. image:: ./media/dcs-waap-api-service-policy-browser.jpg
+       :width: 400
+
+以下リクエストは3つ目のルールに該当します。Curlコマンドでリクエストを送付し、通信が ``許可`` されることが確認できます
+
+.. code-block:: bash
+  :linenos:
+  :caption: Curl コマンドを使った https://echoapp.f5demo.net/others への接続結果  
+
+  $ curl -ks https://echoapp.f5demo.net/others
+  {"request":{"headers":[["host","app1.test10demo.xyz"],["user-agent","curl/7.58.0"],["accept","*/*"],["x-forwarded-for","18.178.83.1"],["x-forwarded-proto","https"],["x-envoy-external-address","18.178.83.1"],["x-request-id","31e50ded-03cd-4bb5-b514-03fea51cc18b"],["content-length","0"]],"status":0,"httpversion":"1.1","method":"GET","scheme":"http","uri":"/others","requestText":"","fullPath":"/others"},"network":{"clientPort":"33739","clientAddress":"103.135.56.106","serverAddress":"192.168.16.2","serverPort":"80"},"ssl":{"isHttps":false},"session":{"requestId":"d05e00c647ead07c37f2bb0d6aad3f69","connection":"6","connectionNumber":"1"},"environment":{"hostname":"echoapp"}}
+
+
+
+
+Tips1. Swagger File と Configuration Objectの詳細
+----
+
+次に、 :download:`REST API Swagger File <./file/rest-api.json>` の内容と生成された Child Object の内容を確認します。
+
+.. code-block:: json
+  :linenos:
+  :caption: REST API Swagger File
+  :emphasize-lines: 8,14,40,54
+
+  {
+      "swagger": "2.0",
+      "info": {
+        "description": "Juice Shop REST",
+        "title": "Juice Shop REST",
+        "version": "v1"
+      },
+      "basePath": "/rest",
+      "schemes": [
+        "http",
+        "https"
+      ],
+      "paths": {
+        "/basket/{id}": {
+          "get": {
+            "consumes": [
+              "application/json"
+            ],
+            "description": "Swagger auto-generated from learnt schema",
+            "parameters": [
+              {
+                "name": "id",
+                "in": "path",
+                "description": "ID",
+                "required": true,
+                "type": "integer",
+                "format": "int64"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": ""
+              }
+            }
+          }
+        },
+                
+        ** 省略 **
+        
+        "/wallet/balance": {
+         "get": {
+            "consumes": [
+              "application/json"
+            ],
+            "description": "Swagger auto-generated from learnt schema",
+            "parameters": [
+              
+            ],
+            "responses": {
+              "200": {
+                "description": ""
+              }
+            },
+            "x-volterra-api-group":"sensitive"
+          }
+        },
+                
+        ** 省略 **
+
+- 8行目 basePath ``/rest`` であることが確認できます
+- 14行目 path ``/basket/{id}`` であることが確認できます
+- 54行目 ``x-volterra-api-group`` でAPI Groupを指定することが可能です。この例では、 ``sensitive`` というAPI Groupを指定しています
+- 40行目 path ``/wallet/balance`` は54行目の内容により、 ``sensitive`` のAPI Groupとするよう指定しています
+
+``base-urls`` の API Group を確認します。
+
+.. code-block:: json
+  :linenos:
+  :caption: API Group (ves-io-api-def-demo-app-api-definition-base-urls)
+  :emphasize-lines: 3,28      
+
+  {
+    "metadata": {
+      "name": "ves-io-api-def-demo-app-api-definition-base-urls",
+      "namespace": "h-matsumoto",
+      "labels": {
+        "ves.io/api-scope": "ves-io-demo-app-api-definition"
+      },
+        
+    ** 省略 **
+    
+    "spec": {
+      "elements": [
+        
+      ** 省略 **
+    
+        {
+          "methods": [
+            "GET",
+            "HEAD",
+            "POST",
+            "PUT",
+            "DELETE",
+            "CONNECT",
+            "OPTIONS",
+            "TRACE",
+            "PATCH"
+          ],
+          "path_regex": "^/rest/.*$"
+        }
+      ]
+    },
+     
+  ** 省略 **
+
+- 28行目の内容を確認すると、 ``REST API Swagger File`` の 8行目 basePath の内容が確認できます
+
+``all-operations`` の API Group を確認します。
+
+.. code-block:: json
+  :linenos:
+  :caption: API Group (ves-io-api-def-demo-app-api-definition-all-operations)
+  :emphasize-lines: 3,20  
+
+  {
+    "metadata": {
+      "name": "ves-io-api-def-demo-app-api-definition-all-operations",
+      "namespace": "h-matsumoto",
+      "labels": {
+        "ves.io/api-scope": "ves-io-demo-app-api-definition"
+      },
+     
+    ** 省略 **
+  
+    "spec": {
+      "elements": [
+     
+      ** 省略 **
+  
+        {
+          "methods": [
+            "GET"
+          ],
+          "path_regex": "^/rest/basket/([\\w\\-._~%!$&'()*+,;=:]+)$"
+        }
+      ]
+    },
+     
+  ** 省略 **
+
+- 28行目の内容を確認すると、basePath ``/rest`` に ``REST API Swagger File`` の 14行目 path を追加した内容が確認できます
+
+.. code-block:: json
+  :linenos:
+  :caption: API Group (ves-io-api-def-demo-app-api-definition-sensitive)
+  :emphasize-lines: 3,17      
+
+  {
+    "metadata": {
+      "name": "ves-io-api-def-demo-app-api-definition-sensitive",
+      "namespace": "h-matsumoto",
+      "labels": {
+        "ves.io/api-scope": "ves-io-demo-app-api-definition"
+      },
+                  
+      ** 省略 **
+  
+    "spec": {
+      "elements": [
+        {
+          "methods": [
+            "GET"
+          ],
+          "path_regex": "^/rest/wallet/balance$"
+        },
+        {
+          "methods": [
+            "GET"
+          ],
+          "path_regex": "^/rest/user/whoami$"
+        }
+      ]
+    },
+                  
+  ** 省略 **
+
+- 3行目の通り、 ``REST API Swagger File`` の 54行目 ``sensitive`` の名称で API Group が作成されています
+- 28行目の内容を確認すると、basePath ``/rest`` に ``REST API Swagger File`` の 40行目 path を追加した内容が確認できます
+
+4. F5 DCS API Security の解除
+====
+
+その他の機能を確認するため設定を解除する手順です。HTTP Load Balancerに割り当てたAPI Security に関連する設定を解除してください
+
+   .. image:: ./media/dcs-single-api-security-disable.jpg
+       :width: 400
+
+
+5. Terraform を用いた HTTP Load Balancer + API Discovery の作成
+====
+
+ここで紹介したHTTP load Balancer + API Discovery を Terraform を使ってデプロイすることが可能です。
+
+Terraform の利用で必要となる事前作業については `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ の手順を参考してください
+
+パラメータの指定
+----
+
+実行に必要なファイル、また実行環境に合わせたパラメータを指定してください
+
+.. code-block:: bash
+  :linenos:
+  :caption: terraform 実行前作業
+
+  $ git clone https://github.com/BeF5/f5j-dc-waap-automation
+  $ cd f5j-dc-waap-automation/terraform/api-discovery
+
+  $ vi terraform.tfvars
+  # ** 環境に合わせて適切な内容に変更してください **
+  api_p12_file     = "**/path/to/p12file**"        // Path for p12 file downloaded from VoltConsole
+  api_url          = "https://**api url**"     // API URL for your tenant
+
+  # 本手順のサンプルで表示したパラメータの場合、以下のようになります 
+  myns             = "**your namespace**"      // Name of your namespace
+  op_name          = "demo-origin-pool"        // Name of Origin Pool
+  pool_port        = "80"                      // Port Number
+  server_name1     = "**your target fqdn1**"   // Target Server FQDN1
+  server_name2     = "**your target fqdn1**"   // Target Server FQDN2
+  httplb_name      = "demo-echo-lb"            // Name of HTTP LoadBalancer
+  mydomain         = ["echoapp.f5demo.net"]    // Domain name to be exposed
+  
+  cert             = "string///**base 64 encode SSL Certificate**"  // SSL Certificate for HTTPS access
+  private_key      = "string///**base 64 encode SSL Private Key**"  // SSL Private Key for HTTPS access
+
+Terraform の利用
+----
+
+以下コマンドを参考に実行および削除をしてください。
+
+.. code-block:: bash
+  :linenos:
+  :caption: terraform の実行・削除
+
+  # 実行前事前作業
+  $ terraform init
+  $ terraform plan
+
+  # 設定のデプロイ
+  $ terraform apply
+
+  # 設定の削除
+  $ terraform destroy
+
+6. Terraform を用いた HTTP Load Balancer + API Definitionを用いた通信制御 の作成
+====
+
+ここで紹介したHTTP load Balancer + API Definitionを用いた通信制御 を Terraform を使ってデプロイすることが可能です。
+
+Terraform の利用で必要となる事前作業については `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ の手順を参考してください
+
+Swagger FileのImport及び、API DefinitionはコンソールよりGUIで設定する必要があります。
+`こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module10/module10.html#swagger-file-api-group>`__ の手順に従って操作をしてください。
+``3. API Definition の作成`` のマニュアルはHTTP load Balancerから設定する手順としていますが、個別に作成する場合には以下手順に従って、 ``API Definition`` を作成してください
+
+
+メニューより ``Web App & API Protection`` を開いてください。
+
+   .. image:: ./media/dcs-console-waap.jpg
+       :width: 400
+
+画面左側 Manage欄の ``API Management`` 、 ``API Definition`` を開き、 ``Add API Definition`` より新規作成してください
+
+   .. image:: ./media/dcs-waap-api-definition.jpg
+       :width: 400
+
+``Name`` 欄に API Definition の ``demo-app-api-definition`` を入力します。
+Swagger Specs の欄に先程ImportしたSwagger FileのURLを入力します。 ``Add Item`` で入力欄を追加し、双方のURLを入力し、 ``Continue`` をクリックします
+
+   .. image:: ./media/dcs-waap-lb-api-definition2.jpg
+       :width: 400
+
+.. NOTE::
+  Terraform のサンプルファイルは、API Definition の名称が ``demo-app-api-definition`` という想定となっております。
+  API Definition の名称が異なる場合、生成されるChild Objectの名称も異なるため、 ``all-operations`` 、 ``base-urls`` 等に関連する名称を適切に変更してください。
+
+パラメータの指定
+----
+
+実行に必要なファイル、また実行環境に合わせたパラメータを指定してください
+
+.. code-block:: bash
+  :linenos:
+  :caption: terraform 実行前作業
+
+  $ git clone https://github.com/BeF5/f5j-dc-waap-automation
+  $ cd f5j-dc-waap-automation/terraform/api-control
+
+  $ vi terraform.tfvars
+  # ** 環境に合わせて適切な内容に変更してください **
+  api_p12_file     = "**/path/to/p12file**"        // Path for p12 file downloaded from VoltConsole
+  api_url          = "https://**api url**"     // API URL for your tenant
+
+  # 本手順のサンプルで表示したパラメータの場合、以下のようになります 
+  myns             = "**your namespace**"      // Name of your namespace
+  op_name          = "demo-origin-pool"        // Name of Origin Pool
+  pool_port        = "80"                      // Port Number
+  server_name1     = "**your target fqdn1**"   // Target Server FQDN1
+  server_name2     = "**your target fqdn1**"   // Target Server FQDN2
+  httplb_name      = "demo-echo-lb"            // Name of HTTP LoadBalancer
+  mydomain         = ["echoapp.f5demo.net"]    // Domain name to be exposed
+  
+  cert             = "string///**base 64 encode SSL Certificate**"  // SSL Certificate for HTTPS access
+  private_key      = "string///**base 64 encode SSL Private Key**"  // SSL Private Key for HTTPS access
+
+  // Service Policy Parameter
+  sp_name          = "demo-app-service-policy"
+
+Terraform の利用
+----
+
+以下コマンドを参考に実行および削除をしてください。
+
+.. code-block:: bash
+  :linenos:
+  :caption: terraform の実行・削除
+
+  # 実行前事前作業
+  $ terraform init
+  $ terraform plan
+
+  # 設定のデプロイ
+  $ terraform apply
+
+  # 設定の削除
+  $ terraform destroy
+
+7. API を用いた HTTP Load Balancer + API Discovery の作成
+====
+
+ここで紹介したHTTP load Balancer + API Discovery を API を使ってデプロイすることが可能です。
+
+API の利用で必要となる事前作業については `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ の手順を参考してください
+
+以下マニュアルを参考に、パラメータを指定して実行してください。
+
+- Service Policy
+
+  - `API for service_policy <https://docs.cloud.f5.com/docs/api/service-policy>`__
+  - `Example of creating service_policy <https://docs.cloud.f5.com/docs/reference/api-ref/ves-io-schema-service_policy-api-create>`__
+
+    - ページ中段 ``Request using curl`` をご覧ください
+
+作成したオブジェクトを適宜HTTP Load Balancerから参照してください
+
+- HTTP Load Balancer
+
+  - `API for http_loadbalancer <https://docs.cloud.f5.com/docs/api/views-http-loadbalancer>`__
+  - `Example of creating http_loadbalancer <https://docs.cloud.f5.com/docs/reference/api-ref/ves-io-schema-views-http_loadbalancer-api-create>`__
+
+    - ページ中段 ``Request using curl`` をご覧ください
+
+送付するJSON データの書式は実際に作成したコンフィグのJSONデータからも確認をいただけます。合わせてご確認ください
+
+パラメータの指定
+----
+
+GitHubよりファイルを取得します。 ``api-discovery-httplb.json`` をAPIの値として指定します。
+``**<変数名>**`` が環境に合わせて変更するパラメータとなります。適切な内容に変更してください。
+
+``Originl Pool Object`` は HTTP Load Balancer の Originl Pool 作成手順に従って作成ください
+
+APIの利用
+----
+
+以下のサンプルを参考にAPIを実行してください。
+証明書のファイル名、パスワード情報は適切な内容を指定してください。
+
+- ファイル取得
+
+.. code-block:: bash
+  :linenos:
+  :caption: APIによるオブジェクトの作成
+
+  $ git clone https://github.com/BeF5/f5j-dc-waap-automation
+  $ cd f5j-dc-waap-automation/api/api-discovery
+
+- オブジェクトの作成
+
+.. code-block:: bash
+  :linenos:
+  :caption: APIによるオブジェクトの作成 (HTTP Load Balancer の Origin Pool 設定ファイルを指定)
+
+  # Originl Pool の作成 (HTTP LoadBalancer のパラメータを指定)
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/origin_pools \
+       --cert **/path/to/api_credential.p12-file**:**password** \
+       --cert-type P12 \
+       -X POST \
+       -d @../http-load-balancer/base-origin-pool.json
+
+  # HTTP LB の作成
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/http_loadbalancers \
+       --cert **/path/to/api_credential.p12-file**:**password** \
+       --cert-type P12 \
+       -X POST \
+       -d @api-discovery-httplb.json
+
+
+- オブジェクトの削除
+
+.. code-block:: bash
+  :linenos:
+  :caption: APIによるオブジェクトの削除
+
+  # HTTP LB の削除
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/http_loadbalancers/**httplb_name** \
+       --cert **/path/to/api_credential.p12-file** \
+       --cert-type P12 \
+       -X DELETE
+  
+  # Origin Pool の削除
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/origin_pools/**op_name** \
+       --cert **/path/to/api_credential.p12-file** \
+       --cert-type P12 \
+       -X DELETE
+
+
+8. API を用いた HTTP Load Balancer + API Definitionを用いた通信制御 の作成
+====
+
+ここで紹介したHTTP load Balancer + API Definitionを用いた通信制御 を API を使ってデプロイすることが可能です。
+
+API の利用で必要となる事前作業については `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ の手順を参考してください
+
+以下マニュアルを参考に、パラメータを指定して実行してください。
+
+- Service Policy
+
+  - `API for service_policy <https://docs.cloud.f5.com/docs/api/service-policy>`__
+  - `Example of creating service_policy <https://docs.cloud.f5.com/docs/reference/api-ref/ves-io-schema-service_policy-api-create>`__
+
+    - ページ中段 ``Request using curl`` をご覧ください
+
+作成したオブジェクトを適宜HTTP Load Balancerから参照してください
+
+- HTTP Load Balancer
+
+  - `API for http_loadbalancer <https://docs.cloud.f5.com/docs/api/views-http-loadbalancer>`__
+  - `Example of creating http_loadbalancer <https://docs.cloud.f5.com/docs/reference/api-ref/ves-io-schema-views-http_loadbalancer-api-create>`__
+
+    - ページ中段 ``Request using curl`` をご覧ください
+
+送付するJSON データの書式は実際に作成したコンフィグのJSONデータからも確認をいただけます。合わせてご確認ください
+
+パラメータの指定
+----
+
+GitHubよりファイルを取得します。 ``api-control-httplb.json`` をAPIの値として指定します。
+``**<変数名>**`` が環境に合わせて変更するパラメータとなります。適切な内容に変更してください。
+
+| ``Originl Pool Object`` は HTTP Load Balancer の Originl Pool 作成手順に従って作成ください。
+| ``App Firewall Object`` は WAF の App Firewall 作成手順に従って作成してください
+
+Swagger File の Import及びAPI Definitionは別途GUIから作成が必要です。詳細は `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module10/module10.html#terraform-http-load-balancer-api-definition>`__ を参照してください。
+
+APIの利用
+----
+
+以下のサンプルを参考にAPIを実行してください。
+証明書のファイル名、パスワード情報は適切な内容を指定してください。
+
+- ファイル取得
+
+.. code-block:: bash
+  :linenos:
+  :caption: APIによるオブジェクトの作成
+
+  $ git clone https://github.com/BeF5/f5j-dc-waap-automation
+  $ cd f5j-dc-waap-automation/api/api-control
+  
+- オブジェクトの作成
+
+.. code-block:: bash
+  :linenos:
+  :caption: APIによるオブジェクトの作成
+
+  # Originl Pool の作成 (HTTP LoadBalancer のパラメータを指定)
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/origin_pools \
+       --cert **/path/to/api_credential.p12-file**:**password** \
+       --cert-type P12 \
+       -X POST \
+       -d @../http-load-balancer/base-origin-pool.json
+
+  # Service Policy の作成
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/service_policys \
+       --cert **/path/to/api_credential.p12-file** \
+       --cert-type P12 \
+       -X POST \
+       -d @api-control-service-policy.json
+
+  # HTTP LB の作成
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/http_loadbalancers \
+       --cert **/path/to/api_credential.p12-file** \
+       --cert-type P12 \
+       -X POST \
+       -d @api-control-httplb.json
+
+
+- オブジェクトの削除
+
+.. code-block:: bash
+  :linenos:
+  :caption: APIによるオブジェクトの削除
+
+  # HTTP LB の削除
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/http_loadbalancers/**httplb_name** \
+       --cert **/path/to/api_credential.p12-file** \
+       --cert-type P12 \
+       -X DELETE
+
+  # Service Policy の削除
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/service_policys/**sp_name**  \
+       --cert **/path/to/api_credential.p12-file** \
+       --cert-type P12 \
+       -X DELETE
+
+  # Origin Pool の削除
+  $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/origin_pools/**op_name** \
+       --cert **/path/to/api_credential.p12-file** \
+       --cert-type P12 \
+       -X DELETE
