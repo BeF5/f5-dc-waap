@@ -344,14 +344,14 @@ APIの利用
 
   # Originl Pool の作成
   $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/origin_pools \
-       --cert **/path/to/api_credential.p12-file** \
+       --cert **/path/to/api_credential.p12-file**:**password** \
        --cert-type P12 \
        -X POST \
        -d @base-origin-pool.json
 
   # HTTP LB の作成
   $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/http_loadbalancers \
-       --cert **/path/to/api_credential.p12-file** \
+       --cert **/path/to/api_credential.p12-file**:**password** \
        --cert-type P12 \
        -X POST \
        -d @base-httplb.json
@@ -365,12 +365,12 @@ APIの利用
 
   # HTTP LB の削除
   $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/http_loadbalancers/**httplb_name** \
-       --cert **/path/to/api_credential.p12-file** \
+       --cert **/path/to/api_credential.p12-file**:**password** \
        --cert-type P12 \
        -X DELETE
   
   # Origin Pool の削除
   $ curl -k https://**tenant_name**.console.ves.volterra.io/api/config/namespaces/**namespace**/origin_pools/**op_name** \
-       --cert **/path/to/api_credential.p12-file** \
+       --cert **/path/to/api_credential.p12-file**:**password** \
        --cert-type P12 \
        -X DELETE
