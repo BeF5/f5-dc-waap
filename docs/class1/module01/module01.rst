@@ -99,7 +99,7 @@ Tips1. アカウントの新規作成
 -    .. image:: ./media/dcs-new-tutorial2.JPG
        :width: 400
 
-コンソールが表示されます。希望するの操作を行ってください。
+コンソールが表示されます。希望する操作を行ってください。
 
    .. image:: ./media/dcs-new-console.JPG
        :width: 400
