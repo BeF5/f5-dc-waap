@@ -84,7 +84,7 @@ Provider を利用する際、Terraformで以下ように記述します
 
 ============= ==== ===============================================================================================================
 api_p12_file  `-`  APIの認証情報として用いる、P12のファイルのPath情報
-url           必須 F5 DCS の API Endopoint を示すURL。``tenant_name``は
+url           必須 F5 DCS の API Endopoint を示すURL。 ``tenant_name`` は
                    `Tenant Information <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module02/module02.html#tenant-id>`__
                    のCompany Nameに記載の文字列
 ============= ==== ===============================================================================================================
