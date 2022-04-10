@@ -121,8 +121,8 @@ Terraform の動作確認
   :caption: terraform initの実行結果
   :emphasize-lines: 5-7
 
-  $ git clone https://github.com/hiropo20/terraform-f5dcs-waap.git
-  $ cd connection-test
+  $ git clone git clone https://github.com/BeF5/f5j-dc-waap-automation
+  $ cd f5j-dc-waap-automation/terraform/connection-test
 
 以下、 ``test.tf`` の内容を環境に合わせて修正してください。
 
