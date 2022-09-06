@@ -7,12 +7,12 @@ F5 DCS 環境への接続
 1. F5 DCSへログイン
 ====
 
-| `F5 DCS Top <https://docs.cloud.f5.com/>`__ ページへアクセスします
+| `F5 DCS Top <https://www.f5.com/ja_jp/cloud>`__ ページへアクセスします
 | 画面右上の ``Log in`` から F5 DCSへログインしてください
 | アカウントを持っていない方は、``Sign up`` よりアカウントを登録するか、弊社担当営業までご連絡ください
-| アカウントの新規作成は、 `こちら <https://f5j-dc-waap.readthedocs.io/en/latest/class1/module01/module01.html#tips1>`__ を参照してください
+| アカウントの新規作成は、 `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module01/module01.html#tips1>`__ を参照してください
 
-   .. image:: ./media/dcs-home.JPG
+   .. image:: ./media/dcs-f5cloud-top.jpg
        :width: 400
 
 ログインするアカウントに合わせてメニューを選択し、ログインを進めてください
@@ -39,11 +39,17 @@ Tips1. アカウントの新規作成
 | アカウントをお持ちでない場合、新規にアカウントを作成し、``F5 DCS`` にログイン頂くことが可能です
 | Freeプランでの作成方法を示します。利用できる機能は限定的ですが、``F5 DCS`` のコンソール画面などご覧いただけます
 
-| `F5 DCS Top <https://docs.cloud.f5.com/>`__ ページへアクセスします
-| 画面右上の ``Sign Up`` からアカウントを作成します
+| `F5 DCS Top <https://www.f5.com/ja_jp/cloud>`__ ページへアクセスします
+| 画面右上の ``Log in`` をクリックします
 
-   .. image:: ./media/dcs-home.JPG
+   .. image:: ./media/dcs-f5cloud-top.jpg
        :width: 400
+
+| 画面下部の ``Sign up`` をクリックします
+
+   .. image:: ./media/dcs-login.JPG
+       :width: 400
+
 
 | 画面一番左の ``Free Plan`` 中段にある ``Select Plan`` をクリックし、画面下部のチェックボックスにチェックし、 ``Next`` をクリックしてください
 | こちらのチェックボックスで同意頂く内容について参考情報として以下に示します
