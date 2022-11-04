@@ -14,14 +14,26 @@ F5 DCS で Bot 対策機能 を利用する方法や、各種設定について�
 F5 DCS Bot 対策機能は、以下の特徴を備えております
 
 - 従来のBot検出技術を回避する高度なBot （Captchaバイパスや、ブラウザ偽装ツール等を利用したBot）を、独自に開発した人工知能と機械学習モデルを用いて高精度に判定
-- ログイン、サインアップ画面などの重要なフローを保護し
+- ログイン、サインアップ画面などの重要なフローを保護します
 
 F5 DCS WAAPはこれらの高度なセキュリティをアプリケーションの迅速な展開に合わせて自由にご利用いただける環境を実現します
 
 2. Bot 対策機能 の設定
 ====
 
-1. Bot Defence Config の設定
+1. Bot Defense の設定方針
+----
+
+このBot対策機能では、保護対象のPATHへのリクエストに対する応答にJSを挿入し、クライアントの振る舞いが正規のユーザかどうかを評価いたします。
+サンプルの手順では最低限の設定パラメータを紹介することを目的としています。
+
+この設定では想定外の動作となり通信にエラーが発生する場合がありますので、実際のWebサイトを保護する際には以下のような方針を念頭に、PATHやMETHODを指定してください
+
+- 保護する対象を整理し、適切なPATHを指定する。（/や、/*は非推奨）
+- ブラウザよりGETメソッドで直接アクセスするパスについては、GET(Document)を指定する
+- ブラウザよりPOSTメソッドでアクセスを行うパスについては、POSTを指定する
+
+2. Bot Defence Config の設定
 ----
 
 作成済みのHTTP Load Balancerに Bot Defence Config を設定します。
@@ -65,6 +77,11 @@ HTTP Methods ANY
 Prefix       /
 ============ =================
 
+.. NOTE::
+    | ``ANY`` は ``GET`` 、 ``POST`` 、 ``PUT`` Methodを含みます。保護対象となるPrefixに XMLHttpRequest の宛先となる箇所が含まれる場合、Bot対策機能により想定と動作が異なる場合があります。
+    | 対象のアプリケーションが意図した動作を示さない場合、`1. Bot Defense の設定方針 <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module07/module07.html#bot>`__ の内容を参考に設定を見直してください。
+
+
    .. image:: ./media/dcs-edit-lb-bot4.jpg
        :width: 400
 
@@ -80,8 +97,7 @@ Prefix       /
        :width: 400
 
 
-
-2. Origin Server の変更
+3. Origin Server の変更
 ----
 
 この例ではOrigin Serverとして `OWASP Juice Shop <https://owasp.org/www-project-juice-shop/>`__ を動作させます。OWASPが提供する脆弱なサーバとなりますので本テスト完了後、適切に停止させてください
