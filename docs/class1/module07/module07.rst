@@ -82,8 +82,8 @@ Prefix       /
     | 対象のアプリケーションが意図した動作を示さない場合、`1. Bot Defense の設定方針 <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module07/module07.html#bot-defense>`__ の内容を参考に設定を見直してください。
 
 
-   .. image:: ./media/dcs-edit-lb-bot4.jpg
-       :width: 400
+.. image:: ./media/dcs-edit-lb-bot4.jpg
+     :width: 400
 
 各種設定を反映するため、画面右下の ``Apply`` をクリックし、最後にHTTP load Balancerの ``Save and Exit`` をクリックしてください
 
