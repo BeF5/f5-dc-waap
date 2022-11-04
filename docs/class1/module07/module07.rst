@@ -71,19 +71,19 @@ Protected App Endopoints の App Endpoint Type 下に表示される ``Configure
 以下のパラメータを入力します。
 
 - 入力パラメータ
+
+.. NOTE::
+    | Method ``ANY`` は ``GET`` 、 ``POST`` 、 ``PUT`` を含みます。保護対象となるPrefixに XMLHttpRequest の宛先となる箇所が含まれる場合、Bot対策機能により想定と動作が異なる場合があります。
+    | 対象のアプリケーションが意図した動作を示さない場合、`1. Bot Defense の設定方針 <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module07/module07.html#bot-defense>`__ の内容を参考に設定を見直してください。
+
 ============ =================
 name         demo-bot-endpoint
 HTTP Methods ANY
 Prefix       /
 ============ =================
 
-.. NOTE::
-    | ``ANY`` は ``GET`` 、 ``POST`` 、 ``PUT`` Methodを含みます。保護対象となるPrefixに XMLHttpRequest の宛先となる箇所が含まれる場合、Bot対策機能により想定と動作が異なる場合があります。
-    | 対象のアプリケーションが意図した動作を示さない場合、`1. Bot Defense の設定方針 <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module07/module07.html#bot-defense>`__ の内容を参考に設定を見直してください。
-
-
-.. image:: ./media/dcs-edit-lb-bot4.jpg
-     :width: 400
+  .. image:: ./media/dcs-edit-lb-bot4.jpg
+       :width: 400
 
 各種設定を反映するため、画面右下の ``Apply`` をクリックし、最後にHTTP load Balancerの ``Save and Exit`` をクリックしてください
 
