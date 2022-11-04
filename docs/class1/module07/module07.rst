@@ -27,7 +27,7 @@ F5 DCS WAAPはこれらの高度なセキュリティをアプリケーション
 このBot対策機能では、保護対象のPATHへのリクエストに対する応答にJSを挿入し、クライアントの振る舞いが正規のユーザかどうかを評価いたします。
 サンプルの手順では最低限の設定パラメータを紹介することを目的としています。
 
-この設定では想定外の動作となり通信にエラーが発生する場合がありますので、実際のWebサイトを保護する際には以下のような方針を念頭に、PATHやMETHODを指定してください
+サンプルの設定では想定外の動作となり通信にエラーが発生する場合がありますので、実際のWebサイトを保護する際には以下のような方針を念頭に、PATHやMETHODを指定してください
 
 - 保護する対象を整理し、適切なPATHを指定する。（/や、/*は非推奨）
 - ブラウザよりGETメソッドで直接アクセスするパスについては、GET(Document)を指定する
@@ -79,7 +79,7 @@ Prefix       /
 
 .. NOTE::
     | ``ANY`` は ``GET`` 、 ``POST`` 、 ``PUT`` Methodを含みます。保護対象となるPrefixに XMLHttpRequest の宛先となる箇所が含まれる場合、Bot対策機能により想定と動作が異なる場合があります。
-    | 対象のアプリケーションが意図した動作を示さない場合、`1. Bot Defense の設定方針 <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module07/module07.html#bot>`__ の内容を参考に設定を見直してください。
+    | 対象のアプリケーションが意図した動作を示さない場合、`1. Bot Defense の設定方針 <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module07/module07.html#bot-defense>`__ の内容を参考に設定を見直してください。
 
 
    .. image:: ./media/dcs-edit-lb-bot4.jpg
