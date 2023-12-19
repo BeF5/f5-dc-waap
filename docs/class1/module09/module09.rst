@@ -1,24 +1,24 @@
-F5 DCS Malicious User Detection & Mitigation
+XC Malicious User Detection & Mitigation
 ####
 
-F5 DCS Malicious User Detection & Mitigation を利用する方法や、各種設定について紹介します
+XC Malicious User Detection & Mitigation を利用する方法や、各種設定について紹介します
 
 マニュアルは以下のページを参照してください
 
 - `Malicious Users <https://docs.cloud.f5.com/docs/how-to/advanced-security/malicious-users>`__
 
 
-1. F5 DCS Malicious User Detection & Mitigation について
+1. XC Malicious User Detection & Mitigation について
 ====
 
-F5 DCS Malicious User Detection & Mitigationは、以下の特徴を備えております
+XC Malicious User Detection & Mitigationは、以下の特徴を備えております
 
 - サイトへのアクセスからユーザを識別し、ある特定のユーザのセキュリティ侵害や攻撃トラフィック、またJavaScript や Captcha の結果など、様々な観点から調査し、そのユーザのふるまいから悪意あるユーザであるか判定
 - 識別したユーザの通信をダッシュボードで確認
 - 対象のユーザからの通信をブロック
-- Malicious User の機能は、F5 DCSが提供する AI & ML の機能を利用しています。Malicious User Detection の設定を単一(Single)の Load Balancer で利用する場合と、複数(Multi)の Load Balancer で利用する場合で設定方法が異なる
+- Malicious User の機能は、XCが提供する AI & ML の機能を利用しています。Malicious User Detection の設定を単一(Single)の Load Balancer で利用する場合と、複数(Multi)の Load Balancer で利用する場合で設定方法が異なる
 
-F5 DCS WAAPはこれらの高度なセキュリティをアプリケーションの迅速な展開に合わせて自由にご利用いただける環境を実現します
+XC WAAPはこれらの高度なセキュリティをアプリケーションの迅速な展開に合わせて自由にご利用いただける環境を実現します
 
 2. Single LB で Malicious User の設定
 ====
