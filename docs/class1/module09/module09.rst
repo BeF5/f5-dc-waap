@@ -45,7 +45,7 @@ HTTP Load Balancer の設定手順は `こちら <https://f5j-dc-waap.readthedoc
 Security Configuration 欄 右上の ``Show Advanced Fields`` をクリックします。
 
 動作確認するクライアントの通信を Malicious User として判定するため、App Firewallを用いて通信をブロックします。
-以前作成した App Firewall のポリシーを割り当てます。（App Firewallの操作手順は `F5 DCS WAF <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module06/module06.html>`__ を参照してください。
+以前作成した App Firewall のポリシーを割り当てます。（App Firewallの操作手順は `XC WAF <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module06/module06.html>`__ を参照してください。
 
    .. image:: ./media/dcs-edit-lb-malicious-user-waf.jpg
        :width: 400
@@ -107,7 +107,7 @@ Malicious User Detection の方法を指定します。
    .. image:: ./media/dcs-malicious-user-log.jpg
        :width: 400
 
-詳細は別途 `F5 DCS WAF <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module06/module06.html>`__ を参照ください。
+詳細は別途 `XC WAF <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module06/module06.html>`__ を参照ください。
 
 画面中段の ``Malicious User Events`` が選択してください。
 下に ``Malicious User events`` の一覧が表示されていることを確認してください。
@@ -322,7 +322,7 @@ Captcha による Challenge の動作を確認します。
   JS / Captcha Challengeがクライアントに表示される動作は、各種ログ ``Security Events`` や ``Malicious Users`` に都度記録されるものではありません
 
 
-5. F5 DCS Malicious User Detection の解除
+5. XC Malicious User Detection の解除
 ====
 
 その他の機能を確認するため設定を解除する手順です。
