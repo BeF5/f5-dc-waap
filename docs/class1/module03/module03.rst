@@ -40,7 +40,7 @@ Terraform ドキュメント
 
 XC WAAP の Terraform は以下ドキュメントで紹介されています
 
-- `Terraform F5 DCS <https://registry.terraform.io/namespaces/volterraedge>`__ 
+- `XC Terraform <https://registry.terraform.io/namespaces/volterraedge>`__ 
 
 画面右上の ``Documentation`` を開いてください
 
