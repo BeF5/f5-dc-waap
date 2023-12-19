@@ -27,7 +27,7 @@ XC WAAPの構成について紹介します。
 | また、ユーザが定義する Namespace の他に、いくつかの Namespace が存在します
 | 詳細は、 `Core Concepts <https://docs.cloud.f5.com/docs/ves-concepts/core-concepts>`__ を参照してください。
 
-   .. image:: ./media/dcs-waap-tenant-ns.JPG
+   .. image:: ./media/dcs-waap-tenant-ns1.jpeg
        :width: 600
 
 その他WAAPの設定に関連するオブジェクトを示します。
