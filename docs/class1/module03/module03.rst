@@ -1,10 +1,10 @@
-F5 DCS WAAP Terraform/API の事前準備
+XC WAAP Terraform/API の事前準備
 ####
 
-F5 DCS WAAP を操作するために必要な Terraform/API の事前準備
+XC WAAP を操作するために必要な Terraform/API の事前準備
 ====
 
-この章では、F5 DCS WAAP に関連するTerraform/APIの情報を紹介します
+この章では、XC WAAP に関連するTerraform/APIの情報を紹介します
 
 Terraform/API で利用する証明書の取得
 ----
@@ -14,7 +14,7 @@ Terraformを実行するホストでAPIに接続するための証明書が必�
 
 - `Credentials <https://docs.cloud.f5.com/docs/how-to/user-mgmt/credentials>`__
 
-F5 DCS のコンソールを開き、 ``Administration`` を開きます
+XC のコンソールを開き、 ``Administration`` を開きます
 
    .. image:: ./media/dcs-console-administration.jpg
        :width: 400
@@ -32,13 +32,13 @@ Personal Management の ``Credentials`` を開き、上部に表示される ``C
 
 入力後、画面最下部の ``Download`` をクリックします。ポップアップでファイルのダウンロードを求められますので適当な場所に APIに用いる証明書を保存してください
 
-F5 DCS WAAP で Terraform を利用する方法
+XC WAAP で Terraform を利用する方法
 ====
 
 Terraform ドキュメント
 ----
 
-F5 DCS WAAP の Terraform は以下ドキュメントで紹介されています
+XC WAAP の Terraform は以下ドキュメントで紹介されています
 
 - `Terraform F5 DCS <https://registry.terraform.io/namespaces/volterraedge>`__ 
 
@@ -66,14 +66,14 @@ Terraform 証明書の利用
 
   $ export VES_P12_PASSWORD=**password-string**
 
-F5 DCS WAAP Terraform Provider
+F5 XC WAAP Terraform Provider
 ----
 
 Provider を利用する際、Terraformで以下ように記述します
 
 .. code-block:: bash
   :linenos:
-  :caption: F5 DCS Provider を利用する方法
+  :caption: XC Provider を利用する方法
 
   provider "volterra" {
     api_p12_file     = "/path/to/api_credential.p12"
@@ -84,7 +84,7 @@ Provider を利用する際、Terraformで以下ように記述します
 
 ============= ==== ===============================================================================================================
 api_p12_file  `-`  APIの認証情報として用いる、P12のファイルのPath情報
-url           必須 F5 DCS の API Endopoint を示すURL。 ``tenant_name`` は
+url           必須 XC の API Endopoint を示すURL。 ``tenant_name`` は
                    `Tenant Information <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module02/module02.html#tenant-id>`__
                    のCompany Nameに記載の文字列
 ============= ==== ===============================================================================================================
@@ -97,7 +97,7 @@ url           必須 F5 DCS の API Endopoint を示すURL。 ``tenant_name`` �
 必要なパッケージの確認
 ----
 
-F5 DCS Terraform の本書作成時点の対応バージョンは以下となります。
+XC Terraform の本書作成時点の対応バージョンは以下となります。
 
 - Terraform >= 0.13.x
 
@@ -381,13 +381,13 @@ Terraformを使って正しく、追加、削除が出来ることが確認で�
 
 
 
-F5 DCS WAAP で API を利用する方法
+XC WAAP で API を利用する方法
 ====
 
 API ドキュメント
 ----
 
-F5 DCS WAAP の API は以下ドキュメントで紹介されています
+XC WAAP の API は以下ドキュメントで紹介されています
 
 - `F5 Distributed Cloud Services API <https://docs.cloud.f5.com/docs/api>`__ 
 
@@ -497,7 +497,7 @@ Curlコマンドを使った接続確認方法を示します。
 Tips1. Terraform / API の利用・調査方法について
 ====
 
-F5 DCS は作成済みのオブジェクトがどのような構成情報となるかJSON形式で確認することが可能です。
+XC は作成済みのオブジェクトがどのような構成情報となるかJSON形式で確認することが可能です。
 
 すでに作成済みのオブジェクトの情報を確認します。対象のオブジェクト一番右側 ``‥`` から、 ``Manage Configuration`` をクリックします
 
@@ -515,7 +515,7 @@ Terraform での利用
 
 Terraform Providerはドキュメントに詳細が記載されています。ドキュメントから利用方法を確認します
 
-- `Terraform F5 DCS <https://registry.terraform.io/namespaces/volterraedge>`__ 
+- `XC Terraform <https://registry.terraform.io/namespaces/volterraedge>`__ 
 
    .. image:: ./media/terraform-volterra2.jpg
        :width: 400
