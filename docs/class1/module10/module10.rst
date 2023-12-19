@@ -1,28 +1,28 @@
-F5 DCS API Security 
+XC API Security 
 ####
 
-F5 DCS で API Security を利用する方法や、各種設定について紹介します
+XC で API Security を利用する方法や、各種設定について紹介します
 
 マニュアルは以下のページを参照してください
 
 - `API Endpoint - Discovery & Control <https://docs.cloud.f5.com/docs/how-to/app-security/apiep-discovery-control>`__
 
 
-1. F5 DCS API Security について
+1. XC API Security について
 ====
 
-F5 DCS API Securityは、以下の特徴を備えております
+XC API Securityは、以下の特徴を備えております
 
 - APIスキーマとSwaggerファイルを生成し、APIエンドポイントの手動トラッキングを最小限に抑える
 - 不審なリクエストをブロックし、データ漏洩を防止
 - APIセキュリティポリシーの設定・導入にかかる時間を短縮
 
-F5 DCS WAAPはこれらの高度なセキュリティをアプリケーションの迅速な展開に合わせて自由にご利用いただける環境を実現します
+XC WAAPはこれらの高度なセキュリティをアプリケーションの迅速な展開に合わせて自由にご利用いただける環境を実現します
 
 2. API Discovery の設定
 ====
 
-F5 DCS WAAPではバックエンドアプリケーションで利用されているAPIの情報を学習し、その結果をダッシュボードで確認いただくことが可能です。
+XC WAAPではバックエンドアプリケーションで利用されているAPIの情報を学習し、その結果をダッシュボードで確認いただくことが可能です。
 この機能により、バックエンドアプリケーションの提供するAPIのEndopint、Method、通信状況を効率的に把握できます
 
 .. NOTE::
