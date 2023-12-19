@@ -28,7 +28,7 @@ F5 Distributed Cloud(XC) WAAP ラボガイド
     - ただし、一部リクエストは攻撃者を模したリクエストとなりますので、動作確認用のアプリケーションをご用意されることを推奨します。
     - オリジンサイトに配置するアプリケーションはXCを送信元としたHTTPリクエストに応答するよう設定してください。
 
-   .. image:: ./media/dcs-waap-lab-diagram.JPG
+   .. image:: ./media/dcs-waap-lab-diagram1.jpeg
        :width: 600
 
 .. NOTE::
