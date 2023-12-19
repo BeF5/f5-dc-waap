@@ -86,7 +86,7 @@ Tips1. アカウントの新規作成
    .. image:: ./media/dcs-new-updatepassword.JPG
        :width: 400
 
-正しくパスワードの設定画完了するとログイン画面へのボタンが表示されますので、 ``Log in`` をクリックして F5 DCS にログインしてください。
+正しくパスワードの設定画完了するとログイン画面へのボタンが表示されますので、 ``Log in`` をクリックして XC にログインしてください。
 
    .. image:: ./media/dcs-new-updatepassword2.JPG
        :width: 400
