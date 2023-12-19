@@ -1,7 +1,7 @@
-F5 DCS DDoS
+XC DDoS
 ####
 
-F5 DCS で DDoS について紹介します
+XC で DDoS について紹介します
 こちらの記事はマニュアルページの解説です。実際のDDoS攻撃のエミュレートが難しいため解説のみを行っています。
 
 マニュアルは以下のページの ``Monitor HTTP Load Balancer > Explore Security Monitoring > DDoS`` を参照してください
@@ -9,17 +9,17 @@ F5 DCS で DDoS について紹介します
 - `Monitor HTTP Load Balancer <https://docs.cloud.f5.com/docs/how-to/observe/monitor-http-load-balancer>`__
 
 
-1. F5 DCS DDoS について
+1. XC DDoS について
 ====
 
-F5 DCS DDoSは、以下の特徴を備えております
+XC DDoSは、以下の特徴を備えております
 
 - ダッシュボードからDDoS攻撃の状況を把握することが可能
 - DDoS 攻撃をヒストリカルなデータで確認ができ、いつどのような攻撃が発生したか、把握することができる
 - ダッシュボードのDDoS EventIPアドレスやAS番号、TLS Finger Print等、通信がどのようなクライアント情報を持つか把握することができる
 - ダッシュボードから簡単にDDoS対策に対する緩和ルールをHTTP Load Balancerに設定することが可能
 
-F5 DCS WAAPはこれらの高度なセキュリティをアプリケーションの迅速な展開に合わせて自由にご利用いただける環境を実現します
+XX WAAPはこれらの高度なセキュリティをアプリケーションの迅速な展開に合わせて自由にご利用いただける環境を実現します
 
 2. DDoS の設定・確認
 ====
