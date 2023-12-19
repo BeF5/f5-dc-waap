@@ -704,7 +704,7 @@ Tips1. Swagger File と Configuration Objectの詳細
 - 3行目の通り、 ``REST API Swagger File`` の 54行目 ``sensitive`` の名称で API Group が作成されています
 - 28行目の内容を確認すると、basePath ``/rest`` に ``REST API Swagger File`` の 40行目 path を追加した内容が確認できます
 
-4. F5 DCS API Security の解除
+4. XC API Security の解除
 ====
 
 その他の機能を確認するため設定を解除する手順です。HTTP Load Balancerに割り当てたAPI Security に関連する設定を解除してください
@@ -853,7 +853,7 @@ Terraform の利用
 6. API を用いた HTTP Load Balancer + API Security の利用
 ====
 
-ここで紹介したHTTP load Balancer + API Security を F5 DCS の API を使ってデプロイすることが可能です。
+ここで紹介したHTTP load Balancer + API Security を XC の API を使ってデプロイすることが可能です。
 
 API の利用で必要となる事前作業については `こちら <https://f5j-dc-waap.readthedocs.io/ja/latest/class1/module03/module03.html>`__ の手順を参考してください
 
