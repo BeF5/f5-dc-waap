@@ -17,7 +17,7 @@ XC WAAP は以下の方法で設定することが可能です
 
 XC WAAPの構成について紹介します。
 
-   .. image:: ./media/dcs-waap-lab-diagram.JPG
+   .. image:: ./media/dcs-waap-lab-diagram1.jpeg
        :width: 400
 
 こちらに示している各種機能を XC のコンソール画面から設定します
