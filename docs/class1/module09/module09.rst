@@ -1,6 +1,8 @@
 XC Malicious User Detection & Mitigation
 ####
 
+※本資料の画面表示や名称は資料作成時点の画面表示を利用しております。アップデート等より表示が若干異なる場合がございます。
+
 XC Malicious User Detection & Mitigation を利用する方法や、各種設定について紹介します
 
 マニュアルは以下のページを参照してください
