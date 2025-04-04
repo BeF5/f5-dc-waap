@@ -1,4 +1,4 @@
-sphinx<2.0
+sphinx==5.3.0
 recommonmark
 sphinxjp.themes.basicstrap
 sphinxcontrib-googleanalytics
