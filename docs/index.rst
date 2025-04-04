@@ -1,6 +1,13 @@
 F5 Distributed Cloud(XC) WAAP ラボガイド
 ####
 
+
+
+- このページは更新されていません。最新は `こちら <https://view-su2.highspot.com/viewer/660f5c9ba01a7be13278581c>`__ （別サイト）にまとめてありますのでご参照ください。
+
+
+
+
 ようこそ！
 ========
 
